@@ -11,9 +11,9 @@ var isAnimationGoing;
 
 var animateImage = function() {
   var endDate = new Date();
-  if (flipAnimation === true && imgEl.complete === true) {
+  if (flipAnimation === true) {
     newWidth = (endDate - startDate) * 1.6;
-  } else if (imgEl.complete === true) {
+  } else {
     newWidth = 600 - (endDate - startDate) * 1.6;
   }
 
