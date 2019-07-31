@@ -11,9 +11,9 @@ var isAnimationGoing;
 
 var animateImage = function() {
   var endDate = new Date();
-  if (flipAnimation === true) {
+  if (flipAnimation === true && imgEl.complete === true) {
     newWidth = (endDate - startDate) * 1.6;
-  } else {
+  } else if (imgEl.complete === true) {
     newWidth = 600 - (endDate - startDate) * 1.6;
   }
 
@@ -40,7 +40,6 @@ var animateImage = function() {
     }
   } else {
     window.requestAnimationFrame(animateImage);
-
   }
 };
 
