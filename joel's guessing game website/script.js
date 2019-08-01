@@ -66,3 +66,15 @@ var changeImage = function() {
     imgEl.src = "image" + imgEl.src.slice(-6, -5) + "A.jpg";
   }
 };
+
+
+
+var loadImages = function() {
+  var imagesArr = [];
+  for (var i=0; i<8; i++) {
+    imagesArr[i] = document.createElement("img");
+    imagesArr[i].src = "images" + i + "B.jpg";
+  }
+};
+
+loadImages();
