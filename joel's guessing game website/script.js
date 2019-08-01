@@ -68,13 +68,3 @@ var changeImage = function() {
 };
 
 
-
-var loadImages = function() {
-  var imagesArr = [];
-  for (var i=0; i<8; i++) {
-    imagesArr[i] = document.createElement("img");
-    imagesArr[i].src = "images" + i + "B.jpg";
-  }
-};
-
-loadImages();
