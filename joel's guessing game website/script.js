@@ -7,6 +7,9 @@ var newWidth;
 var startDate;
 var flipAnimation;
 var isAnimationGoing;
+// to be used as a url reference
+var loadingImage = document.createElement("img");
+loadingImage.src = "loading.jpg";
 
 
 var animateImage = function() {
@@ -58,13 +61,28 @@ var showHide = function(answerId, buttonId, imageNum) {
   }
 };
 
-var changeImage = function() {
-  console.log(imgEl.src);
-  if (imgEl.src.slice(-5, -4) === "A") {
-    imgEl.src = "image" + imgEl.src.slice(-6, -5) + "B.jpg";
-  } else {
-    imgEl.src = "image" + imgEl.src.slice(-6, -5) + "A.jpg";
+var imagesArr = [];
+var createImagesForLoadCheck = function() {
+  for (var i=0; i<8; i++) {
+    imagesArr[i] = document.createElement("img");
+    imagesArr[i].src = "image" + (i + 1) + "B.jpg";
+    imagesArr[i].style.display = "none";
+    document.body.appendChild(imagesArr[i]);
   }
 };
+
+
+var loadCheck = function() {
+  for (var i=0; i<8; i++) {
+    if (imagesArr[i].complete === true && document.getElementById("img" + (i + 1)).src === loadingImage.src) {
+      document.getElementById("img" + (i + 1)).src = "image" + (i + 1) + "A.jpg";
+    }
+  }
+};
+
+
+createImagesForLoadCheck();
+var loadCheckInterval = window.setInterval(loadCheck, 333);
+console.log(document.getElementById("img1").src);
 
 
