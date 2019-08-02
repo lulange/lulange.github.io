@@ -57,8 +57,10 @@ var showHide = function(answerId, buttonId, imageNum) {
     flipAnimation = false;
     startDate = new Date();
     isAnimationGoing = true;
-    // set off the animation
-    animateImage();
+    if (imgEl.src !== loadingImage.src) {
+      // set off the animation
+      animateImage();
+    }
   }
 };
 
@@ -86,10 +88,17 @@ var createImagesForLoadCheck = function() {
 
 
 var loadCheck = function() {
-  for (var i=0; i<8; i++) {
-    if (imagesArr[i].complete === true && document.getElementById("img" + (i + 1)).src === loadingImage.src) {
-      document.getElementById("img" + (i + 1)).src = "image" + (i + 1) + "A.jpg";
+  var clearChecker = 0;
+  for (var i=0; i<imagesArr.length; i++) {
+    if (imagesArr[i].complete === true) {
+      if (document.getElementById("img" + (i + 1)).src === loadingImage.src) {
+        document.getElementById("img" + (i + 1)).src = "image" + (i + 1) + "A.jpg";
+      }
+      clearChecker++;
     }
+  }
+  if (clearChecker === imagesArr.length) {
+    window.clearInterval(loadCheckInterval);
   }
 };
 
