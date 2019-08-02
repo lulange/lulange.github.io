@@ -43,6 +43,7 @@ var animateImage = function() {
     }
   } else {
     window.requestAnimationFrame(animateImage);
+
   }
 };
 
@@ -60,6 +61,18 @@ var showHide = function(answerId, buttonId, imageNum) {
     animateImage();
   }
 };
+
+var changeImage = function() {
+  console.log(imgEl.src);
+  if (imgEl.src.slice(-5, -4) === "A") {
+    imgEl.src = "image" + imgEl.src.slice(-6, -5) + "B.jpg";
+  } else {
+    imgEl.src = "image" + imgEl.src.slice(-6, -5) + "A.jpg";
+  }
+};
+
+
+
 
 var imagesArr = [];
 var createImagesForLoadCheck = function() {
@@ -84,5 +97,3 @@ var loadCheck = function() {
 createImagesForLoadCheck();
 var loadCheckInterval = window.setInterval(loadCheck, 333);
 console.log(document.getElementById("img1").src);
-
-
