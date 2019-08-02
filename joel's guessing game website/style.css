@@ -1,5 +1,8 @@
-#header {
+* {
   font-family: "comic sans MS";
+}
+
+#header {
   background-color: turquoise;
   padding-top: 7px;
   padding-left: 70px;
@@ -13,7 +16,6 @@
 }
 
 #content {
-  font-family: "comic sans MS";
   text-align: center;
   background-color: rgb(230, 230, 230);
   margin:auto;
@@ -63,6 +65,8 @@
 .button:hover {
   background-color: rgb(0, 206, 209);
   border-color: rgb(0, 206, 209);
+  width: 210px;
+  height: 35px;
 }
 
 body {
