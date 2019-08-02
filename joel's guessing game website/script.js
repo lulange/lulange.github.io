@@ -91,7 +91,7 @@ var createImagesForLoadCheck = function() {
 var loadCheck = function() {
   var clearChecker = 0;
   for (var i=0; i<imagesArr.length; i++) {
-    if (imagesArr[i].complete === true) {
+    if (imagesArr[i].complete === true && document.getElementById("img" + (i + 1)).complete) {
       if (document.getElementById("img" + (i + 1)).src === loadingImage.src) {
         document.getElementById("img" + (i + 1)).src = "image" + (i + 1) + "A.jpg";
       }
