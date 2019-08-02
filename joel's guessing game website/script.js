@@ -56,10 +56,11 @@ var showHide = function(answerId, buttonId, imageNum) {
     imgNum = imageNum;
     flipAnimation = false;
     startDate = new Date();
-    isAnimationGoing = true;
+    
     if (imgEl.src !== loadingImage.src) {
       // set off the animation
       animateImage();
+      isAnimationGoing = true;
     }
   }
 };
@@ -105,4 +106,3 @@ var loadCheck = function() {
 
 createImagesForLoadCheck();
 var loadCheckInterval = window.setInterval(loadCheck, 333);
-console.log(document.getElementById("img1").src);
