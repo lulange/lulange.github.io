@@ -56,7 +56,7 @@ var showHide = function(answerId, buttonId, imageNum) {
     imgNum = imageNum;
     flipAnimation = false;
     startDate = new Date();
-    
+
     if (imgEl.src !== loadingImage.src) {
       // set off the animation
       animateImage();

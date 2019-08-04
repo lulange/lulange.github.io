@@ -19,16 +19,17 @@
   text-align: center;
   background-color: rgb(230, 230, 230);
   margin:auto;
-  width:800px;
+  width: 800px;
 }
 
 #content hr {
   margin-top: 50px;
+  margin-bottom: 0px;
   border-width:2px;
+
 }
 
 #intro {
-  margin-top:20px;
   padding-top:10px;
 }
 
@@ -43,9 +44,14 @@
   margin-right: 20px;
 }
 
-#footer p {
+#footer {
   padding-top: 30px;
   font-size:1.4em;
+}
+
+#date-created {
+  opacity: 0.2;
+  font-size: small;
 }
 
 .button {
@@ -74,7 +80,6 @@ body {
 }
 
 img {
-  display: block;
   border:4px solid lightgrey;
   border-radius: 5px;
   margin: auto;
