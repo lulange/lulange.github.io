@@ -37,7 +37,13 @@ var mouseUpFunction = function(e) {
   isMouseDown = false;
 };
 
+// mouse listeners
 document.body.addEventListener("mousedown", mouseDownFunction);
 document.body.addEventListener("mouseup", mouseUpFunction);
 document.body.addEventListener("mousemove", mouseMoveFunction);
 document.body.addEventListener("mouseleave", mouseLeaveFunction);
+// touch listeners
+document.body.addEventListener("touchstart", mouseDownFunction);
+document.body.addEventListener("touchend", mouseUpFunction);
+document.body.addEventListener("touchmove", mouseMoveFunction);
+document.body.addEventListener("touchcancel", mouseLeaveFunction);
