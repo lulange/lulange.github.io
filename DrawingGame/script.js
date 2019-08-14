@@ -29,10 +29,6 @@ var mouseDownFunction = function(e) {
   draw(e.clientX, e.clientY);
 };
 
-var mouseLeaveFunction = function(e) {
-  isMouseDown = false;
-};
-
 var mouseUpFunction = function(e) {
   isMouseDown = false;
 };
@@ -41,9 +37,7 @@ var mouseUpFunction = function(e) {
 document.body.addEventListener("mousedown", mouseDownFunction);
 document.body.addEventListener("mouseup", mouseUpFunction);
 document.body.addEventListener("mousemove", mouseMoveFunction);
-document.body.addEventListener("mouseleave", mouseLeaveFunction);
 // touch listeners
 document.body.addEventListener("touchstart", mouseDownFunction);
 document.body.addEventListener("touchend", mouseUpFunction);
 document.body.addEventListener("touchmove", mouseMoveFunction);
-document.body.addEventListener("touchcancel", mouseLeaveFunction);
