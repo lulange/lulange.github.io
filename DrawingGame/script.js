@@ -1,11 +1,10 @@
+
 // setup
 document.body.style.height = screen.height + "px";
 document.body.style.width = screen.width + "px";
 
 var isMouseDown = false;
 var drawWidth = 35;
-
-
 
 var draw = function(x, y) {
   var divEl = document.createElement("div");
@@ -27,7 +26,7 @@ var mouseMoveFunction = function(e) {
 
 var mouseDownFunction = function(e) {
   isMouseDown = true;
-  draw(e.pageX, e.pageY);
+  draw(e.clientX, e.clientY);
 };
 
 var mouseLeaveFunction = function(e) {
