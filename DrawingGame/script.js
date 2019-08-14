@@ -20,7 +20,7 @@ var draw = function(x, y) {
 
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.pageX, e.pageY);
+    draw(e.clientX, e.clientY);
   }
 };
 
