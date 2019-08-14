@@ -1,5 +1,6 @@
 // setup
 document.body.style.height = screen.height + "px";
+document.body.style.width = screen.width + "px";
 
 var isMouseDown = false;
 var drawWidth = 35;
