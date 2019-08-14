@@ -20,13 +20,13 @@ var draw = function(x, y) {
 
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.screenX, e.screenY - (screen.height - window.innerHeight));
+    draw(e.clientX, e.clientY);
   }
 };
 
 var mouseDownFunction = function(e) {
   isMouseDown = true;
-  draw(e.screenX, e.screenY - (screen.height - window.innerHeight));
+  draw(e.clientX, e.clientY);
 };
 
 var mouseUpFunction = function(e) {
