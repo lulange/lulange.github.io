@@ -12,7 +12,7 @@ var draw = function(x, y) {
   divEl.style.top = y-drawWidth/2 + "px";
   divEl.style.width = drawWidth + "px";
   divEl.style.height = drawWidth + "px";
-  divEl.classList.add("drawer-divs", "yellow");
+  divEl.classList.add("drawer-divs", "custom-color");
   document.body.appendChild(divEl);
 };
 
