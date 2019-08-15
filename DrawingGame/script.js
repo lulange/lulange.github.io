@@ -3,7 +3,6 @@
 document.body.style.height = window.innerHeight + "px";
 document.body.style.width = window.innerWidth + "px";
 
-var touchCounter = 0;
 var isMouseDown = false;
 var drawWidth = 35;
 
@@ -20,7 +19,6 @@ var draw = function(x, y) {
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true) {
     draw(e.clientX, e.clientY);
-    touchCounter++;
   }
 };
 
@@ -37,14 +35,12 @@ var mouseUpFunction = function(e) {
 var touchMoveFunction = function(e) {
   if (isMouseDown === true) {
     draw(e.touches[0].clientX, e.touches[0].clientY);
-    //touchCounter++;
   }
 };
 
 var touchStartFunction = function(e) {
   isMouseDown = true;
   draw(e.touches[0].clientX, e.touches[0].clientY);
-  //touchCounter++;
 };
 
 var touchEndFunction = function(e) {
