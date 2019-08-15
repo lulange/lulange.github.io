@@ -36,14 +36,14 @@ var mouseUpFunction = function(e) {
 
 var touchMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
-    touchCounter++;
+    draw(e.touches[0].clientX, e.touches[0].clientY);
+    //touchCounter++;
   }
 };
 
 var touchStartFunction = function(e) {
   isMouseDown = true;
-  draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+  draw(e.touches[0].clientX, e.touches[0].clientY);
   //touchCounter++;
 };
 
