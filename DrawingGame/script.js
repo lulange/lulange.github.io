@@ -8,10 +8,11 @@ var drawWidth = 35;
 
 var draw = function(x, y) {
   var divEl = document.createElement("div");
-  divEl.style.left = x-drawWidth/2 + "px";
-  divEl.style.top = y-drawWidth/2 + "px";
-  divEl.style.width = drawWidth + "px";
-  divEl.style.height = drawWidth + "px";
+  var divElSty = divEl.style;
+  divElSty.left = x-drawWidth/2 + "px";
+  divElSty.top = y-drawWidth/2 + "px";
+  divElSty.width = drawWidth + "px";
+  divElSty.height = drawWidth + "px";
   divEl.classList.add("drawer-divs", "yellow");
   document.body.appendChild(divEl);
 };
