@@ -3,6 +3,7 @@
 document.body.style.height = screen.height + "px";
 document.body.style.width = screen.width + "px";
 
+var touchCounter = 0;
 var isMouseDown = false;
 var drawWidth = 35;
 
@@ -18,7 +19,8 @@ var draw = function(x, y) {
 
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.pageX, e.pageY);
+    draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+    touchCounter++;
   }
 };
 
