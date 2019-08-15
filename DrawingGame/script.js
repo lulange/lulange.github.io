@@ -36,7 +36,7 @@ var mouseUpFunction = function(e) {
 
 var touchMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+    draw(e.pageX, e.pageY);
     touchCounter++;
   }
 };
