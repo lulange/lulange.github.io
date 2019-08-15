@@ -19,17 +19,35 @@ var draw = function(x, y) {
 
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true) {
-    draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+    draw(e.clientX, e.clientY);
     touchCounter++;
   }
 };
 
 var mouseDownFunction = function(e) {
   isMouseDown = true;
-  draw(e.pageX, e.pageY);
+  draw(e.clientX, e.clientY);
 };
 
 var mouseUpFunction = function(e) {
+  isMouseDown = false;
+};
+
+
+var touchMoveFunction = function(e) {
+  if (isMouseDown === true) {
+    draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+    touchCounter++;
+  }
+};
+
+var touchStartFunction = function(e) {
+  isMouseDown = true;
+  draw(e.touches[touchCounter].clientX, e.touches[touchCounter].clientY);
+  touchCounter++;
+};
+
+var touchEndFunction = function(e) {
   isMouseDown = false;
 };
 
@@ -38,6 +56,6 @@ document.body.addEventListener("mousedown", mouseDownFunction);
 document.body.addEventListener("mouseup", mouseUpFunction);
 document.body.addEventListener("mousemove", mouseMoveFunction);
 // touch listeners
-document.body.addEventListener("touchstart", mouseDownFunction);
-document.body.addEventListener("touchend", mouseUpFunction);
-document.body.addEventListener("touchmove", mouseMoveFunction);
+document.body.addEventListener("touchstart", touchStartFunction);
+document.body.addEventListener("touchend", touchEndFunction);
+document.body.addEventListener("touchmove", touchMoveFunction);
