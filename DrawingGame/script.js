@@ -1,7 +1,7 @@
 
 // setup
-document.body.style.height = screen.height + "px";
-document.body.style.width = screen.width + "px";
+document.body.style.height = window.height + "px";
+document.body.style.width = window.width + "px";
 
 var touchCounter = 0;
 var isMouseDown = false;
