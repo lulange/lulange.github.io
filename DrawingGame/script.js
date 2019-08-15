@@ -8,13 +8,11 @@ var drawWidth = 35;
 
 var draw = function(x, y) {
   var divEl = document.createElement("div");
-  divEl.style.position = "absolute";
-  divEl.style.backgroundColor = "rgb(255, 255, 0)";
   divEl.style.left = x-drawWidth/2 + "px";
   divEl.style.top = y-drawWidth/2 + "px";
   divEl.style.width = drawWidth + "px";
   divEl.style.height = drawWidth + "px";
-  divEl.style.borderRadius = 50 + "%";
+  divEl.classList.add("drawer-divs", "yellow");
   document.body.appendChild(divEl);
 };
 
