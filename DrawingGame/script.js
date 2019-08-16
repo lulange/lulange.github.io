@@ -3,8 +3,12 @@
 document.body.style.height = window.innerHeight + "px";
 document.body.style.width = window.innerWidth + "px";
 
+
 var isMouseDown = false;
 var drawWidth = 35;
+var drawColor = "blue";
+var selectors = document.getElementsByClassName("color-selector");
+
 
 var draw = function(x, y) {
   var divEl = document.createElement("div");
@@ -12,7 +16,7 @@ var draw = function(x, y) {
   divEl.style.top = y-drawWidth/2 + "px";
   divEl.style.width = drawWidth + "px";
   divEl.style.height = drawWidth + "px";
-  divEl.classList.add("drawer-divs", "custom-color");
+  divEl.classList.add("drawer-divs", drawColor);
   document.body.appendChild(divEl);
 };
 
@@ -47,6 +51,11 @@ var touchEndFunction = function(e) {
   isMouseDown = false;
 };
 
+var changeColorOnCLick = function(id) {
+  var color = document.getElementById(id).style.backgroundColor;
+  drawColor = color;
+};
+
 // mouse listeners
 document.body.addEventListener("mousedown", mouseDownFunction);
 document.body.addEventListener("mouseup", mouseUpFunction);
@@ -55,3 +64,9 @@ document.body.addEventListener("mousemove", mouseMoveFunction);
 document.body.addEventListener("touchstart", touchStartFunction);
 document.body.addEventListener("touchend", touchEndFunction);
 document.body.addEventListener("touchmove", touchMoveFunction);
+
+// more mouse listeners for interface
+document.getElementById("yellow-button").addEventListener("click", function() {drawColor = "yellow";});
+document.getElementById("blue-button").addEventListener("click", function() {drawColor = "blue";});
+document.getElementById("orange-button").addEventListener("click", function() {drawColor = "orange";});
+document.getElementById("red-button").addEventListener("click", function() {drawColor = "red";});
