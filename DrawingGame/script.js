@@ -2,13 +2,13 @@
 // setup
 document.body.style.height = window.innerHeight + "px";
 document.body.style.width = window.innerWidth + "px";
-
+document.getElementById("size-bar-slider").style.left = 520 + "px";
 
 var isMouseDown = false;
-var drawWidth = 35;
+var isMouseDownOnSlider = false;
+var drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
 var drawColor = "yellow";
 var selectors = document.getElementsByClassName("color-selector");
-
 
 var draw = function(x, y) {
   var divEl = document.createElement("div");
@@ -21,14 +21,28 @@ var draw = function(x, y) {
 };
 
 var mouseMoveFunction = function(e) {
-  if (isMouseDown === true) {
+  if (isMouseDown === true && e.clientY < window.innerHeight - 70) {
     draw(e.clientX, e.clientY);
+  } else if (isMouseDown === true) {
+    if (e.clientX < 505) {
+      document.getElementById("size-bar-slider").style.left = 505 + "px";
+    } else if (e.clientX > 705) {
+      document.getElementById("size-bar-slider").style.left = 705 + "px";
+    } else {
+      document.getElementById("size-bar-slider").style.left = e.clientX + "px";
+    }
+    drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
   }
 };
 
 var mouseDownFunction = function(e) {
   isMouseDown = true;
-  draw(e.clientX, e.clientY);
+  if (e.clientY < window.innerHeight - 70) {
+    draw(e.clientX, e.clientY);
+  } else if (e.clientX > 505 && e.clientX < 705) {
+    document.getElementById("size-bar-slider").style.left = e.clientX + "px";
+    drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
+  }
 };
 
 var mouseUpFunction = function(e) {
