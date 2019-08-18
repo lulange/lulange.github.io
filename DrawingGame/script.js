@@ -36,10 +36,11 @@ var mouseMoveFunction = function(e) {
 };
 
 var mouseDownFunction = function(e) {
-  isMouseDown = true;
   if (e.clientY < window.innerHeight - 70) {
+    isMouseDown = true;
     draw(e.clientX, e.clientY);
   } else if (e.clientX > 505 && e.clientX < 705) {
+    isMouseDown = true;
     document.getElementById("size-bar-slider").style.left = e.clientX + "px";
     drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
   }
