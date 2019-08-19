@@ -44,9 +44,7 @@ var touchMoveFunction = function(e) {
 
 var touchStartFunction = function(e) {
   isMouseDown = true;
-  if (e.clientY < window.innerHeight - 70) {
-    draw(e.clientX, e.clientY);
-  }
+  draw(e.clientX, e.clientY);
 };
 
 var touchEndFunction = function(e) {
