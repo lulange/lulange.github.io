@@ -2,11 +2,9 @@
 // setup
 document.body.style.height = window.innerHeight + "px";
 document.body.style.width = window.innerWidth + "px";
-document.getElementById("size-bar-slider").style.left = 520 + "px";
 
 var isMouseDown = false;
-var isMouseDownOnSlider = false;
-var drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
+var drawWidth = document.getElementById("size-input").value;
 var drawColor = "yellow";
 var selectors = document.getElementsByClassName("color-selector");
 
@@ -23,26 +21,13 @@ var draw = function(x, y) {
 var mouseMoveFunction = function(e) {
   if (isMouseDown === true && e.clientY < window.innerHeight - 70) {
     draw(e.clientX, e.clientY);
-  } else if (isMouseDown === true) {
-    if (e.clientX < 505) {
-      document.getElementById("size-bar-slider").style.left = 505 + "px";
-    } else if (e.clientX > 705) {
-      document.getElementById("size-bar-slider").style.left = 705 + "px";
-    } else {
-      document.getElementById("size-bar-slider").style.left = e.clientX + "px";
-    }
-    drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
   }
 };
 
 var mouseDownFunction = function(e) {
+  isMouseDown = true;
   if (e.clientY < window.innerHeight - 70) {
-    isMouseDown = true;
     draw(e.clientX, e.clientY);
-  } else if (e.clientX > 505 && e.clientX < 705) {
-    isMouseDown = true;
-    document.getElementById("size-bar-slider").style.left = e.clientX + "px";
-    drawWidth = ((parseFloat(document.getElementById("size-bar-slider").style.left) - 500)/4) + 5;
   }
 };
 
@@ -59,7 +44,9 @@ var touchMoveFunction = function(e) {
 
 var touchStartFunction = function(e) {
   isMouseDown = true;
-  draw(e.touches[0].clientX, e.touches[0].clientY);
+  if (e.clientY < window.innerHeight - 70) {
+    draw(e.clientX, e.clientY);
+  }
 };
 
 var touchEndFunction = function(e) {
@@ -108,3 +95,6 @@ document.getElementById("orange-button").addEventListener("mouseout", function()
 document.getElementById("red-button").addEventListener("click", function() {drawColor = "red"; changeColorSelectBorder("red-button");});
 document.getElementById("red-button").addEventListener("mouseover", function() {hoverStateInOut(this, true);});
 document.getElementById("red-button").addEventListener("mouseout", function() {hoverStateInOut(this, false);});
+
+// on input listener for size input
+document.getElementById("size-input").addEventListener("input", function() {drawWidth = document.getElementById("size-input").value;})
