@@ -70,6 +70,15 @@ var hoverStateInOut = function(el, InOrOut) {
   }
 };
 
+var reload = false;
+var resizeFunction = function() {
+  if (reload === true) {
+    location.reload(false);
+  } else {
+    reload = true;
+  }
+};
+
 // mouse listeners
 document.body.addEventListener("mousedown", mouseDownFunction);
 document.body.addEventListener("mouseup", mouseUpFunction);
@@ -98,3 +107,5 @@ document.getElementById("red-button").addEventListener("mouseout", function() {h
 
 // on input listener for size input
 document.getElementById("size-input").addEventListener("input", function() {drawWidth = document.getElementById("size-input").value;})
+
+document.body.addEventListener("resize", resizeFunction);
