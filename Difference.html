@@ -4,20 +4,13 @@
     <meta charset = "utf-8">
     <title>Difference</title>
   </head>
-  <body style="background-color:black;">
+  <body style="background-color:black;" onload="var x = document.getElementById("background-music"); x.play(); console.log(x);">
     <audio loop id="background-music">
       <source src="music.m4a" type="audio/mp4">
     </audio>
     <h3 style="color:white">The Difference game</h3>
 	<!--This draws the canvas on the webpage -->
     <canvas id="mycanvas"></canvas>
-  
-	<script>
-		document.body.addEventListener("load", playMusic);
-		var playMusic = function() {
-			document.getElementById("background-music").play();
-		};
-	</script>
   <!-- Include the processing.js library -->
   <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
   <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
