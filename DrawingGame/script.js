@@ -37,7 +37,7 @@ var mouseUpFunction = function(e) {
 
 
 var touchMoveFunction = function(e) {
-  if (isMouseDown === true) {
+  if (isMouseDown === true && e.clientY < window.innerHeight - 70) {
     draw(e.touches[0].clientX, e.touches[0].clientY);
   }
 };
@@ -45,7 +45,7 @@ var touchMoveFunction = function(e) {
 var touchStartFunction = function(e) {
   isMouseDown = true;
   if (e.clientY < window.innerHeight - 70) {
-    ddraw(e.touches[0].clientX, e.touches[0].clientY);
+    draw(e.touches[0].clientX, e.touches[0].clientY);
   }
 };
 
@@ -70,13 +70,10 @@ var hoverStateInOut = function(el, InOrOut) {
   }
 };
 
-var reload = false;
+
 var resizeFunction = function() {
-  if (reload === true) {
-    location.reload(false);
-  } else {
-    reload = true;
-  }
+  document.body.style.height = window.innerHeight + "px";
+  document.body.style.width = window.innerWidth + "px";
 };
 
 // mouse listeners
@@ -108,4 +105,4 @@ document.getElementById("red-button").addEventListener("mouseout", function() {h
 // on input listener for size input
 document.getElementById("size-input").addEventListener("input", function() {drawWidth = document.getElementById("size-input").value;})
 
-document.body.addEventListener("resize", resizeFunction);
+window.addEventListener("resize", resizeFunction);
