@@ -3,53 +3,99 @@
 document.body.style.height = window.innerHeight + "px";
 document.body.style.width = window.innerWidth + "px";
 
-var isMouseDown = false;
-var drawWidth = document.getElementById("size-input").value;
-var drawColor = "yellow";
-var selectors = document.getElementsByClassName("color-selector");
-
-var draw = function(x, y) {
-  var divEl = document.createElement("div");
-  divEl.style.left = x-drawWidth/2 + "px";
-  divEl.style.top = y-drawWidth/2 + "px";
-  divEl.style.width = drawWidth + "px";
-  divEl.style.height = drawWidth + "px";
-  divEl.classList.add("drawer-divs", drawColor);
-  document.body.appendChild(divEl);
+var drawingArea = {
+  canvas : document.createElement("canvas"),
+  start : function() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight - 70;
+    this.context = this.canvas.getContext("2d");
+    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+  },
+  clear : function() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 };
 
+drawingArea.start();
+
+// global variables
+var pastX;
+var pastY;
+var ctx = drawingArea.context;
+var isMouseDown = false;
+var drawColor = "yellow";
+var selectors = document.getElementsByClassName("color-selector");
+ctx.strokeStyle = drawColor;
+ctx.lineWidth = document.getElementById("size-input").value;
+ctx.lineJoin = 'round';
+
+
+
+var draw = function(x, y) {
+  ctx.lineTo(x, y);
+  if (pastX !== undefined && pastY !== undefined) {
+    ctx.lineTo(pastX, pastY);
+    ctx.moveTo(x, y);
+  }
+  ctx.lineWidth = document.getElementById("size-input").value;
+  ctx.fillStyle = drawColor;
+  ctx.strokeStyle = drawColor;
+  ctx.stroke();
+  pastX = x;
+  pastY = y;
+};
+
+
 var mouseMoveFunction = function(e) {
-  if (isMouseDown === true && e.clientY < window.innerHeight - 70) {
+  if (isMouseDown === true) {
     draw(e.clientX, e.clientY);
   }
 };
 
 var mouseDownFunction = function(e) {
+  // draw a circle where mouse goes down
+  ctx.beginPath();
+  ctx.moveTo(e.clientX, e.clientY);
+  ctx.arc(e.clientX, e.clientY, document.getElementById("size-input").value/2, 0*Math.PI, 2*Math.PI);
+  ctx.fillStyle = drawColor;
+  ctx.fill();
+  // mouse down true
   isMouseDown = true;
-  if (e.clientY < window.innerHeight - 70) {
-    draw(e.clientX, e.clientY);
-  }
+  // start drawing the line
+  ctx.beginPath();
+  ctx.moveTo(e.clientX, e.clientY);
 };
 
 var mouseUpFunction = function(e) {
+  pastX = undefined;
+  pastY = undefined;
   isMouseDown = false;
 };
 
 
 var touchMoveFunction = function(e) {
-  if (isMouseDown === true && e.touches[0].clientY < window.innerHeight - 70) {
+  if (isMouseDown === true) {
     draw(e.touches[0].clientX, e.touches[0].clientY);
   }
 };
 
 var touchStartFunction = function(e) {
+  // draw a circle where mouse goes down
+  ctx.beginPath();
+  ctx.moveTo(e.touches[0].clientX, e.touches[0].clientY);
+  ctx.arc(e.touches[0].clientX, e.touches[0].clientY, document.getElementById("size-input").value/2, 0*Math.PI, 2*Math.PI);
+  ctx.fillStyle = drawColor;
+  ctx.fill();
+  // mouse down true
   isMouseDown = true;
-  if (e.touches[0].clientY < window.innerHeight - 70) {
-    draw(e.touches[0].clientX, e.touches[0].clientY);
-  }
+  // start drawing the line
+  ctx.beginPath();
+  ctx.moveTo(e.touches[0].clientX, e.touches[0].clientY);
 };
 
 var touchEndFunction = function(e) {
+  pastX = undefined;
+  pastY = undefined;
   isMouseDown = false;
 };
 
@@ -77,13 +123,13 @@ var resizeFunction = function() {
 };
 
 // mouse listeners
-document.body.addEventListener("mousedown", mouseDownFunction);
-document.body.addEventListener("mouseup", mouseUpFunction);
-document.body.addEventListener("mousemove", mouseMoveFunction);
+drawingArea.canvas.addEventListener("mousedown", mouseDownFunction);
+drawingArea.canvas.addEventListener("mouseup", mouseUpFunction);
+drawingArea.canvas.addEventListener("mousemove", mouseMoveFunction);
 // touch listeners
-document.body.addEventListener("touchstart", touchStartFunction);
-document.body.addEventListener("touchend", touchEndFunction);
-document.body.addEventListener("touchmove", touchMoveFunction);
+drawingArea.canvas.addEventListener("touchstart", touchStartFunction);
+drawingArea.canvas.addEventListener("touchend", touchEndFunction);
+drawingArea.canvas.addEventListener("touchmove", touchMoveFunction);
 
 // more mouse listeners for interface
 document.getElementById("yellow-button").addEventListener("click", function() {drawColor = "yellow"; changeColorSelectBorder("yellow-button");});
