@@ -28,21 +28,16 @@ var selectors = document.getElementsByClassName("color-selector");
 ctx.strokeStyle = drawColor;
 ctx.lineWidth = document.getElementById("size-input").value;
 ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
 
 
 
 var draw = function(x, y) {
   ctx.lineTo(x, y);
-  if (pastX !== undefined && pastY !== undefined) {
-    ctx.lineTo(pastX, pastY);
-    ctx.moveTo(x, y);
-  }
   ctx.lineWidth = document.getElementById("size-input").value;
   ctx.fillStyle = drawColor;
   ctx.strokeStyle = drawColor;
   ctx.stroke();
-  pastX = x;
-  pastY = y;
 };
 
 
@@ -53,12 +48,6 @@ var mouseMoveFunction = function(e) {
 };
 
 var mouseDownFunction = function(e) {
-  // draw a circle where mouse goes down
-  ctx.beginPath();
-  ctx.moveTo(e.clientX, e.clientY);
-  ctx.arc(e.clientX, e.clientY, document.getElementById("size-input").value/2, 0*Math.PI, 2*Math.PI);
-  ctx.fillStyle = drawColor;
-  ctx.fill();
   // mouse down true
   isMouseDown = true;
   // start drawing the line
@@ -67,8 +56,6 @@ var mouseDownFunction = function(e) {
 };
 
 var mouseUpFunction = function(e) {
-  pastX = undefined;
-  pastY = undefined;
   isMouseDown = false;
 };
 
@@ -80,12 +67,6 @@ var touchMoveFunction = function(e) {
 };
 
 var touchStartFunction = function(e) {
-  // draw a circle where mouse goes down
-  ctx.beginPath();
-  ctx.moveTo(e.touches[0].clientX, e.touches[0].clientY);
-  ctx.arc(e.touches[0].clientX, e.touches[0].clientY, document.getElementById("size-input").value/2, 0*Math.PI, 2*Math.PI);
-  ctx.fillStyle = drawColor;
-  ctx.fill();
   // mouse down true
   isMouseDown = true;
   // start drawing the line
@@ -94,8 +75,6 @@ var touchStartFunction = function(e) {
 };
 
 var touchEndFunction = function(e) {
-  pastX = undefined;
-  pastY = undefined;
   isMouseDown = false;
 };
 
