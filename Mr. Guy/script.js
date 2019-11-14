@@ -307,8 +307,8 @@ var sketchProc = function(processingInstance) {
         this.alive = false;
       }
       if (this.alive !== true) {
-        //this.x = this.initialX;
-        this.y = 0;
+        this.x = this.initialX;
+        this.y = this.initialY;
         this.alive = true;
       }
     },
