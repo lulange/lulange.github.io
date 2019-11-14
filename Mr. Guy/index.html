@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>Mr. Guy</title>
+    <audio autoplay loop>
+      <source src="The mr. guy theme.m4a" type="audio/mp4">
+    </audio>
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0;
+        background-color: #909090;
+      }
+
+      #canvas-wrapper {
+        margin: 0px;
+      }
+
+      #mycanvas {
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        border-style: solid;
+        border-color: black;
+      }
+
+    </style>
+</head>
+ <body>
+    <p align="center" id="canvas-wrapper">
+	<!--This draws the Canvas on the webpage -->
+      <canvas id="mycanvas"></canvas>
+    </p>
+ </body>
+
+ <!-- Run all the JavaScript stuff -->
+ <!-- Include the processing.js library -->
+ <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+ <script src="processing.js"></script>
+
+ <script src="script.js"></script>
+
+</html>
