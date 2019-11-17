@@ -13,5 +13,5 @@ function draw() {
   background(200);
   scale(0.4); // Scaled to make model fit into canvas
   normalMaterial(); // For effect
-  model(teapot);
+  model(house);
 }
