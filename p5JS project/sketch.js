@@ -15,6 +15,6 @@ function draw() {
   lights();
   rotateX(frameCount * 0.01);
   rotateY(frameCount * 0.01);
-  normalMaterial(); // For effect
+  fill(20, 150, 200);
   model(house);
 }
