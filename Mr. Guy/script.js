@@ -13,14 +13,20 @@ var sketchProc = function(processingInstance) {
   // PLAY mode
   // MENU stage
   // MAINTITLE stage
-  var gameStage = "PLAY";
+  var gameStage = "EDIT";
   var blockSize = width/20;
+  var currEdit = "block";
+  var currEditDisplay;
   var myCanvas = document.getElementById("mycanvas");
   myCanvas.style.borderLeftWidth = blockSize + "px";
   myCanvas.style.borderRightWidth = blockSize + "px";
+  myCanvas.focus();
   document.body.style.zoom = (window.innerHeight/width)*100 + "%";
+  var zoom = (window.innerHeight/width);
+  var canvasWidth = width*zoom;
   var blocks = [];
   var trampolines = [];
+  var lava = [];
   var coordinateTracker = [];
   for (var i=0; i<20; i++) {
     coordinateTracker[i] = [];
@@ -30,11 +36,123 @@ var sketchProc = function(processingInstance) {
   }
 
 
-  class SquareObstacle  {
+  // setup for the buttons on the outside
+  {
+  var playButton = document.getElementById("play-button");
+  playButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  playButton.style.left = "0px";
+  playButton.style.top = blockSize*3.5 + "px";
+  playButton.addEventListener("click", function() {
+    if (gameStage === "EDIT") {
+      player.x = player.initialX;
+      player.y = player.initialY;
+      flag.x = flag.initialX;
+      flag.y = flag.initialY;
+      gameStage = "PLAY";
+      currEdit = "block";
+      myCanvas.focus();
+      playButton.textContent = "edit";
+      player.yMomentum = 0;
+    } else if (gameStage === "PLAY") {
+      player.x = player.initialX;
+      player.y = player.initialY;
+      flag.x = flag.initialX;
+      flag.y = flag.initialY;
+      gameStage = "EDIT";
+      myCanvas.focus();
+      playButton.textContent = "play";
+      player.yMomentum = 0;
+    }
+  });
+
+  var blocksButton = document.getElementById("blocks-button");
+  blocksButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  blocksButton.style.left = parseFloat(blocksButton.style.width) +  blockSize*22 + "px";
+  blocksButton.style.top = blockSize + "px";
+  blocksButton.addEventListener("click", function() {
+    currEdit = "block";
+    myCanvas.focus();
+    player.x = player.initialX;
+    player.y = player.initialY;
+    flag.x = flag.initialX;
+    flag.y = flag.initialY;
+  });
+
+  var trampsButton = document.getElementById("tramps-button");
+  trampsButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  trampsButton.style.left = parseFloat(trampsButton.style.width) +  blockSize*22 + "px";
+  trampsButton.style.top = blockSize*3.5 + "px";
+  trampsButton.addEventListener("click", function() {
+    currEdit = "tramp";
+    myCanvas.focus();
+    player.x = player.initialX;
+    player.y = player.initialY;
+    flag.x = flag.initialX;
+    flag.y = flag.initialY;
+  });
+
+  var deleteButton = document.getElementById("delete-button");
+  deleteButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  deleteButton.style.left = parseFloat(deleteButton.style.width) +  blockSize*22 + "px";
+  deleteButton.style.top = blockSize*6 + "px";
+  deleteButton.addEventListener("click", function() {
+    currEdit = "blank";
+    myCanvas.focus();
+    player.x = player.initialX;
+    player.y = player.initialY;
+    flag.x = flag.initialX;
+    flag.y = flag.initialY;
+  });
+
+  var setPlayerButton = document.getElementById("set-player-button");
+  setPlayerButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  setPlayerButton.style.left = parseFloat(setPlayerButton.style.width) +  blockSize*22 + "px";
+  setPlayerButton.style.top = blockSize*8.5 + "px";
+  setPlayerButton.addEventListener("click", function() {
+    currEdit = "player";
+    myCanvas.focus();
+    flag.x = flag.initialX;
+    flag.y = flag.initialY;
+  });
+
+  var setFlagButton = document.getElementById("set-flag-button");
+  setFlagButton.style.width = ((window.innerWidth-canvasWidth)/2) * (640/canvasWidth) - blockSize + "px";
+  setFlagButton.style.left = parseFloat(setFlagButton.style.width) +  blockSize*22 + "px";
+  setFlagButton.style.top = blockSize*11 + "px";
+  setFlagButton.addEventListener("click", function() {
+    currEdit = "flag";
+    myCanvas.focus();
+    player.x = player.initialX;
+    player.y = player.initialY;
+  });
+}
+  // end of setup for the buttons
+
+
+  class Block {
+    constructor(xCoor, yCoor, editVer) {
+      this.x = xCoor*blockSize;
+      this.y = yCoor*blockSize;
+      this.color = color(0, 0, 0);
+      this.editVer = editVer || false;
+    }
+
+    draw() {
+      if (this.editVer === false) {
+        fill(this.color);
+      } else {
+        fill(this.color, 200);
+      }
+      noStroke();
+      rect(this.x, this.y, blockSize, blockSize);
+    }
+  }
+
+  class Lava {
     constructor(xCoor, yCoor) {
       this.x = xCoor*blockSize;
       this.y = yCoor*blockSize;
-      this.color = color(0, random(100, 200), 0);
+      this.color = color(random(200, 255), 10, 10);
     }
 
     draw() {
@@ -45,81 +163,105 @@ var sketchProc = function(processingInstance) {
   }
 
   class Trampoline {
-    constructor(xCoor, yCoor) {
+    constructor(xCoor, yCoor, editVer) {
       this.x = xCoor*blockSize;
       this.y = yCoor*blockSize;
+      this.editVer = editVer || false;
     }
 
     draw() {
-      stroke(100, 100, 100);
+      if (this.editVer === false) {
+        stroke(100, 100, 100);
+      } else {
+        stroke(100, 100, 100, 150);
+      }
       strokeWeight(blockSize/20);
-      line(this.x+blockSize*0.2, this.y+blockSize/2, this.x+blockSize*0.2, this.y+blockSize);
-      line(this.x+blockSize*0.8, this.y+blockSize/2, this.x+blockSize*0.8, this.y+blockSize);
-      stroke(0, 0, 200);
+      line(this.x+blockSize*0.2, this.y+blockSize/2, this.x+blockSize*0.2, this.y+blockSize*0.95);
+      line(this.x+blockSize*0.8, this.y+blockSize/2, this.x+blockSize*0.8, this.y+blockSize*0.95);
+      if (this.editVer === false) {
+        stroke(0, 0, 200);
+      } else {
+        stroke(0, 0, 200, 200);
+      }
       strokeWeight(blockSize/10);
       line(this.x+blockSize/10, this.y+blockSize/2, this.x+blockSize-blockSize/10, this.y+blockSize/2);
     }
   }
 
-  class Stomper  {
+  class Spider {
     constructor(xCoor, yCoor) {
       this.x = xCoor*blockSize;
       this.y = yCoor*blockSize;
+      this.xMomentum = 0;
+      this.yMomentum = 0;
+      this.legSwing = 0;
+      this.legSwingUpDown = "FORWARD";
     }
 
     draw() {
+      this.x-=this.xMomentum;
+      if (this.xMomentum !== 0) {
+        if (this.legSwingUpDown === "FORWARD") {
+          this.legSwing += 0.3;
+          if (this.legSwing >= 2) {
+            this.legSwingUpDown = "BACKWARD";
+          }
+        } else if (this.legSwingUpDown === "BACKWARD") {
+          this.legSwing -= 0.3;
+          if (this.legSwing <= -2) {
+            this.legSwingUpDown = "FORWARD";
+          }
+        }
+      }
+
+
       fill(0, 0, 0);
       noStroke();
-      rect(this.x, this.y, blockSize, blockSize*0.7);
-      fill(100, 100, 100);
-      triangle(this.x, this.y+blockSize*0.68, this.x + blockSize, this.y+blockSize*0.68, this.x + blockSize/2, this.y + blockSize);
+      ellipse(this.x+blockSize*0.6, this.y+blockSize/2, blockSize*0.8, blockSize/3);
+      ellipse(this.x+blockSize/4, this.y+blockSize*0.4, blockSize/3, blockSize/3);
+      fill(255, 255, 255);
+      ellipse(this.x+6, this.y+blockSize*0.37, 3, 3);
+      stroke(0, 0, 0);
+      strokeWeight(3);
+      noFill();
+
+      arc(this.x+18+this.legSwing, this.y+30, blockSize*0.7-this.legSwing, blockSize, radians(180), radians(270));
+      // leg 2
+      //line(this.x+blockSize*0.5, this.y+blockSize*0.6, this.x+blockSize*0.47-this.legSwing, this.y+blockSize-1);
+      // leg 3
+      //line(this.x+blockSize*0.7, this.y+blockSize*0.6, this.x+blockSize*0.73+this.legSwing, this.y+blockSize-1);
+      // leg 4
+      //line(this.x+blockSize*0.85, this.y+blockSize*0.6, this.x+blockSize*0.9-this.legSwing, this.y+blockSize-1);
     }
   }
 
 
 /******  TESTING BLOCKS ADDED! NOT IN FINAL GAME!  ******/
-  for (var i=1; i<20; i++) {
-    if (i<10) {
-      blocks.push(new SquareObstacle(i, 15));
-      coordinateTracker[i][15] = "block";
-    } else if (i === 10) {
-    } else {
-      blocks.push(new SquareObstacle(i, 16));
-      coordinateTracker[i][16] = "block";
+{
+
+  for (var i=0; i<2; i++) {
+    if (i<2) {
+      blocks.push(new Block(i, 19));
+      coordinateTracker[i][19] = "block";
     }
   }
 
-  for (var q=5; q<20; q++) {
-      blocks.push(new SquareObstacle(q, 12));
-      coordinateTracker[q][12] = "block";
-  }
-
-  trampolines.push(new Trampoline(10, 11));
-  coordinateTracker[10][11] = "tramp";
-
-  trampolines.push(new Trampoline(3, 14));
-  coordinateTracker[3][14] = "tramp";
-
-  blocks.push(new SquareObstacle(14, 11));
-  coordinateTracker[14][11] = "block";
 
 
-  //trampolines.push(new Stomper(7, 9));
-  //coordinateTracker[7][9] = "block";
+}
 /******  END OF TESTING BLOCKS! BACK TO MAIN CODE  ******/
 
 
-
   var player = {
-    x: blockSize*12.5,
-    y: blockSize*11,
-    initialX: blockSize*12.5,
-    initialY: blockSize*11,
+    x: blockSize*1.5,
+    y: blockSize*19,
+    initialX: blockSize*1.5,
+    initialY: blockSize*19,
     xMomentum: 0,
     yMomentum: 0,
     speed: blockSize/15,
     alive: true,
-    legSwing: 0,
+    legSwing: blockSize/6,
     legSwingUpDown: "UP",
     legSwingSize: blockSize/6,
     wallMode: false,
@@ -185,6 +327,8 @@ var sketchProc = function(processingInstance) {
       if (coordinateTracker[blocksX][blocksY-1] === "block") {
         this.y -= this.yMomentum*2;
         this.yMomentum = 1;
+      } else if (coordinateTracker[blocksX][blocksY-1] === "lava") {
+        this.alive = false;
       }
     },
     detectBlockBelow: function() {
@@ -205,16 +349,18 @@ var sketchProc = function(processingInstance) {
 
       // if your left leg or your right leg is in a block then get it out of the block and stop your movement
       var fall = true;
-      if (this.yMomentum >= 0 && coordinateTracker[blockX1][Math.floor((this.y + blockSize/10)/blockSize)] === "block" || this.yMomentum >= 0 && coordinateTracker[blockX2][Math.floor((this.y + blockSize/10)/blockSize)] === "block" ) {
+      if (this.yMomentum >= 0 && coordinateTracker[blockX1][Math.floor((this.y + blockSize/10)/blockSize)] === "block" || this.yMomentum >= 0 && coordinateTracker[blockX2][Math.floor((this.y + blockSize/10)/blockSize)] === "block") {
         this.y = Math.floor((this.y + blockSize/10)/blockSize)*blockSize;
         this.yMomentum = 0;
         fall = false;
-      } else if (this.yMomentum > 0 && coordinateTracker[blockX1][Math.floor((this.y - blockSize/3)/blockSize)] === "tramp" || this.yMomentum > 0 && coordinateTracker[blockX2][Math.floor((this.y - blockSize/3)/blockSize)] === "tramp" ) {
+      } else if (this.yMomentum > 0 && coordinateTracker[blockX1][Math.floor((this.y - blockSize/3)/blockSize)] === "tramp" || this.yMomentum > 0 && coordinateTracker[blockX2][Math.floor((this.y - blockSize/3)/blockSize)] === "tramp") {
         this.yMomentum = -blockSize/3.5;
-        player.legSwing = player.legSwingSize;
         player.legSwingUpDown = "DOWN";
+      } else if (this.yMomentum >= 0 && coordinateTracker[blockX1][Math.floor((this.y)/blockSize)] === "lava" || this.yMomentum >= 0 && coordinateTracker[blockX2][Math.floor((this.y)/blockSize)] === "lava") {
+        this.alive = false;
       }
-      if (fall === true) {
+
+      if (fall === true && this.yMomentum < 100) {
         this.yMomentum += blockSize/100;
       }
     },
@@ -245,12 +391,16 @@ var sketchProc = function(processingInstance) {
       }
 
       // head bump
-      if (coordinateTracker[blocksXMinus1][blocksY] === "block" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13 || coordinateTracker[blocksXMinus1][Math.floor((this.y-blockSize*0.79)/blockSize)] === "block" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13) {
+      if (coordinateTracker[blocksX][blocksY] !== "block" && coordinateTracker[blocksXMinus1][blocksY] === "block" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13 || coordinateTracker[blocksXMinus1][Math.floor((this.y-blockSize)/blockSize)] === "block" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13) {
         this.legSwing = 0;
         this.x = (blocksXMinus1)*blockSize + blockSize*1.13;
-      } else if (coordinateTracker[blocksXPlus1][blocksY] === "block" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.13 || coordinateTracker[blocksXPlus1][Math.floor((this.y-blockSize*0.79)/blockSize)] === "block" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.10) {
+      } else if (coordinateTracker[blocksX][blocksY] !== "block" && coordinateTracker[blocksXPlus1][blocksY] === "block" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.13 || coordinateTracker[blocksXPlus1][Math.floor((this.y-blockSize)/blockSize)] === "block" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.13) {
         this.legSwing = 0;
         this.x = (blocksXPlus1)*blockSize - blockSize*0.13;
+      } else if (coordinateTracker[blocksXMinus1][blocksY] === "lava" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13 || coordinateTracker[blocksXMinus1][Math.floor((this.y-blockSize)/blockSize)] === "lava" && this.x <= (blocksXMinus1)*blockSize + blockSize*1.13) {
+        this.alive = false;
+      } else if (coordinateTracker[blocksXPlus1][blocksY] === "lava" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.13 || coordinateTracker[blocksXPlus1][Math.floor((this.y-blockSize)/blockSize)] === "lava" && this.x >= (blocksXPlus1)*blockSize - blockSize*0.13) {
+        this.alive = false;
       }
 
       // leg bump
@@ -297,6 +447,7 @@ var sketchProc = function(processingInstance) {
       }
     },
     update: function() {
+
       this.move();
       this.detectBlockAbove();
       this.detectBlockLeftRight();
@@ -305,11 +456,42 @@ var sketchProc = function(processingInstance) {
       this.draw();
       if (this.y > height+200) {
         this.alive = false;
+        this.yMomentum = 0;
       }
       if (this.alive !== true) {
         this.x = this.initialX;
         this.y = this.initialY;
         this.alive = true;
+      }
+    },
+  };
+
+  var flag = {
+    x: blockSize*18.5,
+    y: blockSize*18,
+    initialX: blockSize*18.5,
+    initialY: blockSize*18,
+    draw: function() {
+      fill(255, 10, 10);
+      stroke(100, 100, 100);
+      strokeWeight(2);
+      line(this.x+blockSize/6, this.y+15, this.x+blockSize/6, this.y+blockSize*0.95);
+      stroke(255, 10, 10);
+      strokeWeight(2);
+      triangle(this.x+blockSize/6, this.y+3, this.x+blockSize/6, this.y+blockSize/3+3, this.x-blockSize/2+blockSize/6, this.y+blockSize/6+3);
+    },
+    checkForWin: function() {
+      let playerBlocksX = Math.floor(player.x/blockSize);
+      let playerBlocksY = Math.floor(player.y/blockSize)-1;
+      let blocksX = Math.floor(this.initialX/blockSize);
+      let blocksY = Math.floor(this.initialY/blockSize);
+      if (blocksX === playerBlocksX && playerBlocksY === blocksY) {
+        player.x = player.initialX;
+        player.y = player.initialY;
+        player.xMomentum = 0;
+        player.yMomentum = 0;
+        gameStage = "EDIT";
+        playButton.textContent = "play";
       }
     },
   };
@@ -335,17 +517,32 @@ var sketchProc = function(processingInstance) {
     }
   };
 
+  var drawLava = function() {
+    for (var i=0; i<lava.length; i++) {
+      lava[i].draw();
+    }
+  };
+
   draw = function() {
+
     background(0, 204, 255);
     if (gameStage === "PLAY") {
       drawTrampolines();
       player.update();
       drawBlocks();
+      drawLava();
+      flag.draw();
+      flag.checkForWin();
     }
     else if (gameStage === "EDIT") {
       drawTrampolines();
       player.draw();
       drawBlocks();
+      drawLava();
+      flag.draw();
+      if (currEditDisplay !== undefined) {
+        currEditDisplay.draw();
+      }
       drawGrid();
     }
   }
@@ -393,6 +590,84 @@ var sketchProc = function(processingInstance) {
 
     }
   }
+
+  mousePressed = function() {
+
+    if (gameStage === "EDIT") {
+      if (currEdit !== "blank" && coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] === "blank") {
+        if (currEdit === "block") {
+          blocks.push(new Block(Math.floor(currEditDisplay.x/blockSize), Math.floor(currEditDisplay.y/blockSize)));
+          coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] = "block";
+        } else if (currEdit === "tramp") {
+          trampolines.push(new Trampoline(Math.floor(currEditDisplay.x/blockSize), Math.floor(currEditDisplay.y/blockSize)));
+          coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] = "tramp";
+        } else if (currEdit === "player") {
+          player.initialX = player.x;
+          player.initialY = player.y;
+          currEdit = "block";
+        } else if (currEdit === "flag") {
+          flag.initialX = flag.x;
+          flag.initialY = flag.y;
+          currEdit = "block";
+        }
+      } else if (currEdit === "blank") {
+        if (coordinateTracker[currEditDisplay.blocksX][currEditDisplay.blocksY] === "block") {
+          coordinateTracker[currEditDisplay.blocksX][currEditDisplay.blocksY] = "blank";
+          for (var i=0; i<blocks.length; i++) {
+            if (currEditDisplay.blocksX === Math.floor(blocks[i].x/blockSize) && currEditDisplay.blocksY === Math.floor(blocks[i].y/blockSize)) {
+              blocks.splice(i, 1);
+            }
+          }
+        } else if (coordinateTracker[currEditDisplay.blocksX][currEditDisplay.blocksY] === "tramp") {
+          coordinateTracker[currEditDisplay.blocksX][currEditDisplay.blocksY] = "blank";
+          for (var i=0; i<trampolines.length; i++) {
+            if (currEditDisplay.blocksX === Math.floor(trampolines[i].x/blockSize) && currEditDisplay.blocksY === Math.floor(trampolines[i].y/blockSize)) {
+              trampolines.splice(i, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  document.body.addEventListener("mousemove", function(e) {
+    var canvasZoom = 640/canvasWidth;
+    var canvasX = Math.round((e.clientX-((window.innerWidth-canvasWidth)/2))*canvasZoom);
+    var canvasY = Math.round(e.clientY*canvasZoom);
+
+    if (gameStage === "EDIT") {
+      if (currEdit !== "blank") {
+        if (currEdit === "block") {
+          currEditDisplay = new Block(Math.floor(canvasX/blockSize), Math.floor(canvasY/blockSize), true);
+        } else if (currEdit === "tramp") {
+          currEditDisplay = new Trampoline(Math.floor(canvasX/blockSize), Math.floor(canvasY/blockSize), true);
+        } else if (currEdit === "player") {
+          currEditDisplay = player;
+          player.x = (Math.floor(canvasX/blockSize)*blockSize) + blockSize/2;
+          player.y = (Math.floor(canvasY/blockSize)+1)*blockSize;
+        } else if (currEdit === "flag") {
+          currEditDisplay = flag;
+          flag.x = (Math.floor(canvasX/blockSize)*blockSize) + blockSize/2;
+          flag.y = (Math.floor(canvasY/blockSize))*blockSize;
+        }
+      } else if (currEdit === "blank") {
+        currEditDisplay = {
+          blocksX: Math.floor(canvasX/blockSize),
+          blocksY: Math.floor(canvasY/blockSize),
+          draw: function() {
+            fill(200, 10, 10, 150);
+            noStroke();
+            rect(this.blocksX*blockSize, this.blocksY*blockSize, blockSize, blockSize);
+          },
+        };
+      }
+    }
+  });
+
+  document.body.addEventListener("unload", function(e) {
+    document.body.style.zoom = "0%";
+    console.log(window.innHeight);
+  });
 
 }};
 
