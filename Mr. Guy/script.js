@@ -296,8 +296,7 @@ var sketchProc = function(processingInstance) {
       // this is for drawing the actual player
       fill(100, 0, 100);
       stroke(100, 0, 100);
-      var drawX = Math.round(this.x);
-      var drawY = Math.round(this.y);
+      var drawX = this.x;
       // body
       noStroke();
       rect(drawX - blockSize/16, this.y - blockSize*0.85, blockSize/8, blockSize*0.45, 10);
@@ -530,7 +529,6 @@ var sketchProc = function(processingInstance) {
       drawTrampolines();
       player.update();
       drawBlocks();
-      drawLava();
       flag.draw();
       flag.checkForWin();
     }
@@ -538,7 +536,6 @@ var sketchProc = function(processingInstance) {
       drawTrampolines();
       player.draw();
       drawBlocks();
-      drawLava();
       flag.draw();
       if (currEditDisplay !== undefined) {
         currEditDisplay.draw();
@@ -592,19 +589,27 @@ var sketchProc = function(processingInstance) {
   }
 
   mousePressed = function() {
-
     if (gameStage === "EDIT") {
-      if (currEdit !== "blank" && coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] === "blank") {
-        if (currEdit === "block") {
+      if (currEdit !== "blank") {
+        if (currEdit === "block"  && coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] === "blank") {
           blocks.push(new Block(Math.floor(currEditDisplay.x/blockSize), Math.floor(currEditDisplay.y/blockSize)));
           coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] = "block";
-        } else if (currEdit === "tramp") {
+        } else if (currEdit === "tramp"  && coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] === "blank") {
           trampolines.push(new Trampoline(Math.floor(currEditDisplay.x/blockSize), Math.floor(currEditDisplay.y/blockSize)));
           coordinateTracker[Math.floor(currEditDisplay.x/blockSize)][Math.floor(currEditDisplay.y/blockSize)] = "tramp";
         } else if (currEdit === "player") {
-          player.initialX = player.x;
-          player.initialY = player.y;
-          currEdit = "block";
+          let checkX = Math.floor(player.x/blockSize);
+          let checkY = Math.floor(player.y/blockSize)-1;
+          if (checkX < 0) {
+            checkX = 0;
+          } else if (checkX > 19) {
+            checkX = 19;
+          }
+          if (coordinateTracker[checkX][checkY] === "blank") {
+            currEdit = "block";
+            player.initialX = player.x;
+            player.initialY = player.y;
+          }
         } else if (currEdit === "flag") {
           flag.initialX = flag.x;
           flag.initialY = flag.y;
@@ -642,11 +647,11 @@ var sketchProc = function(processingInstance) {
         } else if (currEdit === "tramp") {
           currEditDisplay = new Trampoline(Math.floor(canvasX/blockSize), Math.floor(canvasY/blockSize), true);
         } else if (currEdit === "player") {
-          currEditDisplay = player;
+          currEditDisplay = undefined;
           player.x = (Math.floor(canvasX/blockSize)*blockSize) + blockSize/2;
-          player.y = (Math.floor(canvasY/blockSize)+1)*blockSize;
+          player.y = (Math.floor(canvasY/blockSize)*blockSize) + blockSize;
         } else if (currEdit === "flag") {
-          currEditDisplay = flag;
+          currEditDisplay = undefined;
           flag.x = (Math.floor(canvasX/blockSize)*blockSize) + blockSize/2;
           flag.y = (Math.floor(canvasY/blockSize))*blockSize;
         }
