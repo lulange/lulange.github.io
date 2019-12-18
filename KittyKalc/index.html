@@ -13,9 +13,19 @@
         font-size: 2em;
       }
 
-      input {
-        font-size: 2em;
-      }
+
+      input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:50px;
+    height:50px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+    font-size: 2em;
+    }
+    input[type='checkbox']:checked {
+        background-color: green;
+    }
 
       #main-container {
         display: flex;
@@ -42,7 +52,7 @@
       }
 
       #checkbox-inputs {
-        font-size: 2em;
+        font-size: 3em;
       }
 
     </style>
@@ -62,10 +72,10 @@
 
     <p>cards taken out</p>
     <div id="checkbox-inputs">
-      <input type="checkbox" value="2" id="checkbox-for-2"> 2s</input><br>
-      <input type="checkbox" value="3" id="checkbox-for-3"> 3s</input><br>
-      <input type="checkbox" value="4" id="checkbox-for-4"> 4s</input><br>
-      <input type="checkbox" value="6" id="checkbox-for-6"> 6s</input><br>
+      <input type="checkbox" value="2" id="checkbox-for-2"> 2s</input>
+      <input type="checkbox" value="3" id="checkbox-for-3"> 3s</input>
+      <input type="checkbox" value="4" id="checkbox-for-4"> 4s</input>
+      <input type="checkbox" value="6" id="checkbox-for-6"> 6s</input>
     </div>
 
     <p>Cards in the kitty:</p>
