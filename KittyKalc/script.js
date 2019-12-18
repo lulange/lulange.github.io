@@ -21,6 +21,13 @@ var updateKittyValue = function() {
   document.getElementById("cards-in-kitty").innerHTML = cardsInKitty;
   document.getElementById("cards-in-hand").innerHTML = cardsInHand;
   document.getElementById("percent-of-hand").innerHTML = percentOfHand;
+  if (cardsInKitty === 0) {
+    document.getElementById("cards-in-kitty").style.color = "red";
+    document.getElementById("percent-of-hand").style.color = "red";
+  } else {
+    document.getElementById("cards-in-kitty").style.color = "black";
+    document.getElementById("percent-of-hand").style.color = "black";
+  }
 };
 
 updateKittyValue();
