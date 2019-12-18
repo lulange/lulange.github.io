@@ -8,7 +8,6 @@
 
       select {
         display: block;
-        width: 10%;
         font-size: 2em;
       }
 
@@ -21,10 +20,14 @@
         align-items: center;
         margin-top: 5%;
         flex-direction: column;
+        width: 100%;
+        margin: 0%;
       }
 
       p {
         font-size: 4em;
+        margin-top: 1.5%;
+        margin-bottom: 1.5%;
       }
 
       h1 {
@@ -34,14 +37,18 @@
       * {
         font-family: 'Fredoka One', cursive;
       }
+
+      #checkbox-inputs {
+        font-size: 2em;
+      }
+
     </style>
-    <script src="script.js"></script>
   </head>
   <body>
     <div id="main-container">
       <h1>KittyKalc</h1>
       <p>number of players:</p>
-      <select name="players">
+      <select name="players" id="players-option">
         <option value="3">3 players</option>
         <option value="4">4 players</option>
         <option value="5">5 players</option>
@@ -51,12 +58,20 @@
     </select>
 
     <p>cards taken out</p>
-    <div>
-      <input type="checkbox" value="2"> 2s</input><br>
-      <input type="checkbox" value="3"> 3s</input><br>
-      <input type="checkbox" value="4"> 4s</input><br>
-      <input type="checkbox" value="6"> 6s</input><br>
+    <div id="checkbox-inputs">
+      <input type="checkbox" value="2" id="checkbox-for-2"> 2s</input><br>
+      <input type="checkbox" value="3" id="checkbox-for-3"> 3s</input><br>
+      <input type="checkbox" value="4" id="checkbox-for-4"> 4s</input><br>
+      <input type="checkbox" value="6" id="checkbox-for-6"> 6s</input><br>
     </div>
+
+    <p>Cards in the kitty:</p>
+    <p id="cards-in-kitty"></p>
+    <p>Cards in each hand</p>
+    <p id="cards-in-hand"></p>
+    <p>kitty as percent of hand</p>
+    <p id="percent-of-hand"></p>
   </div>
+  <script src="script.js"></script>
   </body>
 </html>
