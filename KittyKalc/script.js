@@ -28,7 +28,8 @@ var updateKittyValue = function() {
     document.getElementById("cards-in-kitty").style.color = "teal";
     document.getElementById("percent-of-hand").style.color = "teal";
   }
+  
+  window.requestAnimationFrame(updateKittyValue);
 };
 
 updateKittyValue();
-window.setInterval(updateKittyValue, 10);
