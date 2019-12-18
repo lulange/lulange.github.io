@@ -25,8 +25,8 @@ var updateKittyValue = function() {
     document.getElementById("cards-in-kitty").style.color = "red";
     document.getElementById("percent-of-hand").style.color = "red";
   } else {
-    document.getElementById("cards-in-kitty").style.color = "black";
-    document.getElementById("percent-of-hand").style.color = "black";
+    document.getElementById("cards-in-kitty").style.color = "teal";
+    document.getElementById("percent-of-hand").style.color = "teal";
   }
 };
 
