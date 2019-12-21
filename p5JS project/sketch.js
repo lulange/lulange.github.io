@@ -20,5 +20,5 @@ function draw() {
   fill(20, 150, 200);
   noStroke();
   ambientMaterial(100, 100, 255);
-  model(house);
+  box(200);
 }
