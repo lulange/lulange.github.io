@@ -2,7 +2,7 @@ let house;
 
 function preload() {
   // Load model with normalise parameter set to true
-  house = loadModel('house.obj', true);
+  house = loadModel('escapeRoom.obj', true);
 }
 
 function setup() {
