@@ -16,7 +16,7 @@ function draw() {
   background(200);
   scale(1); // Scaled to make model fit into canvas
   lights();
-  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
   fill(20, 150, 200);
   noStroke();
   ambientMaterial(100, 100, 255);
