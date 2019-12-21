@@ -7,6 +7,9 @@ function preload() {
 
 function setup() {
   createCanvas(500, 500, WEBGL);
+  cam = createCamera();
+  cam.setPosition(30, 0, 50);
+  cam.lookAt(0, 0, 0);
 }
 
 function draw() {
