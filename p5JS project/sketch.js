@@ -16,6 +16,5 @@ function draw() {
   rotateX(frameCount * 0.01);
   rotateY(frameCount * 0.01);
   fill(20, 150, 200);
-  ambientMaterial();
   model(house);
 }
