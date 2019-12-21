@@ -2,7 +2,7 @@ let house;
 
 function preload() {
   // Load model with normalise parameter set to true
-  house = loadModel('escapeRoom.obj', true);
+  house = loadModel('house.obj', true);
 }
 
 function setup() {
@@ -16,5 +16,6 @@ function draw() {
   rotateX(frameCount * 0.01);
   rotateY(frameCount * 0.01);
   fill(20, 150, 200);
+  ambientMaterial(0);
   model(house);
 }
