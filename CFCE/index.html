@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>CFCE</title>
-
+<!-- styling is up here instead of in the css file. for now not much is needed -->
     <style>
       .alg-des {
         background-color: lightgrey;
@@ -26,7 +26,7 @@
       <h4>CFCE or Cross, First 2 layers, Corners of last layer, and Edges of last layer is a speedsolving method that uses CFOP style first two layers and finishes with CLL/Ell instead of OLL/PLL.</h4>
     </header>
 
-
+<!-- Pros and Cons plus the steps: a general overview of the method -->
     <h3>Pros:</h3>
     <ul>
       <li>Less algs than CFOP</li>
@@ -52,53 +52,86 @@
       <li><a href="#ELL">ELL or Edges of Last Layer</a></li>
     </ol>
 
+<!-- a simple description of the most intuitive part of the solve -->
     <h2 id="cross">The cross:</h2>
     <p>This step should be fairly easy as it is the same as most beginner methods as well as CFOP. All you have to do is solve all the edges of one side (usually the white). <br>This step can take anywhere from 0-12 turns.</p>
 
+<!-- another simple description, mostly because this is not the main focus of the webpage. though may be improved later -->
     <h2 id="F2L">First two layers:</h2>
     <p>This step is done by inserting a corner then inserting the matching equator layer edge. F2L can be done using anywhere from 0-41 algorithims.<br> If you would like to learn more about F2L either look up intuitive F2L on youtube or go <a href="https://www.speedsolving.com/wiki/index.php/First_Two_Layers">here</a> for F2L algs.</p>
 
+<!-- the largest part of the webpage and the most important. this is a list of my CLL algs that I use -->
     <h2 id="CLL">CLL:</h2>
     <p>CLL has 42 cases separated by the corner pattern into 8 groups.</p>
 
     <div id="CLL-cases">
+<!-- The U pattern cases -->
       <h3>U pattern cases:</h3>
       <p>The U cases have an average of 10 1/6 turns</p>
-      <div id="CLL-1" class="alg-des">
+      <div id="CLL-UU" class="alg-des">
         <h4>UU:</h4>
         <img src="120px-CxLL_U_U.jpg" alt="UU">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=R-_U-_R_U-_R-_U2_R2_U_R-_U_R_U2_R-">R' U' R U' R' U2 R2 U R' U R U2 R'</a></p>
       </div>
 
-      <div id="CLL-2" class="alg-des">
+      <div id="CLL-UD" class="alg-des">
         <h4>UD:</h4>
-        <img src="120px-CxLL_U_D.jpg" alt="Ud">
+        <img src="120px-CxLL_U_D.jpg" alt="UD">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=F R U R- U- F-">F R U R' U' F'</a></p>
       </div>
 
-      <div id="CLL-3" class="alg-des">
+      <div id="CLL-UR" class="alg-des">
         <h4>UR:</h4>
         <img src="120px-CxLL_U_R.jpg" alt="UR">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=U2_R2_D_R-_U2_R_D-_R-_U2_R-">U2 R2 D R' U2 R D' R' U2 R'</a></p>
       </div>
 
-      <div id="CLL-4" class="alg-des">
+      <div id="CLL-UL" class="alg-des">
         <h4>UL:</h4>
         <img src="120px-CxLL_U_L.jpg" alt="UL">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=R2_D-_R_U2_R-_D_R_U2_R-">R2 D' R U2 R' D R U2 R'</a></p>
       </div>
 
-      <div id="CLL-5" class="alg-des">
+      <div id="CLL-UF" class="alg-des">
         <h4>UF:</h4>
         <img src="120px-CxLL_U_F.jpg" alt="UF">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=R-_U_R_U2_R-_U-_F-_U_F_U_R">R' U R U2 R' U' F' U F U R</a></p>
       </div>
 
-      <div id="CLL-6" class="alg-des">
+      <div id="CLL-UB" class="alg-des">
         <h4>UB:</h4>
         <img src="120px-CxLL_U_B.jpg" alt="UB">
         <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=U_R-_U_L_U-_R_U2_F_U-_F-_L-">U R' U L U' R U2 F U' F' L'</a></p>
       </div>
+
+<!-- The H pattern cases -->
+      <h3>H pattern cases:</h3>
+      <p>The H cases have an average of 12 1/4 turns</p>
+      <div id="CLL-HU" class="alg-des">
+        <h4>HU:</h4>
+        <img src="120px-CxLL_H_U.jpg" alt="HU">
+        <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=R_U2_R-_U-_R_U_R-_U-_R_U-_R-">R U2 R' U' R U R' U' R U' R'</a></p>
+      </div>
+
+      <div id="CLL-HD" class="alg-des">
+        <h4>HD:</h4>
+        <img src="120px-CxLL_H_D.jpg" alt="HD">
+        <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=F_(R_U_R-_U-)3_F-">F (R U R' U')3 F'</a></p>
+      </div>
+
+      <div id="CLL-HR" class="alg-des">
+        <h4>HR:</h4>
+        <img src="120px-CxLL_H_R.jpg" alt="HR">
+        <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=U_F_R_U_R-_U-_R_U-_R-_U_R_U_R-_F-">U F R U R' U' R U' R' U R U R' F'</a></p>
+      </div>
+
+      <div id="CLL-HF" class="alg-des">
+        <h4>HF:</h4>
+        <img src="120px-CxLL_H_F.jpg" alt="HF">
+        <p class="alg"><a href="https://alg.cubing.net/?type=alg&view=playback&alg=r_U-_r-_F_U2_r2_F_r_U-_r">r U' r' F U2 r2 F r U' r</a></p>
+      </div>
+
+
     </div>
 
     <h2 id="ELL">ELL:</h2>
