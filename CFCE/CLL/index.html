@@ -10,24 +10,27 @@
       <h1>The CFCE method: CLL algorithms</h1>
     </header>
 
+    <h2 id="CLL-stats">CLL Stats:</h2>
+    <p>The average number of turns for the algs given here is approximately 10.43.<br> 10.43 plus the 75% chance of a U face turn (after the algorithm) gives,<br> assuming all the cases have an equal chance of occuring, 11.18 turns for solving the corners.</p>
+    <p>Factoring in the chance of a case occuring and including a skip chance, <br>The average number of turns is 10.31 plus the 0.75 for U face AUF, adjust U Face. <br> In the end, you get an average of 11.06 turns for completely solving the corners.</p>
 
 <!-- this is a list of my CLL algs that I use -->
     <h2 id="CLL">CLL:</h2>
     <p>CLL has 42 cases separated by the corner pattern into 8 groups.</p>
     <ul class="table-of-contents">
-      <li><a href="#CLL-UU">U cases</a></li>
-      <li><a href="#CLL-HU">H cases</a></li>
-      <li><a href="#CLL-SU">S cases</a></li>
-      <li><a href="#CLL-aSU">aS cases</a></li>
-      <li><a href="#CLL-TU">T cases</a></li>
-      <li><a href="#CLL-PiU">Pi cases</a></li>
-      <li><a href="#CLL-LU">L cases</a></li>
-      <li><a href="#CLL-OD">O cases</a></li>
+      <li><a href="#U-cases">U cases</a></li>
+      <li><a href="#H-cases">H cases</a></li>
+      <li><a href="#S-cases">S cases</a></li>
+      <li><a href="#aS-cases">aS cases</a></li>
+      <li><a href="#T-cases">T cases</a></li>
+      <li><a href="#Pi-cases">Pi cases</a></li>
+      <li><a href="#L-cases">L cases</a></li>
+      <li><a href="#O-cases">O cases</a></li>
     </ul>
 
     <div id="CLL-cases">
 <!-- The U pattern cases -->
-      <h3>U cases:</h3>
+      <h3 id="U-cases">U cases:</h3>
       <p>The U cases have an average of 10 1/6 turns</p>
       <div id="CLL-UU" class="alg-des">
         <h4>UU:</h4>
@@ -66,7 +69,7 @@
       </div>
 
 <!-- The H pattern cases -->
-      <h3>H cases:</h3>
+      <h3 id="H-cases">H cases:</h3>
       <p>The H cases have an average of 12 1/4 turns</p>
       <div id="CLL-HU" class="alg-des">
         <h4>HU:</h4>
@@ -93,7 +96,7 @@
       </div>
 
 <!-- The S pattern cases -->
-      <h3>S cases:</h3>
+      <h3 id="S-cases">S cases:</h3>
       <p>The S cases have an average of 8 5/6 turns</p>
       <div id="CLL-SU" class="alg-des">
         <h4>SU:</h4>
@@ -132,7 +135,7 @@
       </div>
 
 <!-- The aS pattern cases -->
-      <h3>anti-S cases:</h3>
+      <h3 id="aS-cases">anti-S cases:</h3>
       <p>The aS cases have an average of 8 5/6 turns</p>
       <div id="CLL-aSU" class="alg-des">
         <h4>aSU:</h4>
@@ -171,7 +174,7 @@
       </div>
 
 <!-- The T pattern cases -->
-      <h3>T cases:</h3>
+      <h3 id="T-cases">T cases:</h3>
       <p>The T cases have an average of 10 2/3 turns</p>
       <div id="CLL-TU" class="alg-des">
         <h4>TU:</h4>
@@ -210,7 +213,7 @@
       </div>
 
 <!-- The Pi pattern cases -->
-      <h3>Pi cases:</h3>
+      <h3 id="Pi-cases">Pi cases:</h3>
       <p>The Pi cases have an average of 11 5/6 turns</p>
       <div id="CLL-PiU" class="alg-des">
         <h4>PiU:</h4>
@@ -249,7 +252,7 @@
       </div>
 
 <!-- The L pattern cases -->
-      <h3>L cases:</h3>
+      <h3 id="L-cases">L cases:</h3>
       <p>The L cases have an average of 10 1/6 turns</p>
       <div id="CLL-LU" class="alg-des">
         <h4>LU:</h4>
@@ -289,7 +292,7 @@
 
 
 <!-- The O pattern cases -->
-      <h3>O cases:</h3>
+      <h3 id="O-cases">O cases:</h3>
       <p>The O cases have an average of 13 turns</p>
       <div id="CLL-OD" class="alg-des">
         <h4>OD:</h4>
