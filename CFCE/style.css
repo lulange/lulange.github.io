@@ -22,3 +22,19 @@ body {
 h1, h2, h3 {
   margin-top: 4%;
 }
+
+ul.table-of-contents li {
+  padding: 5px;
+  background-color: lightgrey;
+  display: inline-block;
+  border: solid #262737;
+  border-width: thin;
+}
+
+ul.table-of-contents li a {
+  text-decoration: none;
+}
+
+ul.table-of-contents li a:hover {
+  text-decoration: underline;
+}
