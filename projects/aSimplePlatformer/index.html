@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Lucas' stuff: A Simple Platformer</title>
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../master.css">
+    <script src="../phaser.js"></script>
+  </head>
+  <body>
+    <header id="main-header" class="flex-box">
+      <div id="main-title">
+        <a href="../../index.html">Lucas' stuff</a>
+      </div>
+      <div id="header-spacer">
+      </div>
+
+      <div id="desktop-changelog" class="header-link">
+        <a href="../../changeLog/index.html">change log</a>
+      </div>
+      <div id="desktop-otherstuff" class="header-link">
+        <a href="../../otherStuff/index.html">other stuff</a>
+      </div>
+
+      <div id="alt-flex">
+        <div class="header-link">
+          <a href="../../changeLog/index.html">change log</a>
+        </div>
+        <div class="header-link">
+          <a href="../../otherStuff/index.html">other stuff</a>
+        </div>
+      </div>
+    </header>
+
+    <p id="page-dec">A Simple Platformer</p>
+    <hr>
+
+    <article>
+      <header>
+        Description
+      </header>
+      <div>
+        This game is my first completed platformer made with Phaser.js. <br> Use arrow keys to move and press "p" to pause a level at any time.
+      </div>
+    </article>
+
+    <div id="canvas-wrapper"></div>
+
+    <!-- load source for Phaser -->
+    <script src="../phaser.js"></script>
+    <script src="levelSelect.js"></script>
+    <script src="gameScene.js"></script>
+    <script src="editScene.js"></script>
+    <script src="startScene.js"></script>
+    <script src="winScene.js"></script>
+    <script src="pauseScene.js"></script>
+    <script src="main.js"></script>
+
+    <footer>
+    </footer>
+    <script src="../../detectPhone.js"></script>
+  </body>
+</html>

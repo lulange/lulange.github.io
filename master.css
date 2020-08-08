@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  background-color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#main-title {
+  flex-grow: 0.5;
+  text-align: center;
+  font-size: 2em;
+  color: white;
+}
+
+#header-spacer {
+  flex-grow: 8;
+}
+
+#page-dec {
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+
+.flex-box {
+  font-family: "comic sans MS", "Marker Felt", sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: purple;
+  margin: 0px;
+  padding: 1%;
+  background-color: #06451B;
+}
+
+.header-link {
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  flex-grow: 0.7;
+}
+
+footer {
+  background-color: #06451B;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 30px;
+  height: 50px;
+  width: 100%;
+}
+
+article {
+  margin-top: 30px;
+  text-align: center;
+}
+
+article header {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+article div {
+  padding-left: 25%;
+  padding-right: 25%;
+}
+
+article header a {
+  text-decoration: none;
+  color: blue;
+}
+
+article header a:hover {
+  text-decoration: underline;
+}
+
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border-style: solid;
+  width: 20%;
+  text-align: center;
+  color: #06451B;
+}
+
+canvas {
+  border-style: solid;
+  border-width: medium;
+  border-color: black;
+  margin-top: 30px;
+}
+
+#canvas-wrapper {
+  height:633px;
+}
