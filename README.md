@@ -1,2 +1,1 @@
-the main file just takes you to different games and projects i have been working on
-
+This is a website that I use for fun and experimental projects.
