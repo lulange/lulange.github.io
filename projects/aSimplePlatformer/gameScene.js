@@ -12,7 +12,8 @@ class GameScene extends Phaser.Scene {
     this.load.image('player-right-up', 'https://lulange.github.io/imageHosting/player-right-up.png');
     this.load.image('player-right-down', 'https://lulange.github.io/imageHosting/player-right-down.png');
 
-    this.load.image("spike", "https:lulange.github.io/imageHosting/spike.png");
+
+    this.load.image("spike", "https://lulange.github.io/imageHosting/spike.png");
     this.load.image("tilemap", "https://lulange.github.io/imageHosting/CreateALevelTiles.png");
     this.load.image("arrow", "https://lulange.github.io/imageHosting/arrow30x30.png");
     this.load.image("key", "https://lulange.github.io/imageHosting/key30x30.png");
