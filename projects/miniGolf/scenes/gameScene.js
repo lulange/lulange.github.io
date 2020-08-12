@@ -30,11 +30,11 @@ export default class GameScene extends Phaser.Scene {
     this.blackRect = this.add.rectangle(450, 300, 900, 600, "0x000000", 1);
     this.blackRect.setDepth(10);
 
-    this.load.scenePlugin("Slopes", "../projects/slopes.js");
+    this.load.scenePlugin("Slopes", "https://lulange.github.io/projects/miniGolf/slopes.js");
 
     // tilemap
     this.load.image("tileset", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2Ftileset.png?v=1596372878925");
-    this.load.tilemapTiledJSON("map", "../projects/minigolfMap.json");
+    this.load.tilemapTiledJSON("map", "https://lulange.github.io/projects/miniGolf/minigolfMap.json");
 
     // ball sprite
     this.load.image("white", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2Fball.png?v=1594590260477");
