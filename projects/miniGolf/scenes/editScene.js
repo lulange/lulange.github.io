@@ -22,13 +22,10 @@ export default class EditScene extends Phaser.Scene {
         
     // tilemap
     this.load.image("tileset", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2Ftileset.png?v=1596372878925");
-    this.load.tilemapTiledJSON("map", "../minigolfMap.json");
+    this.load.tilemapTiledJSON("map", "https://lulange.github.io/projects/miniGolf/minigolfMap.json");
     
     // ball sprite
     this.load.image("ball", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2Fball.png?v=1594590260477");
-    
-    // pause button sprite
-    this.load.image("pauseButton", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2Fpause.png?v=1595361259679");
     
     // tilesetSprite textures
     this.load.image("turf", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2FturfLayer.png?v=1597150136226");
