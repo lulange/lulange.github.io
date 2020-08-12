@@ -90,7 +90,7 @@ import PlayerSelectScene from "./scenes/playerSelectScene.js";
 
 
 const config = {
-  parent: "canvas-parent",
+  parent: "canvas-wrapper",
   scale: {
     width: 900,
     height: 600,
