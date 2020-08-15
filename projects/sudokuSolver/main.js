@@ -457,3 +457,12 @@ solveButton.addEventListener("click", function() {
     }
   }
 });
+
+for (let i=0; i<inputEls.length; i++) {
+  inputEls[i].addEventListener("input", function() {
+    if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
+      this.value = "";
+      alert("You must input numeric values");
+    }
+  });
+}
