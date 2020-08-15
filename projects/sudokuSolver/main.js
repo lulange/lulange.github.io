@@ -172,15 +172,6 @@ let simpleDeductionAlg = (puzzle) => {
               }
             }
 
-            if (p[i][j].possible.length === 1 && !solvedExtra) {
-              solvedCount++;
-              p[i][j].number = p[i][j].possible[0];
-              puzzle[i][j] = p[i][j].possible[0];
-              numbersCoor[puzzle[i][j]-1].push({x: j, y: i});
-              solvedExtra = true;
-              //console.log("solved " + p[i][j].number + " possible/impossible step at " + p[i][j].x + ", " + p[i][j].y, t);
-            }
-
             if (p[i][j].possible.length === 0) {
               return {puzzle: puzzle, solved: solved, p: p};
             }
@@ -259,7 +250,7 @@ let simpleDeductionAlg = (puzzle) => {
                 y: i
               };
               puzzle[i][j] = num;
-              numbersCoor[puzzle[i][j]-1].push({x: j, y: i});
+              numbersCoor[num-1].push({x: j, y: i});
 
               let solvedExtra = false;
               for (let t=0; t<81; t++) {
@@ -296,7 +287,7 @@ let simpleDeductionAlg = (puzzle) => {
                         solvedCount++;
                         p[s][d].number = p[s][d].possible[0];
                         puzzle[s][d] = p[s][d].possible[0];
-                        numbersCoor[puzzle[i][j]-1].push({x: d, y: s});
+                        numbersCoor[puzzle[s][d]-1].push({x: d, y: s});
                         solvedExtra = true;
                         //console.log("solved " + p[s][d].number + " possible/impossible reset step at " + p[s][d].x + ", " + p[s][d].y, t);
                       }
