@@ -27,7 +27,7 @@ var updateKittyValue = function() {
     document.getElementById("percent-of-hand").style.color = "teal";
   }
   
-  document.body.style.zoom = 1;
+  
 };
 
 window.setInterval(updateKittyValue, 10);
