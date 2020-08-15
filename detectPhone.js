@@ -61,7 +61,7 @@ window.addEventListener("resize", function(e) {
   }
 });
 
-document.addEventListener("resize" function() {
+document.body.addEventListener("resize" function() {
   if (window.innerWidth < window.innerHeight) {
     desktopChangelog.style.display = "none";
     desktopOtherstuff.style.display = "none";
