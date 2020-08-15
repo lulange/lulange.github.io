@@ -1,4 +1,4 @@
-//document.body.style.width = window.innerWidth - (window.innerWidth*0.02) + "px";
+document.body.style.width = window.innerWidth - (window.innerWidth*0.02) + "px";
 
 var updateKittyValue = function() {
   var players = parseFloat(document.getElementById("players-option").value);
@@ -30,5 +30,4 @@ var updateKittyValue = function() {
   }
 };
 
-updateKittyValue();
 window.setInterval(updateKittyValue, 10);
