@@ -1,5 +1,3 @@
-//document.body.style.width = window.innerWidth - (window.innerWidth*0.02) + "px";
-
 var updateKittyValue = function() {
   var players = parseFloat(document.getElementById("players-option").value);
   var cardsOut = 0;
