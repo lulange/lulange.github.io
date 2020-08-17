@@ -87,6 +87,7 @@ let checkForContradiction = (puzzle) => {
   return false;
 };
 
+
 let simpleDeductionAlg = (puzzle) => {
   // create the 2d array filled with objects
   let numbersCoor;
@@ -318,6 +319,7 @@ let simpleDeductionAlg = (puzzle) => {
   return {puzzle: puzzle, solved: solved, p: p};
 };
 
+
 let bruteForceAlg = (sudoku, p, cursor) => {
   let loop = false;
   for (let i=0; i<sudoku.length; i++) {
@@ -361,7 +363,7 @@ let bruteForceAlg = (sudoku, p, cursor) => {
     window.setTimeout(function() {bruteForceAlg(sudoku, p, cursor);}, 0);
   } else if (solving) {
     let endDate = new Date();
-    sudokuStatus.textContent = "solved successfully in " + (endDate - startDate) / 1000;
+    sudokuStatus.textContent = "phase 3 solved successfully in " + (endDate - startDate) / 1000;
     solving = false;
   }
 };
@@ -371,6 +373,7 @@ let bruteForceAlg = (sudoku, p, cursor) => {
 ***********/
 let startDate;
 let solving = false;
+// this runs a three phase attempt to solve the puzzle essentially the main program
 let solvePuzzle = () => {
   // reset a variable
   blankBoxes = [];
@@ -385,7 +388,6 @@ let solvePuzzle = () => {
       OGPuzzle[y][x] = parseInt(text);
     }
   }
-  // start by logging to the console
 
   sudokuStatus.textContent = "checking for contradictions...";
   if (!checkForContradiction(OGPuzzle)) {
@@ -396,37 +398,66 @@ let solvePuzzle = () => {
     startDate = new Date();
     let deductionResult = simpleDeductionAlg(OGPuzzle);
 
-    // if it cannot be solved easily then start phase 2
-    let phase2Puzzle;
+    let solvedPuzzle = false;
     if (!deductionResult.solved) {
-      sudokuStatus.textContent = "phase 1 failed to complete puzzle";
-      // initialize phase 2
-      let phase2Puzzle = deductionResult.puzzle;
-
+      // phase 2 jumpstart
+      sudokuStatus.textContent = "running phase 2: jumpstart...";
+      let dR;
       for (let i=0; i<deductionResult.puzzle.length; i++) {
         for (let j=0; j<deductionResult.puzzle[i].length; j++) {
           if (deductionResult.puzzle[i][j] === 0) {
-            blankBoxes.push({
-              number: deductionResult.p[i][j].number,
-              possible: deductionResult.p[i][j].possible,
-              impossible: deductionResult.p[i][j].impossible,
-              x: deductionResult.p[i][j].x,
-              y: deductionResult.p[i][j].y,
-              currentState: -1,
+            deductionResult.p[i][j].possible.forEach(num => {
+              let newPuzzle = JSON.parse(JSON.stringify(deductionResult.puzzle));
+              newPuzzle[deductionResult.p[i][j].y][deductionResult.p[i][j].x] = num;
+
+              dR = simpleDeductionAlg(newPuzzle);
+              if (dR.solved === true) {
+                solvedPuzzle = dR.puzzle;
+              }
             });
+            if (solvedPuzzle !== false) {
+              break;
+            }
           }
+        }
+        if (solvedPuzzle !== false) {
+          let endDate = new Date();
+          sudokuStatus.textContent = "phase 2 solved successfully in " + (endDate - startDate) / 1000;
+          setPuzzleNumbers(solvedPuzzle);
+          solving = false;
+          break;
         }
       }
 
-      blankBoxes.sort((a, b) => {
-        return a.possible.length - b.possible.length;
-      });
+      // if it cannot be solved easily then start phase 3
+      if (solvedPuzzle === false) {
+        sudokuStatus.textContent = "phase 2 failed to complete puzzle";
+        // initialize phase 3
+        for (let i=0; i<deductionResult.puzzle.length; i++) {
+          for (let j=0; j<deductionResult.puzzle[i].length; j++) {
+            if (deductionResult.puzzle[i][j] === 0) {
+              blankBoxes.push({
+                number: deductionResult.p[i][j].number,
+                possible: deductionResult.p[i][j].possible,
+                impossible: deductionResult.p[i][j].impossible,
+                x: deductionResult.p[i][j].x,
+                y: deductionResult.p[i][j].y,
+                currentState: -1,
+              });
+            }
+          }
+        }
 
-      sudokuStatus.textContent = "running phase 2: brute force...";
-      bruteForceAlg(deductionResult.puzzle, deductionResult.p, 0);
-    } else {
+        blankBoxes.sort((a, b) => {
+          return a.possible.length - b.possible.length;
+        });
+
+        sudokuStatus.textContent = "running phase 3: brute force...";
+        bruteForceAlg(deductionResult.puzzle, deductionResult.p, 0);
+      }
+    }  else {
       let endDate = new Date();
-      sudokuStatus.textContent = "solved successfully in " + (endDate - startDate) / 1000;
+      sudokuStatus.textContent = "phase 1 solved successfully in " + (endDate - startDate) / 1000;
       setPuzzleNumbers(deductionResult.puzzle);
       solving = false;
     }
@@ -441,6 +472,14 @@ let solveButton = document.getElementsByTagName("BUTTON")[0];
 solveButton.addEventListener("click", function() {
   if (!solving) {
     if (this.textContent === "Solve") {
+      for (let i=0; i<inputEls.length; i++) {
+        inputEls[i].addEventListener("input", function() {
+          if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
+            this.value = "";
+          }
+        });
+      }
+
       solving = true;
       this.textContent = "Reset";
       solvePuzzle();
