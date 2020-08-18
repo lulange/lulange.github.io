@@ -498,11 +498,11 @@ solveButton.addEventListener("click", function() {
       this.textContent = "Reset";
       solvePuzzle();
     } else {
-      this.textContent = "Solve";
       sudokuStatus.textContent = "enter a puzzle and click solve";
       for (let i=0; i<tdEls.length; i++) {
         tdEls[i].innerHTML = "<input type=\"text\" maxlength=\"1\">";
       }
+      this.textContent = "Solve";
     }
   } else {
     if (this.textContent === "Reset") {
