@@ -485,15 +485,6 @@ let solveButton = document.getElementsByTagName("BUTTON")[0];
 solveButton.addEventListener("click", function() {
   if (!solving) {
     if (this.textContent === "Solve") {
-      for (let i=0; i<inputEls.length; i++) {
-        inputEls[i].addEventListener("input", function() {
-          if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
-            this.value = "";
-            alert("You must input numeric values");
-          }
-        });
-      }
-
       solving = true;
       this.textContent = "Reset";
       solvePuzzle();
@@ -501,6 +492,15 @@ solveButton.addEventListener("click", function() {
       sudokuStatus.textContent = "enter a puzzle and click solve";
       for (let i=0; i<tdEls.length; i++) {
         tdEls[i].innerHTML = "<input type=\"text\" maxlength=\"1\">";
+      }
+
+      for (let i=0; i<inputEls.length; i++) {
+        inputEls[i].addEventListener("input", function() {
+          if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
+            this.value = "";
+            alert("You must input numeric values");
+          }
+        });
       }
       this.textContent = "Solve";
     }
