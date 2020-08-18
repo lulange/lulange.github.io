@@ -5,6 +5,7 @@
 let tdEls = document.getElementsByTagName("TD");
 let inputEls = document.getElementsByTagName("INPUT");
 let sudokuStatus = document.getElementById("sudoku-status");
+let solveButton = document.getElementsByTagName("BUTTON")[0];
 
 // the original puzzle
 // zeros are blank boxes
@@ -339,6 +340,9 @@ let bruteForceAlg = (sudoku, p, cursor, blankBoxes) => {
       }
     }
   }
+  if (checkForContradiction(sudoku)) {
+    loop = true;
+  }
 
   if (loop) {
     blankBoxes[cursor].currentState++;
@@ -368,10 +372,11 @@ let bruteForceAlg = (sudoku, p, cursor, blankBoxes) => {
     }
   }
 
-  setPuzzleNumbers(sudoku);
-  if (loop) {
+  if (loop && solveButton.textContent === "Reset") {
+    setPuzzleNumbers(sudoku);
     window.setTimeout(function() {bruteForceAlg(sudoku, p, cursor, blankBoxes);}, 0);
   } else if (solving) {
+    setPuzzleNumbers(sudoku);
     let endDate = new Date();
     sudokuStatus.textContent = "phase 3 solved successfully in " + (endDate - startDate) / 1000;
     solving = false;
@@ -481,33 +486,29 @@ let solvePuzzle = () => {
   }
 };
 
-let solveButton = document.getElementsByTagName("BUTTON")[0];
-solveButton.addEventListener("click", function() {
-  if (!solving) {
-    if (this.textContent === "Solve") {
-      solving = true;
-      this.textContent = "Reset";
-      solvePuzzle();
-    } else {
-      sudokuStatus.textContent = "enter a puzzle and click solve";
-      for (let i=0; i<tdEls.length; i++) {
-        tdEls[i].innerHTML = "<input type=\"text\" maxlength=\"1\">";
-      }
 
-      for (let i=0; i<inputEls.length; i++) {
-        inputEls[i].addEventListener("input", function() {
-          if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
-            this.value = "";
-            alert("You must input numeric values");
-          }
-        });
-      }
-      this.textContent = "Solve";
-    }
+solveButton.addEventListener("click", function() {
+  if (this.textContent === "Solve" && !solving) {
+    solving = true;
+    this.textContent = "Reset";
+    solvePuzzle();
   } else {
-    if (this.textContent === "Reset") {
-      alert("Cannot reset while solver is in progress. \nTo reset while solving, reload the webpage.");
+    solving = false;
+
+    sudokuStatus.textContent = "enter a puzzle and click solve";
+    for (let i=0; i<tdEls.length; i++) {
+      tdEls[i].innerHTML = "<input type=\"text\" maxlength=\"1\">";
     }
+
+    for (let i=0; i<inputEls.length; i++) {
+      inputEls[i].addEventListener("input", function() {
+        if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
+          this.value = "";
+          alert("You must input numeric values");
+        }
+      });
+    }
+    this.textContent = "Solve";
   }
 });
 
