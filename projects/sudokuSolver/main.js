@@ -1,24 +1,47 @@
 /**********
 * initialize global variables
 ***********/
+// references to html elements
 let tdEls = document.getElementsByTagName("TD");
 let inputEls = document.getElementsByTagName("INPUT");
 let sudokuStatus = document.getElementById("sudoku-status");
 
+// the original puzzle
+// zeros are blank boxes
 const OGPuzzle = [
-  [3, 0, 0,    0, 0, 0,    0, 1, 0],
-  [1, 0, 5,    7, 9, 0,    0, 0, 3],
-  [0, 0, 9,    0, 0, 1,    0, 0, 0],
-
-  [0, 0, 0,    3, 0, 0,    0, 0, 5],
-  [0, 7, 6,    0, 0, 0,    3, 9, 0],
-  [4, 0, 0,    0, 0, 6,    0, 0, 0],
-
-  [0, 0, 0,    5, 0, 0,    2, 0, 0],
-  [5, 0, 0,    0, 1, 8,    6, 0, 9],
-  [0, 4, 0,    0, 0, 0,    0, 0, 8],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+// a variable to hold the starting Date for the solver
+let startDate;
+
+// a variable to keep track of when the algorithm is running
+// in order to assure that it does not get Interrupted by the user
+let solving = false;
+
+// a list of coordinates for each 3x3 box stored in a 2d array
+let boxes = [
+  [[], [], []],
+  [[], [], []],
+  [[], [], []]
+];
+
+// filling the boxes variable
+for (let i=0; i<9; i++) {
+  for (let j=0; j<9; j++) {
+    boxes[Math.floor(i/3)][Math.floor(j/3)].push({x: j, y: i});
+  }
+}
+
+// a function that loops through each table element and sets its innerHTML to the corsponding box
 let setPuzzleNumbers = (puzzle) => {
   for (let i=0; i<tdEls.length; i++) {
     let y = Math.floor(i / 9);
@@ -31,20 +54,7 @@ let setPuzzleNumbers = (puzzle) => {
   }
 };
 
-let blankBoxes = [];
-let boxes = [
-  [[], [], []],
-  [[], [], []],
-  [[], [], []]
-];
-
-for (let i=0; i<9; i++) {
-  for (let j=0; j<9; j++) {
-    boxes[Math.floor(i/3)][Math.floor(j/3)].push({x: j, y: i});
-  }
-}
-
-
+// check for contradictions in the puzzle
 let checkForContradiction = (puzzle) => {
   let numbersCoor = [[], [], [], [], [], [], [], [], []];
   for (let i=0; i<puzzle.length; i++) {
@@ -54,7 +64,6 @@ let checkForContradiction = (puzzle) => {
       }
     }
   }
-  //console.log(puzzle);
 
   for (let i=0; i<puzzle.length; i++) {
     for (let j=0; j<puzzle[i].length; j++) {
@@ -87,7 +96,7 @@ let checkForContradiction = (puzzle) => {
   return false;
 };
 
-
+// a "simple" deductive algorithm that gets run throughout the main alg
 let simpleDeductionAlg = (puzzle) => {
   // create the 2d array filled with objects
   let numbersCoor;
@@ -319,8 +328,9 @@ let simpleDeductionAlg = (puzzle) => {
   return {puzzle: puzzle, solved: solved, p: p};
 };
 
-
-let bruteForceAlg = (sudoku, p, cursor) => {
+// the final phase
+// this function loops itself with window.setTimeout until the puzzle is solved or proven unsolvable
+let bruteForceAlg = (sudoku, p, cursor, blankBoxes) => {
   let loop = false;
   for (let i=0; i<sudoku.length; i++) {
     for (let j=0; j<sudoku[i].length; j++) {
@@ -360,7 +370,7 @@ let bruteForceAlg = (sudoku, p, cursor) => {
 
   setPuzzleNumbers(sudoku);
   if (loop) {
-    window.setTimeout(function() {bruteForceAlg(sudoku, p, cursor);}, 0);
+    window.setTimeout(function() {bruteForceAlg(sudoku, p, cursor, blankBoxes);}, 0);
   } else if (solving) {
     let endDate = new Date();
     sudokuStatus.textContent = "phase 3 solved successfully in " + (endDate - startDate) / 1000;
@@ -368,36 +378,36 @@ let bruteForceAlg = (sudoku, p, cursor) => {
   }
 };
 
+
 /**********
-* start main program
+* declare main alg
 ***********/
-let startDate;
-let solving = false;
-// this runs a three phase attempt to solve the puzzle essentially the main program
+
+// this runs a three phase attempt to solve the puzzle
 let solvePuzzle = () => {
-  // reset a variable
-  blankBoxes = [];
+
   // set puzzle
   for (let i=0; i<inputEls.length; i++) {
     let text = inputEls[i].value;
     let y = Math.floor(i / 9);
     let x = i % 9;
-    if (text === "") {
+    if (text === "" || isNaN(parseInt(text))) {
       OGPuzzle[y][x] = 0;
     } else {
       OGPuzzle[y][x] = parseInt(text);
     }
   }
 
+  // check for contradictions before trying to solve
   sudokuStatus.textContent = "checking for contradictions...";
   if (!checkForContradiction(OGPuzzle)) {
-    sudokuStatus.textContent = "puzzle has no illegal numbers";
-
     sudokuStatus.textContent = "running phase 1: deduction...";
-    // then call the deduction algorithm to see what can be solved easily
+    // set the start time
     startDate = new Date();
+    // then call the deduction algorithm to see what can be solved easily
     let deductionResult = simpleDeductionAlg(OGPuzzle);
 
+    // if the puzzle cannot be solved easily start phase 2
     let solvedPuzzle = false;
     if (!deductionResult.solved) {
       // phase 2 jumpstart
@@ -429,14 +439,15 @@ let solvePuzzle = () => {
         }
       }
 
-      // if it cannot be solved easily then start phase 3
+      // if it cannot be solved with phase 2 then start phase 3
       if (solvedPuzzle === false) {
         sudokuStatus.textContent = "phase 2 failed to complete puzzle";
         // initialize phase 3
+        let blankBoxesArr = [];
         for (let i=0; i<deductionResult.puzzle.length; i++) {
           for (let j=0; j<deductionResult.puzzle[i].length; j++) {
             if (deductionResult.puzzle[i][j] === 0) {
-              blankBoxes.push({
+              blankBoxesArr.push({
                 number: deductionResult.p[i][j].number,
                 possible: deductionResult.p[i][j].possible,
                 impossible: deductionResult.p[i][j].impossible,
@@ -448,14 +459,16 @@ let solvePuzzle = () => {
           }
         }
 
-        blankBoxes.sort((a, b) => {
+        blankBoxesArr.sort((a, b) => {
           return a.possible.length - b.possible.length;
         });
 
         sudokuStatus.textContent = "running phase 3: brute force...";
-        bruteForceAlg(deductionResult.puzzle, deductionResult.p, 0);
+
+        // arguments: (puzzle, p, cursor, blankBoxes)
+        bruteForceAlg(deductionResult.puzzle, deductionResult.p, 0, blankBoxesArr);
       }
-    }  else {
+    } else {
       let endDate = new Date();
       sudokuStatus.textContent = "phase 1 solved successfully in " + (endDate - startDate) / 1000;
       setPuzzleNumbers(deductionResult.puzzle);
@@ -476,6 +489,7 @@ solveButton.addEventListener("click", function() {
         inputEls[i].addEventListener("input", function() {
           if (this.value !== "0" && this.value !== "1" && this.value !== "2" && this.value !== "3" && this.value !== "4" && this.value !== "5" && this.value !== "6" && this.value !== "7" && this.value !== "8" && this.value !== "9" && this.value !== "") {
             this.value = "";
+            alert("You must input numeric values");
           }
         });
       }
