@@ -45,7 +45,7 @@ body {
 
 @media only screen and (max-width: 500px) {
   .flex-box {
-    font-family: "comic sans MS", "Marker Felt", sans-serif;
+    font-family: "comic sans MS", "Marker Felt", "Chalkboard SE", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,7 +88,7 @@ body {
 
 @media only screen and (min-width: 500px) {
   .flex-box {
-    font-family: "comic sans MS", "Marker Felt", sans-serif;
+    font-family: "comic sans MS", "Marker Felt", "Chalkboard SE", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -129,8 +129,6 @@ body {
     color: #06451B;
   }
 }
-
-
 
 
 footer {
