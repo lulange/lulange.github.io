@@ -9,56 +9,56 @@
     <script src="../phaser.js"></script>
   </head>
   <body>
-    <header id="main-header" class="flex-box">
-      <div id="main-title">
-        <a href="../../index.html">Lucas' stuff</a>
-      </div>
-      <div id="header-spacer">
-      </div>
-
-      <div id="desktop-changelog" class="header-link">
-        <a href="../../changeLog/index.html">change log</a>
-      </div>
-      <div id="desktop-otherstuff" class="header-link">
-        <a href="../../otherStuff/index.html">other stuff</a>
-      </div>
-
-      <div id="alt-flex">
-        <div class="header-link">
-          <a href="../../changeLog/index.html">change log</a>
+    <div id="main-container">
+      <header id="main-header" class="flex-box">
+        <div id="main-title">
+          <a href="../../index.html">Lucas' stuff</a>
         </div>
-        <div class="header-link">
-          <a href="../../otherStuff/index.html">other stuff</a>
+        <div id="header-spacer">
         </div>
-      </div>
-    </header>
 
-    <p id="page-dec">A Simple Platformer</p>
-    <hr>
-
-    <article>
-      <header>
-        Description
+        <div id="header-links">
+          <div id="changelog" class="header-link">
+            <a href="../../changeLog/index.html">change log</a>
+          </div>
+          <div id="otherstuff" class="header-link">
+            <a href="../../otherStuff/index.html">other stuff</a>
+          </div>
+        </div>
       </header>
-      <div>
-        This game is my first completed platformer made with Phaser.js. <br> Use arrow keys to move and press "p" to pause a level at any time.
+
+      <div id="body">
+        <p id="page-dec">A Simple Platformer</p>
+        <hr>
+
+        <article>
+          <header>
+            Description
+          </header>
+          <div>
+            This game is my first completed platformer made with Phaser.js. <br> Use arrow keys to move and press "p" to pause a level at any time.
+          </div>
+        </article>
+
+        <div id="canvas-wrapper"></div>
+        
+        <article id="alt-text">
+          <div>
+            Screen width is too small for the game.
+          </div>
+        </article>
       </div>
-    </article>
 
-    <div id="canvas-wrapper"></div>
+      <footer>
+      </footer>
 
-    <!-- load source for Phaser -->
-    <script src="../phaser.js"></script>
-    <script src="levelSelect.js"></script>
-    <script src="gameScene.js"></script>
-    <script src="editScene.js"></script>
-    <script src="startScene.js"></script>
-    <script src="winScene.js"></script>
-    <script src="pauseScene.js"></script>
-    <script src="main.js"></script>
-
-    <footer>
-    </footer>
-    <script src="../../detectPhone.js"></script>
+      <script src="levelSelect.js"></script>
+      <script src="gameScene.js"></script>
+      <script src="editScene.js"></script>
+      <script src="startScene.js"></script>
+      <script src="winScene.js"></script>
+      <script src="pauseScene.js"></script>
+      <script src="main.js"></script>
+    </div>
   </body>
 </html>

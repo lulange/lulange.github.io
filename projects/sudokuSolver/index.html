@@ -7,7 +7,6 @@
 
     <title>Lucas' stuff: Sudoku Solver</title>
 
-    <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../master.css">
     <style media="screen">
       #table-wrapper {
@@ -39,23 +38,46 @@
         border-right-width: 4px;
       }
 
-      td {
-        border-style: solid;
-        border-width: 2px;
-        border-color: black;
-        margin: 0px;
-        padding: 0px;
-        width: 30px;
-        height: 30px;
+      @media only screen and (max-width: 400px) {
+        td {
+          border-style: solid;
+          border-width: 2px;
+          border-color: black;
+          margin: 0px;
+          padding: 0px;
+          width: 25px;
+          height: 25px;
+        }
+
+        input {
+          width: 15px;
+          height: 15px;
+          border-width: 0px;
+          outline: none;
+          text-align: center;
+          background-color: lightgrey;
+        }
       }
 
-      input {
-        width: 20px;
-        height: 20px;
-        border-width: 0px;
-        outline: none;
-        text-align: center;
-        background-color: lightgrey;
+      @media only screen and (min-width: 400px) {
+        td {
+          border-style: solid;
+          border-width: 2px;
+          border-color: black;
+          margin: 0px;
+          padding: 0px;
+          width: 30px;
+          height: 30px;
+        }
+
+        input {
+          width: 20px;
+          height: 20px;
+          border-width: 0px;
+          outline: none;
+          text-align: center;
+          background-color: lightgrey;
+        }
       }
 
       button {
@@ -67,330 +89,326 @@
     </style>
   </head>
   <body>
-    <header id="main-header" class="flex-box">
-      <div id="main-title">
-        <a href="../../index.html">Lucas' stuff</a>
-      </div>
-      <div id="header-spacer">
-      </div>
-
-      <div id="desktop-changelog" class="header-link">
-        <a href="../../changeLog/index.html">change log</a>
-      </div>
-      <div id="desktop-otherstuff" class="header-link">
-        <a href="../../otherStuff/index.html">other stuff</a>
-      </div>
-
-      <div id="alt-flex">
-        <div class="header-link">
-          <a href="../../changeLog/index.html">change log</a>
+    <div id="main-container">
+      <header id="main-header" class="flex-box">
+        <div id="main-title">
+          <a href="../../index.html">Lucas' stuff</a>
         </div>
-        <div class="header-link">
-          <a href="../../otherStuff/index.html">other stuff</a>
+        <div id="header-spacer">
         </div>
-      </div>
-    </header>
 
-    <p id="page-dec">Sudoku Solver</p>
-    <hr>
-
-    <article>
-      <header>
-        Description
+        <div id="header-links">
+          <div id="changelog" class="header-link">
+            <a href="../../changeLog/index.html">change log</a>
+          </div>
+          <div id="otherstuff" class="header-link">
+            <a href="../../otherStuff/index.html">other stuff</a>
+          </div>
+        </div>
       </header>
-      <div>
-        The solver has three phases. The first phase attempts to solve with a simple deductive algorithm, but if that doesn't work it will move on to phase 2 which will attempt to solve by adding a possible number and running the phase 1 alg again. If that fails then it will reset and repeat the process until it has looped through all possible numbers to add. Once phase 2 fails, it will begin phase 3. which will begin an exaustive search based on the results from phase 1. Phase 3 will also test for solutions using the phase 1 alg whenever it is logical to do so.
+
+      <div id="body">
+        <p id="page-dec">Sudoku Solver</p>
+        <hr>
+
+        <article>
+          <header>
+            Description
+          </header>
+          <div>
+            The solver has three phases. The first phase attempts to solve with a simple deductive algorithm, but if that doesn't work it will move on to phase 2 which will attempt to solve by adding a possible number and running the phase 1 alg again. If that fails then it will reset and repeat the process until it has looped through all possible numbers to add. Once phase 2 fails, it will begin phase 3. which will begin an exaustive search based on the results from phase 1. Phase 3 will also test for solutions using the phase 1 alg whenever it is logical to do so.
+          </div>
+        </article>
+
+        <article>
+          <header>
+            Wait time
+          </header>
+          <div>
+            Any puzzle that only requires basic techniques will likely be solved in under a tenth of a second by phase 1. Puzzles that are too difficult for phase 1 may still be solved in under a few tenths of a second by phase 2. If a puzzle gets past phase 2 it is likely not a real puzzle and can take anywhere from a few seconds to several minutes or even longer.</div>
+        </article>
+
+        <article>
+          <table id="table-wrapper">
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr id="table-row-3">
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr id="table-row-6">
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+            <tr>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td>
+               <input type="text" maxlength="1">
+             </td>
+             <td class="box-edge">
+               <input type="text" maxlength="1">
+             </td>
+            </tr>
+          </table>
+        </article>
+
+        <article>
+          <div id="sudoku-status">
+            enter a puzzle and click solve
+          </div>
+        </article>
+
+        <article>
+          <button type="button" name="button">Solve</button>
+        </article>
       </div>
-    </article>
 
-    <article>
-      <header>
-        Wait time
-      </header>
-      <div>
-        Any puzzle that only requires basic techniques will likely be solved in under a tenth of a second by phase 1. Puzzles that are too difficult for phase 1 may still be solved in under a few tenths of a second by phase 2. If a puzzle gets past phase 2 it is likely not a real puzzle and can take anywhere from a few seconds to several minutes or even longer.</div>
-    </article>
+      <footer>
+      </footer>
 
-    <article>
-      <table id="table-wrapper">
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr id="table-row-3">
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr id="table-row-6">
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-        <tr>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td>
-           <input type="text" maxlength="1">
-         </td>
-         <td class="box-edge">
-           <input type="text" maxlength="1">
-         </td>
-        </tr>
-      </table>
-    </article>
-
-    <article>
-      <div id="sudoku-status">
-        enter a puzzle and click solve
-      </div>
-    </article>
-
-    <article>
-      <button type="button" name="button">Solve</button>
-    </article>
-
-    <script src="main.js"></script>
-
-    <footer>
-    </footer>
-    <script src="../../detectPhone.js"></script>
+      <script src="main.js"></script>
+    </div>
   </body>
 </html>
