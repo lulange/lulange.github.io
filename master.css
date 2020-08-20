@@ -18,6 +18,15 @@ body {
    padding-bottom: 90px;
 }
 
+#main-header {
+  border-style: solid;
+  border-color: #06451B;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #06451B;
+  border-width: 0px;
+}
+
 #main-title {
   flex-grow: 0.5;
   text-align: center;
@@ -44,7 +53,6 @@ body {
     margin: 0px;
     padding: 1%;
     padding-top: 10px;
-    background-color: #06451B;
   }
 
   #header-links {
@@ -87,7 +95,6 @@ body {
     align-items: center;
     margin: 0px;
     padding: 1%;
-    background-color: #06451B;
   }
 
   #header-links {
@@ -126,6 +133,11 @@ body {
 
 
 footer {
+  border-style: solid;
+  border-color: #06451B;
+  border-width: 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   background-color: #06451B;
   position: absolute;
   bottom: 0px;
