@@ -2,7 +2,7 @@ export default class LevelWinScene extends Phaser.Scene {
   constructor() {
     super({key: "LevelWinScene"});
   }
-  
+
   init(data) {
     this.myLevel = data.myLevel;
     this.levelNum = data.levelNum;
@@ -13,22 +13,22 @@ export default class LevelWinScene extends Phaser.Scene {
     } else {
       this.lastLevel = false;
     }
-    
-    if (parseInt(localStorage.getItem("unlockedLevels")) < this.levelNum+1 && this.myLevel === false) {
-      localStorage.setItem("unlockedLevels", this.levelNum+1);
+
+    if (parseInt(localStorage.getItem("MG-unlockedLevels")) < this.levelNum+1 && this.myLevel === false) {
+      localStorage.setItem("MG-unlockedLevels", this.levelNum+1);
       this.unlockedLevel = true;
     } else {
       this.unlockedLevel = false;
     }
   }
-  
+
   preload() {
   }
-  
+
   create() {
     this.add.rectangle(450, 300, 900, 600, "0x000000", 1);
     this.blackRect = this.add.rectangle(450, 300, 900, 600, "0x000000", 1).setDepth(10);
-    
+
     // create main text/buttons
     let congratsArray = ["Nice!", "Congratulations!", "Great!", "Excellent!", "Awesome!", "Incredible!"];
     let mainBanner = this.add.text(675, 90, congratsArray[Math.round(Math.random() * (congratsArray.length - 0.6))], {
@@ -36,7 +36,7 @@ export default class LevelWinScene extends Phaser.Scene {
       fontSize: "60px",
       resolution: 3,
     });
-    
+
     if (this.lastLevel) {
       if (this.myLevel) {
         mainBanner.text = "You beat your last level!";
@@ -44,7 +44,7 @@ export default class LevelWinScene extends Phaser.Scene {
         mainBanner.text = "You beat the last one!";
       }
     }
-    
+
     mainBanner.x = (900 - (mainBanner.getTopRight().x- mainBanner.getTopLeft().x)) / 2;
 
     // console.log((900 - (MenuButton.getTopRight().x- MenuButton.getTopLeft().x)) / 2 );
@@ -178,18 +178,18 @@ export default class LevelWinScene extends Phaser.Scene {
         },
       });
     });
-    
-    
-    
+
+
+
     let nextLevelButton = this.add.text(681, 200, "Next Level", {
       fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
       fontSize: "30px",
     });
-    
+
     if (this.lastLevel) {
       nextLevelButton.text = "Go Back";
     }
-    
+
     nextLevelButton.x = (900 - (nextLevelButton.getTopRight().x- nextLevelButton.getTopLeft().x)) / 2;
 
     // and set it interactive
@@ -232,9 +232,9 @@ export default class LevelWinScene extends Phaser.Scene {
         },
       });
     });
-    
-    
-    
+
+
+
     let replayButton = this.add.text(681, 440, "Play Again", {
       fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
       fontSize: "30px",
@@ -278,16 +278,16 @@ export default class LevelWinScene extends Phaser.Scene {
         },
       });
     });
-    
-    
+
+
     let unlockLevelNums = [0, 3, 5, 10, 15, 20, 25, 30];
     let ballTypes = ["White", "Red", "Blue", "Purple", "Green", "Orange", "Gold", "Sky Blue"];
     let unlockText = this.add.text(681, 500, "", {
       fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
       fontSize: "30px",
     });
-    
-    
+
+
     if (this.unlockedLevel) {
       let newTextIndex = unlockLevelNums.indexOf(this.levelNum);
       if (newTextIndex !== -1) {
@@ -295,8 +295,8 @@ export default class LevelWinScene extends Phaser.Scene {
         unlockText.x = (900 - (unlockText.getTopRight().x- unlockText.getTopLeft().x)) / 2;
       }
     }
-    
-    
+
+
     // transition in
     this.tweens.add({
       targets: this.blackRect,

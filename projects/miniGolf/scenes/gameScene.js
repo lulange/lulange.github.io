@@ -10,7 +10,7 @@ export default class GameScene extends Phaser.Scene {
     if (data.userLevel) {
       this.levelNum = data.level;
       this.levelBanner = `My Level: ${this.levelNum}`;
-      this.level = JSON.parse(localStorage.getItem("ul" + this.levelNum));
+      this.level = JSON.parse(localStorage.getItem("MG-ul" + this.levelNum));
       this.hitsLeft = this.level.hits;
       this.userLevel = true;
     } else {

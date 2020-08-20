@@ -26,7 +26,7 @@ class StartScene extends Phaser.Scene {
     this.add.text(227.5, 50, `A Simple Platformer`, { fontFamily: 'Arial', fontSize: 50, color: '#000000' });
 
     let quickPlayButton = this.add.rectangle(450, 250, 300, 75, "0x000000");
-    let textToCenter = this.add.text(357.5, 230.5, `Play level ${localStorage.getItem("unlockedLevels")}`, { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
+    let textToCenter = this.add.text(357.5, 230.5, `Play level ${localStorage.getItem("SP-unlockedLevels")}`, { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
     textToCenter.x = (900 - (textToCenter.getTopRight().x - textToCenter.getTopLeft().x)) / 2;
     quickPlayButton.setInteractive();
     quickPlayButton.on('pointerup', () => {
@@ -43,7 +43,7 @@ class StartScene extends Phaser.Scene {
           quickPlayButton.displayHeight += 50;
         },
         onComplete: () => {
-          let levelIndex = parseInt(localStorage.getItem("unlockedLevels")) - 1;
+          let levelIndex = parseInt(localStorage.getItem("SP-unlockedLevels")) - 1;
           this.scene.stop();
           gameState.level = levels[levelIndex].level;
           gameState.spikesTracker = levels[levelIndex].spikesTracker;
@@ -97,7 +97,7 @@ class StartScene extends Phaser.Scene {
         },
         onComplete: () => {
           this.scene.stop();
-          localStorage.setItem("unlockedLevels", 1);
+          localStorage.setItem("SP-unlockedLevels", 1);
           levels.forEach(level => {
             level.isEditable = false;
           });

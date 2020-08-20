@@ -1,6 +1,6 @@
 for (let i=1; i<=10; i++) {
-  if (localStorage.getItem("ul" + i) === undefined || localStorage.getItem("ul" + i) === null) {
-    localStorage.setItem("ul" + i, JSON.stringify({
+  if (localStorage.getItem("MG-ul" + i) === undefined || localStorage.getItem("MG-ul" + i) === null) {
+    localStorage.setItem("MG-ul" + i, JSON.stringify({
       hits: 1,
       items: [
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -62,8 +62,8 @@ for (let i=1; i<=10; i++) {
   }
 }
 
-if (localStorage.getItem("unlockedLevels") === undefined || localStorage.getItem("unlockedLevels") === null) {
-  localStorage.setItem("unlockedLevels", "1");
+if (localStorage.getItem("MG-unlockedLevels") === undefined || localStorage.getItem("MG-unlockedLevels") === null) {
+  localStorage.setItem("MG-unlockedLevels", "1");
 }
 
 if (sessionStorage.getItem("ball") === undefined || sessionStorage.getItem("ball") === null) {

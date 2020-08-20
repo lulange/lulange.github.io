@@ -2,7 +2,7 @@ export default class PlayerSelectScene extends Phaser.Scene {
   constructor() {
     super({key: "PlayerSelectScene"});
   }
-  
+
   preload() {
     // create rectangle for transition
     this.blackRect = this.add.rectangle(450, 300, 900, 600, "0x000000", 1);
@@ -16,24 +16,24 @@ export default class PlayerSelectScene extends Phaser.Scene {
     this.load.image("green", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2FgreenBall.png?v=1596914824003");
     this.load.image("sky blue", "https://cdn.glitch.com/1737f775-4be5-40d3-b5b1-2ba50647b921%2FskyBlue.png?v=1596995370671");
   }
-  
+
   create() {
-    
+
     // create main text/buttons
-    
+
     //create the main banner "Levels"
     let mainBanner = this.add.text(348, 75, "Select Player", {
       fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
       fontSize: "70px",
     });
-    
+
     mainBanner.x = (900 - (mainBanner.getTopRight().x- mainBanner.getTopLeft().x)) / 2;
-    
+
     let backButton = this.add.text(30, 20, "<<", {
       fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
       fontSize: "40px",
     });
-    
+
     // and set it interactive
     backButton.setInteractive();
     backButton.on("pointerover", function() {
@@ -41,13 +41,13 @@ export default class PlayerSelectScene extends Phaser.Scene {
       this.x -= 1;
       this.y -= 2;
     });
-    
+
     backButton.on("pointerout", function() {
       this.setFontSize(40);
       this.x += 1;
       this.y += 2;
     });
-    
+
     backButton.on("pointerup", function() {
       this.scene.tweens.add({
         targets: this.scene.blackRect,
@@ -70,7 +70,7 @@ export default class PlayerSelectScene extends Phaser.Scene {
         },
       });
     });
-    
+
     let equipButtons = [];
     let unlockLevelNums = [0, 3, 5, 10, 15, 20, 25, 30];
     let ballTypes = ["white", "red", "blue", "purple", "green", "orange", "gold", "sky blue"];
@@ -78,10 +78,10 @@ export default class PlayerSelectScene extends Phaser.Scene {
     for (let i=0; i<2; i++) {
       for (let j=0; j<4; j++) {
         this.add.rectangle(j*170 + 195, i*170 + 280, 150, 150, "0x000000", 0).setStrokeStyle(3, "0xFFFFFF", 1);
-        
+
         this.add.image(j*170 + 195, i*170 + 250, ballTypes[((i*4) + j)]);
-        
-        if (parseInt(localStorage.getItem("unlockedLevels")) > unlockLevelNums[(i*4) + j]) {
+
+        if (parseInt(localStorage.getItem("MG-unlockedLevels")) > unlockLevelNums[(i*4) + j]) {
           let ballName = this.add.text(j*170 + 120, i*170 + 270, ballTypes[(i*4) + j], {
             fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
             fontSize: "24px",
@@ -137,7 +137,7 @@ export default class PlayerSelectScene extends Phaser.Scene {
             color: "#FFFFFF",
           });
           lockedText.x = ((150 - (lockedText.getTopRight().x- lockedText.getTopLeft().x)) / 2) + lockedText.x;
-          
+
           let lockedText2 = this.add.text(j*170 + 120, i*170 + 300, "level " + unlockLevelNums[(i*4) + j], {
             fontFamily: "Comic Sans MS, Comic Sans, Chalkboard SE",
             fontSize: "24px",

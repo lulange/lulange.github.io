@@ -33,7 +33,7 @@ class LevelSelect extends Phaser.Scene {
       } else {
         this.add.text((i-(Math.floor(i/5)*5))*120+200, Math.floor(i/5)*120+150, `${i+1}`, { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
       }
-      if (i >= parseInt(localStorage.getItem("unlockedLevels"))) {
+      if (i >= parseInt(localStorage.getItem("SP-unlockedLevels"))) {
         this.add.text((i-(Math.floor(i/5)*5))*120+175, Math.floor(i/5)*120+200, `Locked!`, { fontFamily: 'Arial', fontSize: 20, color: '#ffffff' });
         levelSelectButtons[i].levelLocked = true;
       }

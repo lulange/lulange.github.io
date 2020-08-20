@@ -4,7 +4,7 @@ class WinScene extends Phaser.Scene {
   }
 
   preload() {
-    localStorage.setItem("completed", "true");
+    localStorage.setItem("SP-completed", "true");
     let blackRect = this.add.rectangle(450, 450, 1000,  1000, "0x000000").setDepth(2);
     this.tweens.add({
       targets: blackRect,

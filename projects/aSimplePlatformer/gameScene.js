@@ -127,8 +127,8 @@ class GameScene extends Phaser.Scene {
           }
         },
       });
-      if (parseInt(localStorage.getItem("unlockedLevels")) < 15 && gameState.currLevel === parseInt(localStorage.getItem("unlockedLevels"))) {
-        localStorage.setItem("unlockedLevels", parseInt(localStorage.getItem("unlockedLevels"))+1);
+      if (parseInt(localStorage.getItem("SP-unlockedLevels")) < 15 && gameState.currLevel === parseInt(localStorage.getItem("SP-unlockedLevels"))) {
+        localStorage.setItem("SP-unlockedLevels", parseInt(localStorage.getItem("SP-unlockedLevels"))+1);
       }
     });
 

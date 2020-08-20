@@ -1,5 +1,5 @@
-if (localStorage.getItem("unlockedLevels") === undefined || localStorage.getItem("unlockedLevels") === null) {
-  localStorage.setItem("unlockedLevels", "1");
+if (localStorage.getItem("SP-unlockedLevels") === undefined || localStorage.getItem("SP-unlockedLevels") === null) {
+  localStorage.setItem("SP-unlockedLevels", "1");
 }
 
 const levels = [{
@@ -134,7 +134,7 @@ let gameState = {
   isEditable: false,
 };
 
-if (localStorage.getItem("completed") === "true") {
+if (localStorage.getItem("SP-completed") === "true") {
   levels.forEach(level => {
     level.isEditable = true;
   });

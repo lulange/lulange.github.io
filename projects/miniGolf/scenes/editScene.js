@@ -6,7 +6,7 @@ export default class EditScene extends Phaser.Scene {
   init(data) {
     this.levelNum = data.level;
     this.levelBanner = `My Level: ${this.levelNum}`;
-    this.level = JSON.parse(localStorage.getItem("ul" + this.levelNum));
+    this.level = JSON.parse(localStorage.getItem("MG-ul" + this.levelNum));
     this.hitsLeft = this.level.hits;
     this.userLevel = true;
 
@@ -109,7 +109,7 @@ export default class EditScene extends Phaser.Scene {
         this.scene.hitsLeft++;
         hitsLeftText.text = `Hits left:    ${this.scene.hitsLeft}`;
         rightArrowButton.x = hitsLeftText.getTopRight().x;
-        localStorage.setItem("ul" + this.scene.levelNum, JSON.stringify(this.scene.level));
+        localStorage.setItem("MG-ul" + this.scene.levelNum, JSON.stringify(this.scene.level));
       }
     });
 
@@ -140,7 +140,7 @@ export default class EditScene extends Phaser.Scene {
         this.scene.hitsLeft--;
         hitsLeftText.text = `Hits left:    ${this.scene.hitsLeft}`;
         rightArrowButton.x = hitsLeftText.getTopRight().x;
-        localStorage.setItem("ul" + this.scene.levelNum, JSON.stringify(this.scene.level));
+        localStorage.setItem("MG-ul" + this.scene.levelNum, JSON.stringify(this.scene.level));
       }
     });
 
@@ -408,7 +408,7 @@ export default class EditScene extends Phaser.Scene {
           this.level.turf[tileY-2][tileX-2] = selectedItem;
         }
 
-        localStorage.setItem("ul" + this.levelNum, JSON.stringify(this.level));
+        localStorage.setItem("MG-ul" + this.levelNum, JSON.stringify(this.level));
       }
     });
 
@@ -441,7 +441,7 @@ export default class EditScene extends Phaser.Scene {
           this.level.turf[tileY-2][tileX-2] = selectedItem;
         }
 
-        localStorage.setItem("ul" + this.levelNum, JSON.stringify(this.level));
+        localStorage.setItem("MG-ul" + this.levelNum, JSON.stringify(this.level));
       }
     });
 
