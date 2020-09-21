@@ -172,6 +172,13 @@ class GameScene extends Phaser.Scene {
     gameState.cursors = this.input.keyboard.createCursorKeys();
 
     // create: key inputs
+    this.input.keyboard.createCombo("edit", { resetOnMatch: true });
+
+    this.input.keyboard.on('keycombomatch', function (event) {
+      this.scene.stop("GameScene");
+      this.scene.start("EditScene");
+    });
+
     this.input.keyboard.on('keyup-E', () => {
       if (gameState.isEditable === true) {
         this.scene.stop("GameScene");
