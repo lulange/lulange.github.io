@@ -180,10 +180,7 @@ header a:hover {
 
 @media only screen and (min-width: 930px) {
   canvas {
-    border-style: solid;
-    border-width: medium;
-    border-color: black;
-    margin-top: 30px;
+    border-width: 0px;
   }
 
   #canvas-wrapper {
