@@ -181,6 +181,7 @@ header a:hover {
 @media only screen and (min-width: 930px) {
   canvas {
     border-width: 0px;
+    margin-top: 20px;
   }
 
   #canvas-wrapper {
