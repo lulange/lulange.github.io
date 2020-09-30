@@ -147,10 +147,10 @@ setGameArea();
 
 
 class Spike {
-  constructor(x, y, index) {
+  constructor(x, y, index, loopWait) {
     this.x = x;
     this.y = y;
-    this.loopWait = 5;
+    this.loopWait = loopWait || 5;
     this.loopCount = 0;
     this.index = index || 10;
   }
@@ -226,7 +226,10 @@ let mainLoop = () => {
       if (spike.y === 0) {
         spike.x = Math.floor(Math.random() * 47);
         if (spike.index === 1 && spikes.length < 100 && spike.loopCount === spike.loopWait) {
-          spikes.push(new Spike(25, Math.floor(Math.random() * -30)));
+          spikes.push(new Spike(25, Math.floor(Math.random() * -30), 10, 5 - Math.floor(spikes.length / 30)));
+          if (spikes.length < 10) {
+            spikes.push(new Spike(25, Math.floor(Math.random() * -30), 10, 5 - Math.floor(spikes.length / 33)));
+          }
         }
       }
       if (spike.x === player.x && spike.y === player.y) {
