@@ -18,10 +18,11 @@ var updateKittyValue = function() {
     cardsInKitty += players;
   }
   var cardsInHand = (57-cardsOut-cardsInKitty)/players;
-  var percentOfHand = Math.round((cardsInKitty/cardsInHand*10000))/100;
-  document.getElementById("cards-in-kitty").innerHTML = cardsInKitty;
-  document.getElementById("cards-in-hand").innerHTML = cardsInHand;
-  document.getElementById("percent-of-hand").innerHTML = percentOfHand;
+  var percentOfHand1 = Math.round((cardsInKitty/cardsInHand*10000))/100;
+  var percentOfHand2 = Math.round(((cardsInKitty + players)/(cardsInHand - 1)*10000))/100;
+  document.getElementById("cards-in-kitty").innerHTML = `${cardsInKitty} or ${cardsInKitty + players}`;
+  document.getElementById("cards-in-hand").innerHTML = `${cardsInHand} or ${cardsInHand - 1}`;
+  document.getElementById("percent-of-hand").innerHTML = `${percentOfHand1} or ${percentOfHand2}`;
 };
 
 window.setInterval(updateKittyValue, 10);
