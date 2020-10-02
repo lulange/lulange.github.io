@@ -16,9 +16,9 @@ var updateKittyValue = function() {
   var cardsInKitty = (57-cardsOut) % players;
   var cardsInHand = (57-cardsOut-cardsInKitty)/players;
   var percentOfHand = Math.round((cardsInKitty/cardsInHand*10000))/100;
-  document.getElementById("cards-in-kitty").innerHTML = cardsInKitty;
-  document.getElementById("cards-in-hand").innerHTML = cardsInHand;
-  document.getElementById("percent-of-hand").innerHTML = percentOfHand;
+  document.getElementById("cards-in-kitty").innerHTML = `${cardsInKitty} or ${cardsInKitty + players}`;
+  document.getElementById("cards-in-hand").innerHTML = `${cardsInHand} or ${cardsInHand - 1}`;
+  document.getElementById("percent-of-hand").innerHTML = `${percentOfHand} or ${Math.round(((cardsInKitty + players)/(cardsInHand - 1)*10000))/100}`;
   if (cardsInKitty === 0) {
     document.getElementById("cards-in-kitty").style.color = "red";
     document.getElementById("percent-of-hand").style.color = "red";
