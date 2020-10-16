@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Lucas' stuff: random maze generation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../master.css">
+    <style media="print">
+
+      article {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      #header-links {
+        display: none;
+      }
+
+      hr {
+        border-style: solid;
+        width: 80%;
+        text-align: center;
+        color: #06451B;
+      }
+
+      #main-header {
+        color: #06451B;
+        font-family: 'Mali', cursive;
+      }
+
+      label {
+        display: none;
+      }
+
+      button {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <header id="main-header" class="flex-box">
+        <div id="main-title">
+          <a href="../../index.html">Lucas' stuff</a>
+        </div>
+        <div id="header-spacer">
+        </div>
+
+        <div id="header-links">
+          <div id="changelog" class="header-link">
+            <a href="../../changeLog/index.html">change log</a>
+          </div>
+          <div id="otherstuff" class="header-link">
+            <a href="../../otherStuff/index.html">other stuff</a>
+          </div>
+        </div>
+      </header>
+
+      <div id="body">
+        <p id="page-dec">Random Maze Generation</p>
+        <hr>
+
+        <article id="instructions">
+          <header>
+            Instructions
+          </header>
+          <div>
+            Press ctrl + p to print these awesome mazes.
+          </div>
+        </article>
+
+        <canvas id="canvas" width="602" height="602"></canvas>
+
+        <article>
+          <label for="size-selector">Select Size: </label>
+          <select id="size-selector">
+            <option value="15">15 x 15</option>
+            <option value="20">20 x 20</option>
+            <option value="30">30 x 30</option>
+            <option value="40">40 x 40</option>
+            <option value="50">50 x 50</option>
+            <option value="75">75 x 75</option>
+            <option value="100">100 x 100</option>
+          </select>
+          <br>
+          <br>
+          <button type="button" name="button" id="button">generate</button>
+        </article>
+      </div>
+
+      <footer>
+      </footer>
+
+      <script src="main.js"></script>
+    </div>
+  </body>
+</html>
