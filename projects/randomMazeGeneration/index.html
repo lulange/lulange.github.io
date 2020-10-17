@@ -8,14 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../master.css">
     <style media="print">
+      #screen-width-msg {
+        display: none;
+      }
 
       article {
         margin-top: 40px;
         margin-bottom: 40px;
-      }
-
-      #header-links {
-        display: none;
       }
 
       hr {
@@ -27,23 +26,48 @@
 
       #main-header {
         color: #06451B;
+        font-size: 0.7em;
         font-family: 'Mali', cursive;
       }
 
-      button {
-        display: none;
-      }
-
-      #instructions {
+      button, #instructions, #header-links, #description {
         display: none;
       }
 
       canvas {
-        margin-top: 30px;
+        margin-top: 20px;
+      }
+    </style>
+    <style media="screen">
+      button {
+        display: block;
+        margin: auto;
+        margin-bottom: 25px;
       }
 
-      footer {
-        display: none;
+      /* overide for normal canvas styling on this website */
+      @media only screen and (max-width: 930px) {
+        canvas {
+          display: block !important;
+          margin: auto;
+          margin-top: 20px;
+        }
+      }
+
+      @media only screen and (max-width: 700px) {
+        canvas, #selectors, #instructions {
+          display: none !important;
+        }
+
+        #screen-width-msg {
+          display: block;
+        }
+      }
+
+      @media only screen and (min-width: 700px) {
+        #screen-width-msg {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -70,6 +94,15 @@
         <p id="page-dec">Random Maze Generation</p>
         <hr>
 
+        <article id="description">
+          <header>
+            Description
+          </header>
+          <div>
+            This maze generator uses a backtracking algorithm with some randomness thrown in (growing tree algorithm). It will follow a path until it hits a dead end or until the randomness changes the current cell.
+          </div>
+        </article>
+
         <article id="instructions">
           <header>
             Instructions
@@ -79,9 +112,19 @@
           </div>
         </article>
 
+        <article id="screen-width-msg">
+          <header>
+            Sorry!
+          </header>
+          <div>
+            Your screen must be wider than 700 css pixels to use the maze generator.
+          </div>
+        </article>
+
         <canvas id="canvas" width="602" height="602"></canvas>
 
-        <article>
+        <article id="selectors">
+          <button type="button" name="button" id="button">generate</button>
           <label for="percent-randomness-selector">% randomness</label>
           <input type="range" id="percent-randomness-selector" />
           <label id="percent-notifier">10%</label>
@@ -97,9 +140,6 @@
             <option value="75">75 x 75</option>
             <option value="100">100 x 100</option>
           </select>
-          <br>
-          <br>
-          <button type="button" name="button" id="button">generate</button>
         </article>
       </div>
 
