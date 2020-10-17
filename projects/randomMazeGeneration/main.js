@@ -3,11 +3,15 @@ const ctx = canvas.getContext("2d");
 let boxes = [];
 let stack = [];
 let mazeSolvingInterval;
+let randomAmount = 10;
+document.getElementById("percent-randomness-selector").value = 10;
+
 const setBackground = (r, g, b) => {
   ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 setBackground(0, 0, 0);
+
 // sets the maze generation variables
 const setMaze = (width) => {
   boxes = [];
@@ -21,11 +25,12 @@ const setMaze = (width) => {
   boxes[xAndYStart][xAndYStart] = 0;
   stack = [{x: xAndYStart, y: xAndYStart}];
 };
+
 // the algorithm that draws the maze
 const drawMaze = () => {
   let randomSelector = Math.random();
   let selectedVertexIndex;
-  if (randomSelector > 0.1) {
+  if (randomSelector > randomAmount/100) {
     selectedVertexIndex = stack.length - 1;
   } else {
     selectedVertexIndex = Math.floor(Math.random() * stack.length);
@@ -90,6 +95,7 @@ const drawMaze = () => {
     ctx.fillRect(canvas.width - 2, canvas.height - (canvas.height / boxes.length), 2, (canvas.height / boxes.length) - 2);
   }
 };
+
 // button event listener that starts generation
 document.getElementById("button").addEventListener("click", () => {
   let selector = document.getElementById("size-selector");
@@ -97,4 +103,10 @@ document.getElementById("button").addEventListener("click", () => {
   setMaze(selector.value);
   window.clearInterval(mazeSolvingInterval);
   mazeSolvingInterval = window.setInterval(drawMaze, 0);
+});
+
+// button event listener that starts generation
+document.getElementById("percent-randomness-selector").addEventListener("input", function() {
+  randomAmount = this.value;
+  document.getElementById("percent-notifier").textContent = this.value + "%";
 });

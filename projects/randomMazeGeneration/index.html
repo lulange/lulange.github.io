@@ -20,7 +20,7 @@
 
       hr {
         border-style: solid;
-        width: 80%;
+        width: 60%;
         text-align: center;
         color: #06451B;
       }
@@ -30,11 +30,19 @@
         font-family: 'Mali', cursive;
       }
 
-      label {
+      button {
         display: none;
       }
 
-      button {
+      #instructions {
+        display: none;
+      }
+
+      canvas {
+        margin-top: 30px;
+      }
+
+      footer {
         display: none;
       }
     </style>
@@ -74,6 +82,11 @@
         <canvas id="canvas" width="602" height="602"></canvas>
 
         <article>
+          <label for="percent-randomness-selector">% randomness</label>
+          <input type="range" id="percent-randomness-selector" />
+          <label id="percent-notifier">10%</label>
+          <br>
+          <br>
           <label for="size-selector">Select Size: </label>
           <select id="size-selector">
             <option value="15">15 x 15</option>
