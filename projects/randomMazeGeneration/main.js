@@ -102,7 +102,16 @@ document.getElementById("button").addEventListener("click", () => {
   setBackground(0, 0, 0);
   setMaze(selector.value);
   window.clearInterval(mazeSolvingInterval);
-  mazeSolvingInterval = window.setInterval(drawMaze, 0);
+  let quickGenerate = document.getElementById("quick-generate").checked;
+  if (quickGenerate) {
+    while (stack.length > 0) {
+      drawMaze();
+    }
+  } else {
+    mazeSolvingInterval = window.setInterval(function () {
+      drawMaze();
+    }, 0);
+  }
 });
 
 // button event listener that starts generation

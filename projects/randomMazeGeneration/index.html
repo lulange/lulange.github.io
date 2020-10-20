@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lucas' stuff: random maze generation</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../master.css">
@@ -125,7 +125,11 @@
 
         <article id="selectors">
           <button type="button" name="button" id="button">generate</button>
-          <label for="percent-randomness-selector">% randomness</label>
+          <label for="quick-generate">Quick Generate</label>
+          <input type="checkbox" id="quick-generate" />
+          <br>
+          <br>
+          <label for="percent-randomness-selector">% Randomness</label>
           <input type="range" id="percent-randomness-selector" />
           <label id="percent-notifier">10%</label>
           <br>
