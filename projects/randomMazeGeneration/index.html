@@ -30,13 +30,15 @@
         font-family: 'Mali', cursive;
       }
 
-      button, #instructions, #header-links, #description {
+      button, #header-links, .no-printer-display {
         display: none;
       }
 
       canvas {
         margin-top: 20px;
       }
+
+
     </style>
     <style media="screen">
       button {
@@ -94,7 +96,7 @@
         <p id="page-dec">Random Maze Generation</p>
         <hr>
 
-        <article id="description">
+        <article id="description" class="no-printer-display">
           <header>
             Description
           </header>
@@ -103,7 +105,7 @@
           </div>
         </article>
 
-        <article id="instructions">
+        <article id="instructions" class="no-printer-display">
           <header>
             Instructions
           </header>
@@ -112,7 +114,7 @@
           </div>
         </article>
 
-        <article id="screen-width-msg">
+        <article id="screen-width-msg" class="no-printer-display">
           <header>
             Sorry!
           </header>
@@ -125,10 +127,10 @@
 
         <article id="selectors">
           <button type="button" name="button" id="button">generate</button>
-          <label for="quick-generate">Quick Generate</label>
-          <input type="checkbox" id="quick-generate" />
-          <br>
-          <br>
+          <label for="quick-generate" class="no-printer-display">Quick Generate</label>
+          <input type="checkbox" id="quick-generate" class="no-printer-display"/>
+          <br class="no-printer-display">
+          <br class="no-printer-display">
           <label for="percent-randomness-selector">% Randomness</label>
           <input type="range" id="percent-randomness-selector" />
           <label id="percent-notifier">10%</label>
