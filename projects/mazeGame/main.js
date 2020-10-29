@@ -137,7 +137,7 @@ const drawBoxes = () => {
     }
     let boxWidth = canvas.width/boxes.length;
     ctx.beginPath();
-    ctx.arc(sw.x * boxWidth + Math.round(boxWidth/2), sw.y * boxWidth + Math.round(boxWidth/2) - 1, Math.floor(boxWidth/2) - 1, 0, 2*Math.PI);
+    ctx.arc(sw.x * boxWidth + Math.round(boxWidth/2), sw.y * boxWidth + Math.round(boxWidth/2), Math.floor(boxWidth/2) - 2, 0, 2*Math.PI);
     ctx.fill();
   });
 };
@@ -313,7 +313,7 @@ const drawUserView = (x, y) => {
         ctx.fillStyle = "red";
       }
       ctx.beginPath();
-      ctx.arc(sw.x * boxWidth + Math.round(boxWidth/2), sw.y * boxWidth + Math.round(boxWidth/2) - 1, Math.floor(boxWidth/2) - 1, 0, 2*Math.PI);
+      ctx.arc(sw.x * boxWidth + Math.round(boxWidth/2), sw.y * boxWidth + Math.round(boxWidth/2), Math.floor(boxWidth/2) - 2, 0, 2*Math.PI);
       ctx.fill();
     }
   });
@@ -395,17 +395,37 @@ sM.addScene("darkMode", function() {
   ctx.fillStyle = "white";
   ctx.fillText("Press Q to quit", 20, canvas.height - 20);
   ctx.fillText(gameState.switchesSwitched + "/" + gameState.switches.length + " switched", canvas.width - 150, canvas.height - 20);
+  if (gameState.switchesSwitched === gameState.switches.length) {
+    ctx.fillStyle = "green";
+    let boxWidth = canvas.width/boxes.length;
+    ctx.fillRect(solutionCoor*boxWidth, solutionCoor*boxWidth, boxWidth, boxWidth);
+  }
+  player.draw(player.x, player.y);
 }, function() {
 });
 
+let pastPlayerCoors = [];
 sM.addScene("explorerMode", function() {
   drawUserView(player.x, player.y);
+  pastPlayerCoors.unshift({x: player.x, y: player.y});
+  if (pastPlayerCoors.length > 5) {
+    pastPlayerCoors.pop();
+  }
+  pastPlayerCoors.forEach(coor => {
+    drawUserView(coor.x, coor.y);
+  });
   ctx.fillStyle = "black";
   ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
   ctx.font = '20px sans-serif';
   ctx.fillStyle = "white";
   ctx.fillText("Press Q to quit", 20, canvas.height - 20);
   ctx.fillText(gameState.switchesSwitched + "/" + gameState.switches.length + " switched", canvas.width - 150, canvas.height - 20);
+  if (gameState.switchesSwitched === gameState.switches.length) {
+    ctx.fillStyle = "green";
+    let boxWidth = canvas.width/boxes.length;
+    ctx.fillRect(solutionCoor*boxWidth, solutionCoor*boxWidth, boxWidth, boxWidth);
+  }
+  player.draw(player.x, player.y);
 }, function() {
   setBackground(0, 0, 0);
 });
@@ -533,29 +553,25 @@ document.onkeydown = (e) => {
 
   if (boxes.length > 0) {
     if (boxes[player.y+direction.y][player.x+direction.x] === 0) {
-      player.x += direction.x;
-      player.y += direction.y;
-      gameState.stepsTaken++;
-      gameState.switches.forEach(sw => {
-        if (player.x === sw.x && player.y === sw.y && sw.switched === false) {
-          sw.switched = true;
-          gameState.switchesSwitched++;
-          if (gameState.switchesSwitched === gameState.switches.length) {
-            ctx.fillStyle = "green";
-            let boxWidth = canvas.width/boxes.length;
-            ctx.fillRect(solutionCoor*boxWidth, solutionCoor*boxWidth, boxWidth, boxWidth);
+      if (player.y !== player.y+direction.y || player.x !== player.x+direction.x) {
+        player.x += direction.x*2;
+        player.y += direction.y*2;
+        gameState.stepsTaken++;
+        gameState.switches.forEach(sw => {
+          if (player.x === sw.x && player.y === sw.y && sw.switched === false) {
+            sw.switched = true;
+            gameState.switchesSwitched++;
           }
+        });
+      }
+
+      if (boxes[player.y][player.x] === 10) {
+        if (gameState.switchesSwitched === gameState.switches.length) {
+          setBackground();
+          drawBoxes();
+          player.draw(player.x, player.y);
+          sM.runScene("winScene");
         }
-      });
-    } else if (boxes[player.y+direction.y][player.x+direction.x] === 10) {
-      player.x += direction.x;
-      player.y += direction.y;
-      gameState.stepsTaken++;
-      if (gameState.switchesSwitched === gameState.switches.length) {
-        setBackground();
-        drawBoxes();
-        player.draw(player.x, player.y);
-        sM.runScene("winScene");
       }
     }
   }
