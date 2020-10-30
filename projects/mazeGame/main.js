@@ -317,7 +317,6 @@ const drawUserView = (x, y) => {
       ctx.fill();
     }
   });
-  player.draw(x, y);
 };
 
 
