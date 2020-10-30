@@ -427,6 +427,7 @@ sM.addScene("explorerMode", function() {
   player.draw(player.x, player.y);
 }, function() {
   setBackground(0, 0, 0);
+  pastPlayerCoors = [];
 });
 
 sM.addScene("normalMode", function() {
