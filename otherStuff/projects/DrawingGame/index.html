@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>A drawing game</title>
+    <style>
+      #size-input {
+        position: absolute;
+        width: 100px;
+        height: 20px;
+        right: 200px;
+        bottom: 20px;
+      }
+
+
+      #yellow-button {
+        left: 25px;
+        border-color: black;
+      }
+
+      #orange-button {
+        left: 100px;
+      }
+
+      #blue-button {
+        left: 175px;
+      }
+
+      #red-button {
+        left: 250px;
+      }
+
+      #color-bar {
+        width: 100%;
+        height: 70px;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        background-color: grey;
+        z-index: 2;
+      }
+
+      html {
+        position: fixed;
+      }
+
+      body {
+        margin: 0px;
+        background-color: white;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .drawer-divs {
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1;
+      }
+
+      .color-selector {
+        position: absolute;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 3px;
+        border-color: transparent;
+        width: 50px;
+        height: 50px;
+        z-index: 3;
+        bottom: 7px;
+      }
+
+      .yellow {
+        background-color: yellow;
+      }
+
+      .blue {
+        background-color: blue;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .orange {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="color-bar">
+      <!-- color selectors -->
+      <div id="yellow-button" class="color-selector yellow"></div>
+      <div id="blue-button" class="color-selector blue"></div>
+      <div id="orange-button" class="color-selector orange"></div>
+      <div id="red-button" class="color-selector red"></div>
+      <input type="number" value="20" id="size-input" name="size" min="10" max="50">
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
