@@ -31,6 +31,9 @@ class Game {
 		if (speed === undefined || speed === null) {
 			speed = 30;
 		}
+		if (data === undefined || data === null) {
+			data = {};
+		}
 		if (this.sceneInterval !== null) {
 			window.clearInterval(this.sceneInterval);
 			this.sceneInterval = null;
@@ -49,3 +52,13 @@ class Game {
 		this.scenes.splice(sceneIndex, 1);
 	}
 }
+
+// the global instance of the game/scene manager
+// the data object will keep any changes given at any point in either function through loops and between functions
+const game = new Game();
+game.createScene("mainMenu", function(data) {
+
+}, function(data) {
+
+});
+game.runScene("mainMenu");
