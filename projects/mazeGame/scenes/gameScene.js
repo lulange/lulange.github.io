@@ -4,7 +4,6 @@ class GameScene extends Phaser.Scene {
   }
 
   preload() {
-
   }
 
   create() {
@@ -53,6 +52,11 @@ class GameScene extends Phaser.Scene {
         gameState.player.setVelocityX(-300);
       }
     });
+
+
+    gameState.maze = new Maze(this.sys.canvas.getContext("2d"));
+    console.log(gameState.maze);
+    gameState.maze.display(0, 0, 20, 4, "#FF0000", "#0000FF");
   }
 
   update() {
