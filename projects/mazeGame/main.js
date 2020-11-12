@@ -57,8 +57,8 @@ class Game {
 // the data object will keep any changes given at any point in either function through loops and between functions
 const game = new Game();
 game.createScene("mainMenu", function(data) {
-
+	data.msg = "time for sleep";
 }, function(data) {
-
+	console.log(data.msg);
 });
 game.runScene("mainMenu");
