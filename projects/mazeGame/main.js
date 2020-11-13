@@ -59,7 +59,7 @@ class Game {
 
 	runScene(key, data, speed) {
 		if (speed === undefined || speed === null) {
-			speed = 30;
+			speed = 10;
 		}
 		if (data === undefined || data === null) {
 			data = {};
@@ -73,7 +73,7 @@ class Game {
 		let scene = this.scenes[sceneIndex];
 		this.currScene = scene.key;
 		scene.startupFunction(data);
-		window.setInterval(function() {scene.loopFunction(data);}, speed);
+		this.sceneInterval = window.setInterval(function() {scene.loopFunction(data);}, speed);
 	}
 
 	deleteScene(key) {
@@ -133,13 +133,16 @@ game.createScene("mainMenu", function(data) {
 	});
 
 	if (gameState.transitionQuad.transitioning) {
-		gameState.transitionQuad.x += 20;
-		gameState.transitionQuad.draw();
 		if (gameState.transitionQuad.x === 0) {
 			gameState.transitionQuad.onTransition();
 		}
+		gameState.transitionQuad.x += 40;
+		gameState.transitionQuad.draw();
+		if (gameState.transitionQuad.x === 1800) {
+			gameState.transitionQuad.x = -1800;
+			gameState.transitionQuad.transitioning = false;
+		}
 	}
-	console.log("still running mainmenu loop");
 });
 
 game.createScene("modeSelect", function(data) {
@@ -149,6 +152,7 @@ game.createScene("modeSelect", function(data) {
 	gameState.text.push(new Text("Hot/Cold", canvas.width/2, 375, "#0099FF", "50px"));
 	gameState.text.push(new Text("Timed", canvas.width/2, 450, "#0099FF", "50px"));
 	gameState.text.push(new Text("Race", canvas.width/2, 525, "#0099FF", "50px"));
+	gameState.text.push(new Text("Back", 60, 60, "#0099FF", "40px"));
 }, function(data) {
 	gameState.drawBackground("black");
 	gameState.text.forEach(text => {
@@ -159,7 +163,35 @@ game.createScene("modeSelect", function(data) {
 		}
 		text.draw();
 	});
-	console.log("still running oesel loop");
+
+	if (gameState.transitionQuad.transitioning) {
+		if (gameState.transitionQuad.x === 0) {
+			gameState.transitionQuad.onTransition();
+		}
+		gameState.transitionQuad.x += 40;
+		gameState.transitionQuad.draw();
+		if (gameState.transitionQuad.x === 1800) {
+			gameState.transitionQuad.x = -1800;
+			gameState.transitionQuad.transitioning = false;
+		}
+	}
+});
+
+game.createScene("options", function(data) {
+}, function(data) {
+	gameState.drawBackground("blue");
+
+	if (gameState.transitionQuad.transitioning) {
+		if (gameState.transitionQuad.x === 0) {
+			gameState.transitionQuad.onTransition();
+		}
+		gameState.transitionQuad.x += 40;
+		gameState.transitionQuad.draw();
+		if (gameState.transitionQuad.x === 1800) {
+			gameState.transitionQuad.x = -1800;
+			gameState.transitionQuad.transitioning = false;
+		}
+	}
 });
 game.runScene("mainMenu");
 
@@ -176,9 +208,23 @@ canvas.addEventListener("mouseup", (e) => {
 					} else if (text.msg === "2 Player") {
 						// game.runScene("gameScene");
 					} else if (text.msg === "Options") {
-						// game.runScene("options");
+						gameState.transitionQuad.onTransition = function() {
+							game.runScene("options");
+						};
+						gameState.transitionQuad.transitioning = true;
 					} else if (text.msg === "Stats") {
 						// game.runScene("stats");
+					}
+				}
+			});
+		} else if (game.currScene === "modeSelect") {
+			gameState.text.forEach(text => {
+				if (text.color === "#0055FF") {
+					if (text.msg === "Back") {
+						gameState.transitionQuad.onTransition = function() {
+							game.runScene("mainMenu");
+						};
+						gameState.transitionQuad.transitioning = true;
 					}
 				}
 			});
