@@ -22,6 +22,22 @@ const gameState = {
 		x: null,
 		y: null
 	},
+
+	transitionQuad: {
+		x: -1800,
+		tranistioning: false,
+		onTransition: null,
+		draw() {
+			ctx.fillStyle = "white";
+			ctx.beginPath();
+			ctx.moveTo(this.x, 0);
+			ctx.lineTo(this.x+(canvas.width*2), 0);
+			ctx.lineTo(this.x+canvas.width, canvas.height);
+			ctx.lineTo(this.x-(canvas.width), canvas.height);
+			ctx.closePath();
+			ctx.fill();
+		},
+	},
 };
 // listener that keeps track of the current mouse variables
 canvas.addEventListener("mousemove", (event) => {
@@ -115,6 +131,15 @@ game.createScene("mainMenu", function(data) {
 		}
 		text.draw();
 	});
+
+	if (gameState.transitionQuad.transitioning) {
+		gameState.transitionQuad.x += 20;
+		gameState.transitionQuad.draw();
+		if (gameState.transitionQuad.x === 0) {
+			gameState.transitionQuad.onTransition();
+		}
+	}
+	console.log("still running mainmenu loop");
 });
 
 game.createScene("modeSelect", function(data) {
@@ -134,23 +159,29 @@ game.createScene("modeSelect", function(data) {
 		}
 		text.draw();
 	});
+	console.log("still running oesel loop");
 });
 game.runScene("mainMenu");
 
 canvas.addEventListener("mouseup", (e) => {
-	if (game.currScene === "mainMenu") {
-		gameState.text.forEach(text => {
-			if (text.color === "#0055FF") {
-				if (text.msg === "1 Player") {
-					game.runScene("modeSelect");
-				} else if (text.msg === "2 Player") {
-					// game.runScene("gameScene");
-				} else if (text.msg === "Options") {
-					// game.runScene("options");
-				} else if (text.msg === "Stats") {
-					// game.runScene("stats");
+	if (gameState.transitionQuad.tranistioning === false) {
+		if (game.currScene === "mainMenu") {
+			gameState.text.forEach(text => {
+				if (text.color === "#0055FF") {
+					if (text.msg === "1 Player") {
+						gameState.transitionQuad.onTransition = function() {
+							game.runScene("modeSelect");
+						};
+						gameState.transitionQuad.transitioning = true;
+					} else if (text.msg === "2 Player") {
+						// game.runScene("gameScene");
+					} else if (text.msg === "Options") {
+						// game.runScene("options");
+					} else if (text.msg === "Stats") {
+						// game.runScene("stats");
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 });
