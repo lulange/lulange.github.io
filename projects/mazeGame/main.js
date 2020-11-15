@@ -11,6 +11,10 @@ canvasParent.appendChild(canvas);
 // global context variable
 const ctx = canvas.getContext("2d");
 ctx.textAlign = "center";
+
+/*******************************
+* GAMESTATE VARIABLE DECLARATION
+*******************************/
 // global utility variable used to hold values that must be present from scene to scene
 const gameState = {
 	drawBackground(color) {
@@ -23,9 +27,22 @@ const gameState = {
 		y: null
 	},
 
+	transitionTo(mode, direction) {
+		if (direction === undefined || direction === null) {
+			direction = "forward";
+		}
+		this.transitionQuad.x = direction === "forward" ? -1800 : 1800;
+		this.transitionQuad.direction = direction;
+		this.transitionQuad.onTransition = function() {
+			game.runScene(mode);
+		};
+		this.transitionQuad.transitioning = true;
+	},
+
 	transitionQuad: {
 		x: -1800,
 		tranistioning: false,
+		direction: "forward",
 		onTransition: null,
 		draw() {
 			ctx.fillStyle = "white";
@@ -38,6 +55,11 @@ const gameState = {
 			ctx.fill();
 		},
 	},
+
+	colorScheme: {
+		textColor: "#0099FF",
+		textHighLightColor: "#0bda51",
+	},
 };
 // listener that keeps track of the current mouse variables
 canvas.addEventListener("mousemove", (event) => {
@@ -45,6 +67,9 @@ canvas.addEventListener("mousemove", (event) => {
 	gameState.mouse.y = event.offsetY;
 });
 
+/***********************
+* GAME CLASS DECLARATION
+***********************/
 // global scene/game manager
 class Game {
 	constructor() {
@@ -73,7 +98,26 @@ class Game {
 		let scene = this.scenes[sceneIndex];
 		this.currScene = scene.key;
 		scene.startupFunction(data);
-		this.sceneInterval = window.setInterval(function() {scene.loopFunction(data);}, speed);
+		this.sceneInterval = window.setInterval(function() {
+			scene.loopFunction(data);
+			if (gameState.transitionQuad.transitioning) {
+				if (gameState.transitionQuad.x === 0) {
+					gameState.transitionQuad.onTransition();
+				}
+				if (gameState.transitionQuad.direction === "forward") {
+					gameState.transitionQuad.x += 30;
+					if (gameState.transitionQuad.x === 1800) {
+						gameState.transitionQuad.transitioning = false;
+					}
+				} else if (gameState.transitionQuad.direction === "back") {
+					gameState.transitionQuad.x -= 30;
+					if (gameState.transitionQuad.x === -1800) {
+						gameState.transitionQuad.transitioning = false;
+					}
+				}
+				gameState.transitionQuad.draw();
+			}
+		}, speed);
 	}
 
 	deleteScene(key) {
@@ -83,6 +127,9 @@ class Game {
 	}
 }
 
+/*************************
+* OTHER CLASS DECLARATIONS
+*************************/
 // global text class used to ease the of process of displaying text
 class Text {
 	constructor(msg, x, y, color, fontSize) {
@@ -111,107 +158,73 @@ class Text {
 	}
 }
 
+/********************
+* SCENES/MAIN PROGRAM
+********************/
 // the global instance of the game/scene manager
 // the data object will keep any changes given at any point in either function through loops and between functions
 const game = new Game();
+// main menu scene
 game.createScene("mainMenu", function(data) {
 	gameState.text = [];
-	gameState.text.push(new Text("Maze Game", canvas.width/2, 200, "#0099FF", "100px"));
-	gameState.text.push(new Text("1 Player", canvas.width/2, 300, "#0099FF", "50px"));
-	gameState.text.push(new Text("2 Player", canvas.width/2, 375, "#0099FF", "50px"));
-	gameState.text.push(new Text("Options", canvas.width/2, 450, "#0099FF", "50px"));
-	gameState.text.push(new Text("Stats", canvas.width/2, 525, "#0099FF", "50px"));
+	gameState.text.push(new Text("Maze Game", canvas.width/2, 200, gameState.colorScheme.textColor, "100px"));
+	gameState.text.push(new Text("1 Player", canvas.width/2, 300, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("2 Player", canvas.width/2, 375, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Options", canvas.width/2, 450, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Stats", canvas.width/2, 525, gameState.colorScheme.textColor, "50px"));
 }, function(data) {
 	gameState.drawBackground("black");
 	gameState.text.forEach(text => {
 		if (text.isMouseOver() && text.msg !== gameState.text[0].msg) {
-			text.color = "#0055FF";
+			text.color = gameState.colorScheme.textHighLightColor;
 		} else {
-			text.color = "#0099FF";
+			text.color = gameState.colorScheme.textColor;
 		}
 		text.draw();
 	});
-
-	if (gameState.transitionQuad.transitioning) {
-		if (gameState.transitionQuad.x === 0) {
-			gameState.transitionQuad.onTransition();
-		}
-		gameState.transitionQuad.x += 40;
-		gameState.transitionQuad.draw();
-		if (gameState.transitionQuad.x === 1800) {
-			gameState.transitionQuad.x = -1800;
-			gameState.transitionQuad.transitioning = false;
-		}
-	}
 });
 
 game.createScene("modeSelect", function(data) {
 	gameState.text = [];
-	gameState.text.push(new Text("Mode Selection", canvas.width/2, 200, "#0099FF", "100px"));
-	gameState.text.push(new Text("Free play", canvas.width/2, 300, "#0099FF", "50px"));
-	gameState.text.push(new Text("Hot/Cold", canvas.width/2, 375, "#0099FF", "50px"));
-	gameState.text.push(new Text("Timed", canvas.width/2, 450, "#0099FF", "50px"));
-	gameState.text.push(new Text("Race", canvas.width/2, 525, "#0099FF", "50px"));
-	gameState.text.push(new Text("Back", 60, 60, "#0099FF", "40px"));
+	gameState.text.push(new Text("Select A Mode", canvas.width/2, 200, gameState.colorScheme.textColor, "100px"));
+	gameState.text.push(new Text("Free Play", canvas.width/2, 300, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Hot/Cold", canvas.width/2, 375, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Timed", canvas.width/2, 450, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Race", canvas.width/2, 525, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Back", 60, 60, gameState.colorScheme.textColor, "40px"));
 }, function(data) {
 	gameState.drawBackground("black");
 	gameState.text.forEach(text => {
 		if (text.isMouseOver() && text.msg !== gameState.text[0].msg) {
-			text.color = "#0055FF";
+			text.color = gameState.colorScheme.textHighLightColor;
 		} else {
-			text.color = "#0099FF";
+			text.color = gameState.colorScheme.textColor;
 		}
 		text.draw();
 	});
-
-	if (gameState.transitionQuad.transitioning) {
-		if (gameState.transitionQuad.x === 0) {
-			gameState.transitionQuad.onTransition();
-		}
-		gameState.transitionQuad.x += 40;
-		gameState.transitionQuad.draw();
-		if (gameState.transitionQuad.x === 1800) {
-			gameState.transitionQuad.x = -1800;
-			gameState.transitionQuad.transitioning = false;
-		}
-	}
 });
 
 game.createScene("options", function(data) {
 }, function(data) {
 	gameState.drawBackground("blue");
 
-	if (gameState.transitionQuad.transitioning) {
-		if (gameState.transitionQuad.x === 0) {
-			gameState.transitionQuad.onTransition();
-		}
-		gameState.transitionQuad.x += 40;
-		gameState.transitionQuad.draw();
-		if (gameState.transitionQuad.x === 1800) {
-			gameState.transitionQuad.x = -1800;
-			gameState.transitionQuad.transitioning = false;
-		}
-	}
-});
-game.runScene("mainMenu");
 
+});
+
+/**********************
+* THE MOUSE UP LISTENER
+**********************/
 canvas.addEventListener("mouseup", (e) => {
 	if (gameState.transitionQuad.tranistioning === false) {
 		if (game.currScene === "mainMenu") {
 			gameState.text.forEach(text => {
-				if (text.color === "#0055FF") {
+				if (text.color === gameState.colorScheme.textHighLightColor) {
 					if (text.msg === "1 Player") {
-						gameState.transitionQuad.onTransition = function() {
-							game.runScene("modeSelect");
-						};
-						gameState.transitionQuad.transitioning = true;
+						gameState.transitionTo("modeSelect");
 					} else if (text.msg === "2 Player") {
 						// game.runScene("gameScene");
 					} else if (text.msg === "Options") {
-						gameState.transitionQuad.onTransition = function() {
-							game.runScene("options");
-						};
-						gameState.transitionQuad.transitioning = true;
+						gameState.transitionTo("options");
 					} else if (text.msg === "Stats") {
 						// game.runScene("stats");
 					}
@@ -219,15 +232,15 @@ canvas.addEventListener("mouseup", (e) => {
 			});
 		} else if (game.currScene === "modeSelect") {
 			gameState.text.forEach(text => {
-				if (text.color === "#0055FF") {
+				if (text.color === gameState.colorScheme.textHighLightColor) {
 					if (text.msg === "Back") {
-						gameState.transitionQuad.onTransition = function() {
-							game.runScene("mainMenu");
-						};
-						gameState.transitionQuad.transitioning = true;
+						gameState.transitionTo("mainMenu", "back");
 					}
 				}
 			});
 		}
 	}
 });
+
+// kick off line
+game.runScene("mainMenu");
