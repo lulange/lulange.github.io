@@ -84,7 +84,7 @@ class Game {
 
 	runScene(key, data, speed) {
 		if (speed === undefined || speed === null) {
-			speed = 10;
+			speed = 18;
 		}
 		if (data === undefined || data === null) {
 			data = {};
@@ -105,12 +105,12 @@ class Game {
 					gameState.transitionQuad.onTransition();
 				}
 				if (gameState.transitionQuad.direction === "forward") {
-					gameState.transitionQuad.x += 30;
+					gameState.transitionQuad.x += 40;
 					if (gameState.transitionQuad.x === 1800) {
 						gameState.transitionQuad.transitioning = false;
 					}
 				} else if (gameState.transitionQuad.direction === "back") {
-					gameState.transitionQuad.x -= 30;
+					gameState.transitionQuad.x -= 40;
 					if (gameState.transitionQuad.x === -1800) {
 						gameState.transitionQuad.transitioning = false;
 					}
@@ -207,8 +207,15 @@ game.createScene("modeSelect", function(data) {
 game.createScene("options", function(data) {
 }, function(data) {
 	gameState.drawBackground("blue");
+});
 
-
+game.createScene("gameScene", function(data) {
+	gameState.maze = new Maze(ctx, 25, 20);
+	gameState.maze.x = Math.round((canvas.width - gameState.maze.getWidth(23, 4)) / 2);
+	gameState.maze.y = Math.round((canvas.height - gameState.maze.getHeight(23, 4)) / 2);
+}, function(data) {
+	gameState.drawBackground("black");
+	gameState.maze.display(gameState.maze.x, gameState.maze.y, 23, 4, gameState.colorScheme.textColor, "#000000");
 });
 
 /**********************
@@ -235,6 +242,8 @@ canvas.addEventListener("mouseup", (e) => {
 				if (text.color === gameState.colorScheme.textHighLightColor) {
 					if (text.msg === "Back") {
 						gameState.transitionTo("mainMenu", "back");
+					} else if (text.msg === "Free Play") {
+						gameState.transitionTo("gameScene");
 					}
 				}
 			});
