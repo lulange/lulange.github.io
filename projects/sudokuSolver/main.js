@@ -384,7 +384,7 @@ let bruteForceAlg = (sudoku, p, cursor, blankBoxes) => {
 let bruteForceAlgLooper = (sudoku, p, cursor, blankBoxes) => {
   if (solving) {
     let args = {sudoku: sudoku, p: p, cursor: cursor, blankBoxes: blankBoxes};
-    for (let g=0; g<500; g++) {
+    for (let g=0; g<1000; g++) {
       if (solving) {
         args = bruteForceAlg(args.sudoku, args.p, args.cursor, args.blankBoxes);
         if (args.done) {
