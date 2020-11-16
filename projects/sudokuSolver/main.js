@@ -373,13 +373,35 @@ let bruteForceAlg = (sudoku, p, cursor, blankBoxes) => {
   }
 
   if (loop && solveButton.textContent === "Reset") {
-    setPuzzleNumbers(sudoku);
-    window.setTimeout(function() {bruteForceAlg(sudoku, p, cursor, blankBoxes);}, 0);
+    return {sudoku: sudoku, p: p, cursor: cursor, blankBoxes: blankBoxes, done: false};
   } else if (solving) {
-    setPuzzleNumbers(sudoku);
     let endDate = new Date();
     sudokuStatus.textContent = "phase 3 solved successfully in " + (endDate - startDate) / 1000;
-    solving = false;
+    return {sudoku: sudoku, p: p, cursor: cursor, blankBoxes: blankBoxes, done: true};
+  }
+};
+
+let bruteForceAlgLooper = (sudoku, p, cursor, blankBoxes) => {
+  if (solving) {
+    let args = {sudoku: sudoku, p: p, cursor: cursor, blankBoxes: blankBoxes};
+    for (let g=0; g<500; g++) {
+      if (solving) {
+        args = bruteForceAlg(args.sudoku, args.p, args.cursor, args.blankBoxes);
+        if (args.done) {
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    if (solving) {
+      setPuzzleNumbers(args.sudoku);
+      if (!args.done) {
+        window.setTimeout(function() {bruteForceAlgLooper(args.sudoku, args.p, args.cursor, args.blankBoxes);}, 0);
+      } else {
+        solving = false;
+      }
+    }
   }
 };
 
@@ -471,7 +493,7 @@ let solvePuzzle = () => {
         sudokuStatus.textContent = "running phase 3: brute force...";
 
         // arguments: (puzzle, p, cursor, blankBoxes)
-        bruteForceAlg(deductionResult.puzzle, deductionResult.p, 0, blankBoxesArr);
+        bruteForceAlgLooper(deductionResult.puzzle, deductionResult.p, 0, blankBoxesArr);
       }
     } else {
       let endDate = new Date();
