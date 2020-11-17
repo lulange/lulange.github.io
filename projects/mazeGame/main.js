@@ -17,6 +17,14 @@ ctx.textAlign = "center";
 *******************************/
 // global utility variable used to hold values that must be present from scene to scene
 const gameState = {
+	player: {
+		trailSpaces: [],
+		head: {x: 1, y: 1},
+		draw() {
+			// code that draws the player using the coordinates from the current maze
+		},
+	},
+
 	drawBackground(color) {
 		ctx.fillStyle = color;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -31,8 +39,8 @@ const gameState = {
 		if (direction === undefined || direction === null) {
 			direction = "forward";
 		}
-		this.transitionQuad.x = direction === "forward" ? -1800 : 1800;
 		this.transitionQuad.direction = direction;
+		this.transitionQuad.x = direction === "forward" ? -1800 : 1800;
 		this.transitionQuad.onTransition = function() {
 			game.runScene(mode);
 		};
@@ -41,7 +49,7 @@ const gameState = {
 
 	transitionQuad: {
 		x: -1800,
-		tranistioning: false,
+		transitioning: false,
 		direction: "forward",
 		onTransition: null,
 		draw() {
@@ -210,19 +218,31 @@ game.createScene("options", function(data) {
 });
 
 game.createScene("gameScene", function(data) {
-	gameState.maze = new Maze(ctx, 25, 20);
-	gameState.maze.x = Math.round((canvas.width - gameState.maze.getWidth(23, 4)) / 2);
+	gameState.maze = new Maze(ctx, 25, 21);
+	gameState.maze.x = Math.round(canvas.width - gameState.maze.getWidth(23, 4) - 15);
 	gameState.maze.y = Math.round((canvas.height - gameState.maze.getHeight(23, 4)) / 2);
+
+	gameState.text = [];
+	gameState.text.push(new Text("Change Mode", Math.round(gameState.maze.x/2), 60, gameState.colorScheme.textColor, "20px"));
+	gameState.text.push(new Text("Main Menu", Math.round(gameState.maze.x/2), 100, gameState.colorScheme.textColor, "20px"));
 }, function(data) {
 	gameState.drawBackground("black");
 	gameState.maze.display(gameState.maze.x, gameState.maze.y, 23, 4, gameState.colorScheme.textColor, "#000000");
+	gameState.text.forEach(text => {
+		if (text.isMouseOver()) {
+			text.color = gameState.colorScheme.textHighLightColor;
+		} else {
+			text.color = gameState.colorScheme.textColor;
+		}
+		text.draw();
+	});
 });
 
 /**********************
 * THE MOUSE UP LISTENER
 **********************/
 canvas.addEventListener("mouseup", (e) => {
-	if (gameState.transitionQuad.tranistioning === false) {
+	if (gameState.transitionQuad.transitioning === false) {
 		if (game.currScene === "mainMenu") {
 			gameState.text.forEach(text => {
 				if (text.color === gameState.colorScheme.textHighLightColor) {
@@ -244,6 +264,16 @@ canvas.addEventListener("mouseup", (e) => {
 						gameState.transitionTo("mainMenu", "back");
 					} else if (text.msg === "Free Play") {
 						gameState.transitionTo("gameScene");
+					}
+				}
+			});
+		}  else if (game.currScene === "gameScene") {
+			gameState.text.forEach(text => {
+				if (text.color === gameState.colorScheme.textHighLightColor) {
+					if (text.msg === "Change Mode") {
+						gameState.transitionTo("modeSelect", "back");
+					} else if (text.msg === "Main Menu") {
+						gameState.transitionTo("mainMenu", "back");
 					}
 				}
 			});

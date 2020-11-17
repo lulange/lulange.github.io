@@ -1,11 +1,9 @@
 class Maze {
-  constructor(ctx, width, height, randomness, start, end) {
+  constructor(ctx, width, height, randomness) {
     this._ctx = ctx;
     this._width = width || 10;
     this._height = height || this._width;
     this._randomness = randomness || 10;
-    this._start = start || {x: 0, y: 1};
-    this._end = end || {x: -1, y: -2};
     this._maze = [];
     let stack = [];
     for (let i=0; i<this._height*2 + 1; i++) {
@@ -79,21 +77,6 @@ class Maze {
           this._maze[possibleExt[randomNum].y][possibleExt[randomNum].x+1] = 0;
         }
         stack.push(possibleExt[randomNum]);
-      }
-    }
-
-    if (this._start.x >= this._maze[0].length || this._start.y >= this._maze.length || this._maze.length + this._end.y < 0 || this._maze[0].length + this._end.x < 0) {
-      console.log("invalid start/end object: exceeds the maze variable length");
-    } else {
-      if ((this._start.x+2) % 2 === 1 || (this._start.y+2) % 2 === 1) {
-        if (((this._end.x*-1)+2) % 2 === 1 || ((this._end.y*-1)+2) % 2 === 1) {
-          this._maze[this._start.y][this._start.x] = 0;
-          this._maze[this._maze.length+this._end.y][this._maze[0].length+this._end.x] = 0;
-        } else {
-          console.log("invalid start/end object: must contain an odd number");
-        }
-      } else {
-        console.log("invalid start/end object: must contain an odd number");
       }
     }
   }
