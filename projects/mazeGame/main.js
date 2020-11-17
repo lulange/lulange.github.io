@@ -21,7 +21,12 @@ const gameState = {
 		trailSpaces: [],
 		head: {x: 1, y: 1},
 		draw() {
-			// code that draws the player using the coordinates from the current maze
+			if (this.trailSpaces.length === 0) {
+				ctx.strokeStyle = gameState.colorScheme.textHighLightColor;
+				ctx.beginPath();
+				// ctx.moveTo();
+				ctx.stroke();
+			}
 		},
 	},
 
@@ -235,6 +240,7 @@ game.createScene("gameScene", function(data) {
 			text.color = gameState.colorScheme.textColor;
 		}
 		text.draw();
+		gameState.player.draw();
 	});
 });
 
