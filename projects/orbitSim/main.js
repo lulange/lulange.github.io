@@ -54,19 +54,21 @@ class Planet {
 };
 
 let planets = [];
-for (let i=0; i<2; i++) {
-	random: planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
+for (let i=0; i<100; i++) {
+	// random:planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
 	// descending size:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 4));
 	// descending velocity:planets.push(new Planet(8, 250, 300, 0, 5 - (i/100) * 5));
 	// both of the two above:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
 	// descending size and low start velocity:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 0.2));
-	// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
-
+	// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));
+	// descending size:planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
+	// perfect orbit:planets.push(new Planet(10, 350, 300, -0.1, 4.5));
 }
 
+let largest = 0;
 let draw = () => {
-	//ctx.fillStyle = "#000000";
-	//ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	sun.draw();
 
 	for (let i=0; i<planets.length; i++) {
