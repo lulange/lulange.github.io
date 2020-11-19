@@ -58,9 +58,9 @@ class Line {
 let lines = [];
 for (let i=0; i<35; i++) {
 	if (i%2 === 0) {
-		lines.push(new Line(350, 100, 200, 0, i+1));
+		lines.push(new Line(400, 300, 100, 0, i+1));
 	} else {
-		lines.push(new Line(550, 100, -200, 0, i+1));
+		lines.push(new Line(500, 300, -100, 0, i+1));
 	}
 }
 
