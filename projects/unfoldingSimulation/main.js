@@ -11,7 +11,9 @@ canvasParent.appendChild(canvas);
 // global context variable
 const ctx = canvas.getContext("2d");
 ctx.textAlign = "center";
-
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+let speedSelector = document.getElementById("speed");
 let angle = 0;
 
 class Line {
@@ -24,7 +26,6 @@ class Line {
 		this.slope = slope;
 		this.anglePlusPlus = aPP;
 	}
-
 	setX2Y2() {
 		if ((angle * this.anglePlusPlus) % 360 < 90) {
 			let run = this.dist / Math.sqrt(this.slope**2 + 1);
@@ -67,22 +68,19 @@ for (let i=0; i<35; i++) {
 let draw = () => {
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 	let slopeOfLine = null;
 	ctx.strokeStyle = "#FF00FF";
+	ctx.lineWidth = 2;
 	for (let i=0; i<lines.length; i++) {
 		if (slopeOfLine === null) {
 			lines[i].slope = Math.tan(angle * Math.PI / 180);
 		} else {
 			lines[i].x1 = lines[i-1].x2;
 			lines[i].y1 = lines[i-1].y2;
-			if (Math.atan(slopeOfLine) + (angle * Math.PI / 180) === 90 || Math.atan(slopeOfLine) + (angle * Math.PI / 180) === 270) {
-				if (i === 0) {
-					console.log(Math.atan(slopeOfLine) + (angle * Math.PI / 180));
-				}
-				lines[i].slope = Math.tan(Math.atan(slopeOfLine) + (angle * Math.PI / 180) + 0.1);
+			if ((angle * lines[i].anglePlusPlus) * Math.PI / 180 === 90 || (angle * lines[i].anglePlusPlus) * Math.PI / 180 === 270) {
+				lines[i].slope = Math.tan(((angle * lines[i].anglePlusPlus) * Math.PI / 180) + 0.1);
 			} else {
-				lines[i].slope = Math.tan(Math.atan(slopeOfLine) + (angle * Math.PI / 180));
+				lines[i].slope = Math.tan((angle * lines[i].anglePlusPlus) * Math.PI / 180);
 			}
 		}
 		slopeOfLine = lines[i].slope;
@@ -93,7 +91,7 @@ let draw = () => {
 		ctx.stroke();
 	}
 
-	angle += 0.01;
+	angle += speedSelector.value / 1000;
 	if (angle === 360) {
 		angle = 0;
 	}
