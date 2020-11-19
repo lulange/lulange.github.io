@@ -93,7 +93,7 @@ let draw = () => {
 		ctx.stroke();
 	}
 
-	angle += 0.01;
+	angle += 0.05;
 	if (angle === 360) {
 		angle = 0;
 	}
