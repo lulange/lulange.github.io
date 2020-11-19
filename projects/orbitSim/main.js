@@ -65,17 +65,26 @@ for (let i=0; i<100; i++) {
 	// perfect orbit:planets.push(new Planet(10, 350, 300, -0.1, 4.5));
 }
 
-let largest = 0;
+let drawBetweenPlanets = () => {
+	ctx.strokeStyle = "#00FF00";
+	for (let i=0; i<planets.length-1; i++) {
+		ctx.beginPath();
+		ctx.moveTo(planets[i].x, planets[i].y);
+		ctx.lineTo(planets[i+1].x, planets[i+1].y);
+		ctx.stroke();
+	}
+};
 let draw = () => {
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	sun.draw();
+	//sun.draw();
 
 	for (let i=0; i<planets.length; i++) {
-		planets[i].draw();
+		//planets[i].draw();
 		planets[i].gravitise();
 		planets[i].update();
 	}
+	drawBetweenPlanets();
 };
 
 window.setInterval(draw, 10);
