@@ -18,13 +18,27 @@ ctx.textAlign = "center";
 // global utility variable used to hold values that must be present from scene to scene
 const gameState = {
 	player: {
-		trailSpaces: [],
-		head: {x: 1, y: 1},
+		trailSpaces: [{x: 3, y: 1}],
+		start: {x: 1, y: 1},
+		color: "#FF0000",
 		draw() {
-			if (this.trailSpaces.length === 0) {
-				ctx.strokeStyle = gameState.colorScheme.textHighLightColor;
+			ctx.fillStyle = this.color;
+			ctx.beginPath();
+			let startCoor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.start.x, this.start.y);
+			ctx.arc(startCoor.x + 12, startCoor.y + 12, 9, 0, 2*Math.PI);
+			ctx.fill();
+
+			if (this.trailSpaces.length !== 0) {
+				ctx.lineWidth = 15;
+				ctx.lineJoin = "round";
+				ctx.lineCap = "round";
+				ctx.strokeStyle = this.color;
 				ctx.beginPath();
-				// ctx.moveTo();
+				ctx.moveTo(startCoor.x + 12, startCoor.y + 12);
+				for (let i=0; i<this.trailSpaces.length; i++) {
+					let coor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 23, 4, this.trailSpaces[i].x, this.trailSpaces[i].y)
+					ctx.lineTo(coor.x + 12, coor.y + 12);
+				}
 				ctx.stroke();
 			}
 		},
@@ -224,15 +238,15 @@ game.createScene("options", function(data) {
 
 game.createScene("gameScene", function(data) {
 	gameState.maze = new Maze(ctx, 25, 21);
-	gameState.maze.x = Math.round(canvas.width - gameState.maze.getWidth(23, 4) - 15);
-	gameState.maze.y = Math.round((canvas.height - gameState.maze.getHeight(23, 4)) / 2);
+	gameState.maze.x = Math.round(canvas.width - gameState.maze.getWidth(24, 4) - Math.round((canvas.height - gameState.maze.getHeight(24, 4)) / 2));
+	gameState.maze.y = Math.round((canvas.height - gameState.maze.getHeight(24, 4)) / 2);
 
 	gameState.text = [];
 	gameState.text.push(new Text("Change Mode", Math.round(gameState.maze.x/2), 60, gameState.colorScheme.textColor, "20px"));
 	gameState.text.push(new Text("Main Menu", Math.round(gameState.maze.x/2), 100, gameState.colorScheme.textColor, "20px"));
 }, function(data) {
 	gameState.drawBackground("black");
-	gameState.maze.display(gameState.maze.x, gameState.maze.y, 23, 4, gameState.colorScheme.textColor, "#000000");
+	gameState.maze.display(gameState.maze.x, gameState.maze.y, 24, 4, gameState.colorScheme.textColor, "#000000");
 	gameState.text.forEach(text => {
 		if (text.isMouseOver()) {
 			text.color = gameState.colorScheme.textHighLightColor;
