@@ -192,3 +192,8 @@ header a:hover {
    display: none;
   }
 }
+
+article div table {
+  text-align: center;
+  margin: 0px auto;
+}

@@ -40,6 +40,61 @@
           </div>
         </article>
 
+        <article>
+          <header>
+            Options
+          </header>
+          <div>
+            <table>
+              <tr>
+                <th>Velocity</th>
+                <th>Distance</th>
+                <th>Size</th>
+              </tr>
+              <tr>
+                <td>
+                  <label for="initial-veloctity">Initial Velocity (0 - 5):</label>
+                  <br>
+                  <input type="range" id="initial-veloctity" />
+                </td>
+                <td>
+                  <label for="initial-distance">Initial Distance (0 - 400):</label>
+                  <br>
+                  <input type="range" id="initial-distance" />
+                </td>
+                <td>
+                  <label for="initial-size">Initial Size (1 - 10):</label>
+                  <br>
+                  <input type="range" id="initial-size" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="radio" id="decreasing-veloctity" name="velocityUpDown" value="down"/>
+                  <label for="decreasing-veloctity">Decreasing Velocity:</label>
+                  <br>
+                  <input type="radio" id="increasing-veloctity" name="velocityUpDown" value="up"/>
+                  <label for="increasing-veloctity">Increasing Velocity:</label>
+                </td>
+                <td>
+                  <input type="radio" id="decreasing-distance" name="distanceUpDown" value="down"/>
+                  <label for="decreasing-distance">Decreasing Distance:</label>
+                  <br>
+                  <input type="radio" id="increasing-distance" name="distanceUpDown" value="up"/>
+                  <label for="increasing-distance">Increasing Distance:</label>
+                </td>
+                <td>
+                  <input type="radio" id="decreasing-size" name="sizeUpDown" value="down"/>
+                  <label for="decreasing-size">Decreasing Size:</label>
+                  <br>
+                  <input type="radio" id="increasing-size" name="sizeUpDown" value="up"/>
+                  <label for="increasing-size">Increasing Size:</label>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </article>
+
         <div id="canvas-wrapper"></div>
 
         <article id="alt-text">

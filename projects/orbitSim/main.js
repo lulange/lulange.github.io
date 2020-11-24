@@ -11,6 +11,8 @@ canvasParent.appendChild(canvas);
 // global context variable
 const ctx = canvas.getContext("2d");
 ctx.textAlign = "center";
+ctx.fillStyle = "#000000";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 let sun = {
 	width: 50,
@@ -53,19 +55,6 @@ class Planet {
 	}
 };
 
-let planets = [];
-for (let i=0; i<100; i++) {
-	// random:planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
-	// descending size:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 4));
-	// descending velocity:planets.push(new Planet(8, 250, 300, 0, 5 - (i/100) * 5));
-	// both of the two above:
-	planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
-	// descending size and low start velocity:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 0.2));
-	// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));
-	// descending size:planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
-	// perfect orbit:planets.push(new Planet(10, 350, 300, -0.1, 4.5));
-}
-
 let drawBetweenPlanets = () => {
 	ctx.strokeStyle = "#00FF00";
 	ctx.lineWidth = 2;
@@ -76,17 +65,44 @@ let drawBetweenPlanets = () => {
 		ctx.stroke();
 	}
 };
-let draw = () => {
-	ctx.fillStyle = "#000000";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	sun.draw();
 
-	for (let i=0; i<planets.length; i++) {
-		planets[i].draw();
-		planets[i].gravitise();
-		planets[i].update();
+let planets, draw;
+let drawInterval = null;
+let setup = () => {
+	if (drawInterval !== null) {
+		window.clearInterval(drawInterval);
+		drawInterval = null;
 	}
-	drawBetweenPlanets();
+	planets = [];
+	for (let i=0; i<100; i++) {
+		// random:planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
+		// descending size:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 4));
+		// descending velocity:planets.push(new Planet(8, 250, 300, 0, 5 - (i/100) * 5));
+		// both of the two above:
+		planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
+		// descending size and low start velocity:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 0.2));
+		// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));
+		// descending size:planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
+		// perfect orbit:planets.push(new Planet(10, 350, 300, -0.1, 4.5));
+	}
+
+	draw = () => {
+		ctx.fillStyle = "#000000";
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		sun.draw();
+
+		for (let i=0; i<planets.length; i++) {
+			planets[i].draw();
+			planets[i].gravitise();
+			planets[i].update();
+		}
+		drawBetweenPlanets();
+	};
+
+	drawInterval = window.setInterval(draw, 10);
 };
 
-window.setInterval(draw, 10);
+let restartButton = document.getElementById("restart-button");
+restartButton.addEventListener("click", function() {
+	setup();
+});
