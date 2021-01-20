@@ -442,6 +442,8 @@ export default class EditScene extends Phaser.Scene {
         }
 
         localStorage.setItem("MG-ul" + this.levelNum, JSON.stringify(this.level));
+        // this is a temporary line for game dev purposes
+        console.log(JSON.stringify(this.level));
       }
     });
 
