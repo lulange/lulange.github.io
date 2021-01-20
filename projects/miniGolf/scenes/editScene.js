@@ -101,8 +101,6 @@ export default class EditScene extends Phaser.Scene {
       this.setFontSize(22);
       this.x += 1;
       this.y += 1;
-      // this is a temporary line for game dev purposes
-      console.log(JSON.stringify(localStorage.getItem("MG-ul" + this.levelNum)));
     });
 
     rightArrowButton.on("pointerup", function() {
