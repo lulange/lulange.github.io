@@ -4,7 +4,6 @@ export default class UserLevelsScene extends Phaser.Scene {
   }
 
   preload() {
-    console.log("anything");
   }
 
   create() {
@@ -206,6 +205,7 @@ export default class UserLevelsScene extends Phaser.Scene {
               }
             },
             onComplete: () => {
+              console.log(JSON.stringify(localStorage.getItem("MG-ul" + this.levelNum)));
               this.scene.scene.stop();
               this.scene.scene.start("EditScene", {
                 level: this.levelNum
