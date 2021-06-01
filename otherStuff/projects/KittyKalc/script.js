@@ -22,7 +22,12 @@ var updateKittyValue = function() {
   var percentOfHand2 = Math.round(((cardsInKitty + players)/(cardsInHand - 1)*10000))/100;
   document.getElementById("cards-in-kitty").innerHTML = `${cardsInKitty} or ${cardsInKitty + players}`;
   document.getElementById("cards-in-hand").innerHTML = `${cardsInHand} or ${cardsInHand - 1}`;
-  document.getElementById("percent-of-hand").innerHTML = `${percentOfHand1} or ${percentOfHand2}`;
+  document.getElementById("percent-of-hand").innerHTML = `${percentOfHand1}% or ${percentOfHand2}%`;
 };
 
-window.setInterval(updateKittyValue, 10);
+updateKittyValue();
+document.getElementById("players-option").addEventListener("change", updateKittyValue);
+let inputs = document.getElementsByTagName("INPUT");
+for (let i=0; i<inputs.length; i++) {
+  inputs[i].addEventListener("change", updateKittyValue);
+}
