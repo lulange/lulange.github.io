@@ -36,7 +36,7 @@
             Description
           </header>
           <div>
-            This is a sim that is still a work in progress.
+            This simple 2d orbit simulator spawns 100 planets when the start/restart button is pushed. the options determine the amazin' pattern you will see.
           </div>
         </article>
 
@@ -55,7 +55,7 @@
                 <td>
                   <label for="initial-veloctity">Initial Velocity (0 - 5):</label>
                   <br>
-                  <input type="range" id="initial-veloctity" />
+                  <input type="range" id="initial-velocity" />
                 </td>
                 <td>
                   <label for="initial-distance">Initial Distance (0 - 400):</label>
@@ -63,18 +63,21 @@
                   <input type="range" id="initial-distance" />
                 </td>
                 <td>
-                  <label for="initial-size">Initial Size (1 - 10):</label>
+                  <label for="initial-size">Initial Size (1 - 20):</label>
                   <br>
-                  <input type="range" id="initial-size" />
+                  <input type="range" id="initial-size" min="1"/>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input type="radio" id="decreasing-veloctity" name="velocityUpDown" value="down"/>
+                  <input type="radio" id="decreasing-velocity" name="velocityUpDown" value="down"/>
                   <label for="decreasing-veloctity">Decreasing Velocity:</label>
                   <br>
-                  <input type="radio" id="increasing-veloctity" name="velocityUpDown" value="up"/>
+                  <input type="radio" id="increasing-velocity" name="velocityUpDown" value="up"/>
                   <label for="increasing-veloctity">Increasing Velocity:</label>
+                  <br>
+                  <input type="radio" id="no-velocity" name="velocityUpDown" value="no"/>
+                  <label for="no-veloctity">No Velocity Change:</label>
                 </td>
                 <td>
                   <input type="radio" id="decreasing-distance" name="distanceUpDown" value="down"/>
@@ -82,6 +85,9 @@
                   <br>
                   <input type="radio" id="increasing-distance" name="distanceUpDown" value="up"/>
                   <label for="increasing-distance">Increasing Distance:</label>
+                  <br>
+                  <input type="radio" id="no-distance" name="distanceUpDown" value="no"/>
+                  <label for="no-distance">No Distance Change:</label>
                 </td>
                 <td>
                   <input type="radio" id="decreasing-size" name="sizeUpDown" value="down"/>
@@ -89,6 +95,9 @@
                   <br>
                   <input type="radio" id="increasing-size" name="sizeUpDown" value="up"/>
                   <label for="increasing-size">Increasing Size:</label>
+                  <br>
+                  <input type="radio" id="no-size" name="sizeUpDown" value="no"/>
+                  <label for="no-size">No Size Change:</label>
                 </td>
               </tr>
             </table>
@@ -96,6 +105,13 @@
         </article>
 
         <div id="canvas-wrapper"></div>
+
+        <input type="checkbox" name="connected-planets" id="connected-planets" />
+        <label for="connected-planets">connect the planets</label>
+        <br>
+        <br>
+
+        <button type="button" name="restart-button" id="restart-button">start / restart</button>
 
         <article id="alt-text">
           <div>

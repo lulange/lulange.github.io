@@ -13,6 +13,10 @@ const ctx = canvas.getContext("2d");
 ctx.textAlign = "center";
 ctx.fillStyle = "#000000";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+// input SETUP (the inputs need to start with a preselcted value)
+document.getElementById("increasing-velocity").checked = true;
+document.getElementById("increasing-distance").checked = true;
+document.getElementById("increasing-size").checked = true
 
 let sun = {
 	width: 50,
@@ -74,12 +78,30 @@ let setup = () => {
 		drawInterval = null;
 	}
 	planets = [];
+	// this section is a little messy since I didn't want to redo it all when I added options
+	let initialVelocity = document.getElementById("initial-velocity").value / 20;
+	let initialDistance = document.getElementById("initial-distance").value * 4;
+	let initialWidth = document.getElementById("initial-size").value / 5;
+	let velocityNegative = document.getElementById("increasing-velocity").checked ? 1 : -1;
+	let distanceNegative = document.getElementById("increasing-distance").checked ? 1 : -1;
+	let widthNegative = document.getElementById("increasing-size").checked ? 1 : -1;
+	if (document.getElementById("no-velocity").checked) {
+		velocityNegative = 0;
+	}
+	if (document.getElementById("no-distance").checked) {
+		distanceNegative = 0;
+	}
+	if (document.getElementById("no-size").checked) {
+		widthNegative = 0;
+	}
 	for (let i=0; i<100; i++) {
+		// Planet(width, x, y, vX, vY)
+		planets.push(new Planet(initialWidth + (i/100) * initialWidth * widthNegative, (initialDistance + canvas.width/2) + (i/100) * initialDistance * distanceNegative, 300, 0, initialVelocity + (i/100) * initialVelocity * velocityNegative));
 		// random:planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
 		// descending size:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 4));
 		// descending velocity:planets.push(new Planet(8, 250, 300, 0, 5 - (i/100) * 5));
 		// both of the two above:
-		planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
+		//planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
 		// descending size and low start velocity:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 0.2));
 		// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));
 		// descending size:planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
@@ -96,7 +118,9 @@ let setup = () => {
 			planets[i].gravitise();
 			planets[i].update();
 		}
-		drawBetweenPlanets();
+		if (document.getElementById("connected-planets").checked) {
+			drawBetweenPlanets();
+		}
 	};
 
 	drawInterval = window.setInterval(draw, 10);
