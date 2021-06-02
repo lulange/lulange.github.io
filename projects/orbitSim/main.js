@@ -97,14 +97,6 @@ let setup = () => {
 	for (let i=0; i<100; i++) {
 		// Planet(width, x, y, vX, vY)
 		planets.push(new Planet(initialWidth + (i/100) * initialWidth * widthNegative, (initialDistance + canvas.width/2) + (i/100) * initialDistance * distanceNegative, 300, 0, initialVelocity + (i/100) * initialVelocity * velocityNegative));
-		// random:planets.push(new Planet(Math.random() * 8 + 2, Math.random()*300, 300, 0, Math.random()*4 + 2));
-		// descending size:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 4));
-		// descending velocity:planets.push(new Planet(8, 250, 300, 0, 5 - (i/100) * 5));
-		// both of the two above:
-		//planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 5 - (i/100) * 5));
-		// descending size and low start velocity:planets.push(new Planet(8 - (i/100) * 8, 250, 300, 0, 0.2));
-		// descending size and descending x coor with low start velocity:planets.push(new Planet(8 - (i/100) * 8, 300 - (i/100) * 200, 300, 0, 0.2));
-		// descending size:planets.push(new Planet(8, 300 - (i/100) * 200, 300, 0, 5));
 		// perfect orbit:planets.push(new Planet(10, 350, 300, -0.1, 4.5));
 	}
 
@@ -123,6 +115,9 @@ let setup = () => {
 		}
 	};
 
+	if (drawInterval !== undefined) {
+		window.clearInterval(drawInterval);
+	}
 	drawInterval = window.setInterval(draw, 10);
 };
 
