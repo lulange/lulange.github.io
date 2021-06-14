@@ -36,13 +36,13 @@ class Planet {
 		this.x += this.velocity.x;
 		this.y += this.velocity.y;
 	}
-	/*gravitise() {
-	 	let xDiff = sun.x - this.x;
-	 	let yDiff = sun.y - this.y;
+	gravitise(celestialBody) {
+		let xDiff = celestialBody.x - this.x;
+	 	let yDiff = celestialBody.y - this.y;
 		let dist = Math.sqrt(xDiff**2 + yDiff**2);
-		this.velocity.x += xDiff * (this.width/sun.width) / dist;
-		this.velocity.y += yDiff * (this.width/sun.width) / dist;
-	}*/ //this is the function that I need to expand
+		this.velocity.x += xDiff * (celestialBody.width/this.width) / dist / 10;
+		this.velocity.y += yDiff * (celestialBody.width/this.width) / dist / 10;
+	}
 };
 
 let drawBetweenPlanets = () => {
@@ -64,8 +64,11 @@ let setup = () => {
 		drawInterval = null;
 	}
 	planets = [];
+	// add planets
 	// width, x, y, vX, vY
-	planets.push(new Planet());
+	planets.push(new Planet(30, 200, 200, 0, 0));
+	planets.push(new Planet(15, 600, 400, 0, 0));
+	planets.push(new Planet(15, 700, 100, 0, 0));
 
 	// looping function for updating and drawing
 	draw = () => {
@@ -74,8 +77,12 @@ let setup = () => {
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 		// update planets in two steps: first set all velocities based on other planets locations. then update and draw
-		for (let i=0; i<planets.length; i++) {
-			//planets[i].gravitise(); being worked on
+		for (let q=0; q<planets.length; q++) {
+			for (let k=0; k<planets.length; k++) {
+				if (q !== k) {
+					planets[q].gravitise(planets[k]);
+				}
+			}
 		}
 
 		for (let i=0; i<planets.length; i++) {
@@ -87,9 +94,6 @@ let setup = () => {
 
 	};
 
-	if (drawInterval !== undefined) {
-		window.clearInterval(drawInterval);
-	}
 	drawInterval = window.setInterval(draw, 10);
 };
 
