@@ -54,8 +54,8 @@ class Planet {
 	 	let xDiff = sun.x - this.x;
 	 	let yDiff = sun.y - this.y;
 		let dist = Math.sqrt(xDiff**2 + yDiff**2);
-		this.velocity.x += xDiff * (this.width/sun.width) / dist;
-		this.velocity.y += yDiff * (this.width/sun.width) / dist;
+		this.velocity.x += xDiff * (sun.width/this.width) / dist;
+		this.velocity.y += yDiff * (sun.width/this.width) / dist;
 	}
 };
 
