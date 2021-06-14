@@ -114,10 +114,6 @@ let setup = () => {
 			drawBetweenPlanets();
 		}
 	};
-
-	if (drawInterval !== undefined) {
-		window.clearInterval(drawInterval);
-	}
 	drawInterval = window.setInterval(draw, 10);
 };
 
