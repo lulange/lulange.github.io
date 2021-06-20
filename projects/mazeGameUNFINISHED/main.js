@@ -18,8 +18,12 @@ ctx.textAlign = "center";
 // global utility variable used to hold values that must be present from scene to scene
 const gameState = {
 	player: {
+		// this refers to whether or not the player is controlling the player
+		isActive: false,
 		trailSpaces: [{x: 3, y: 1}],
+		// the start space will have a circle drawn on it
 		start: {x: 1, y: 1},
+		// this is red
 		color: "#FF0000",
 		draw() {
 			ctx.fillStyle = this.color;
@@ -40,6 +44,11 @@ const gameState = {
 					ctx.lineTo(coor.x + 12, coor.y + 12);
 				}
 				ctx.stroke();
+			}
+		},
+		update() {
+			if (this.isActive === true) {
+
 			}
 		},
 	},
@@ -120,8 +129,11 @@ class Game {
 			window.clearInterval(this.sceneInterval);
 			this.sceneInterval = null;
 		}
+		// a sorting function to find the correct scene
 		const isCorrectKey = (scene) => {return scene.key === key};
+		// The function that finds the correct index using the sorting function above
 		const sceneIndex = this.scenes.findIndex(isCorrectKey);
+		// the scene found
 		let scene = this.scenes[sceneIndex];
 		this.currScene = scene.key;
 		scene.startupFunction(data);
@@ -148,9 +160,13 @@ class Game {
 	}
 
 	deleteScene(key) {
-		const isCorrectKey = (scene) => {return scene.key === key};
-		const sceneIndex = this.scenes.findIndex(isCorrectKey);
-		this.scenes.splice(sceneIndex, 1);
+		if (this.currScene === key) {
+			console.log("Cannot delete the current scene!");
+		} else {
+			const isCorrectKey = (scene) => {return scene.key === key};
+			const sceneIndex = this.scenes.findIndex(isCorrectKey);
+			this.scenes.splice(sceneIndex, 1);
+		}
 	}
 }
 
@@ -255,6 +271,7 @@ game.createScene("gameScene", function(data) {
 		}
 		text.draw();
 		gameState.player.draw();
+		gameState.player.update();
 	});
 });
 
@@ -263,6 +280,7 @@ game.createScene("gameScene", function(data) {
 **********************/
 canvas.addEventListener("mouseup", (e) => {
 	if (gameState.transitionQuad.transitioning === false) {
+		// THE MAIN MENU
 		if (game.currScene === "mainMenu") {
 			gameState.text.forEach(text => {
 				if (text.color === gameState.colorScheme.textHighLightColor) {
@@ -301,5 +319,15 @@ canvas.addEventListener("mouseup", (e) => {
 	}
 });
 
-// kick off line
+/**********************
+* THE MOUSE DOWN LISTENER
+**********************/
+canvas.addEventListener("mousedown", (e) => {
+	if (game.currScene === "gameScene") {
+		// in development
+		console.log(gameState.maze.getMazeCoor(gameState.maze.x, gameState.maze.y, 24, 4, gameState.mouse.x, gameState.mouse.y));
+	}
+});
+
+// THE KICK OFF LINE
 game.runScene("mainMenu");

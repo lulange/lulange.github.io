@@ -129,6 +129,11 @@ class Maze {
     return {x: startX + (x+1)/2 * wallWidth + (x-1)/2 * boxWidth, y: startY + (y+1)/2 * wallWidth + (y-1)/2 * boxWidth};
   }
 
+  // to work on
+  getMazeCoor(startX, startY, boxWidth, wallWidth, x, y) {
+    return {x: (2*x - 2*startX - wallWidth + boxWidth) / (wallWidth + boxWidth), y: (2*y - 2*startY - wallWidth + boxWidth) / (wallWidth + boxWidth)};
+  }
+
   get ctx() {
     return this._ctx;
   }
