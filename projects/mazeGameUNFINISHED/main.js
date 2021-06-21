@@ -20,15 +20,13 @@ const gameState = {
 	player: {
 		// this refers to whether or not the player is controlling the player
 		isActive: false,
-		trailSpaces: [{x: 3, y: 1}],
-		// the start space will have a circle drawn on it
-		start: {x: 1, y: 1},
+		trailSpaces: [{x: 1, y: 1}],
 		// this is red
 		color: "#FF0000",
 		draw() {
 			ctx.fillStyle = this.color;
 			ctx.beginPath();
-			let startCoor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.start.x, this.start.y);
+			let startCoor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.trailSpaces[0].x, this.trailSpaces[0].y);
 			ctx.arc(startCoor.x + 12, startCoor.y + 12, 9, 0, 2*Math.PI);
 			ctx.fill();
 
@@ -40,7 +38,7 @@ const gameState = {
 				ctx.beginPath();
 				ctx.moveTo(startCoor.x + 12, startCoor.y + 12);
 				for (let i=0; i<this.trailSpaces.length; i++) {
-					let coor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 23, 4, this.trailSpaces[i].x, this.trailSpaces[i].y)
+					let coor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.trailSpaces[i].x, this.trailSpaces[i].y)
 					ctx.lineTo(coor.x + 12, coor.y + 12);
 				}
 				ctx.stroke();
@@ -101,6 +99,25 @@ const gameState = {
 canvas.addEventListener("mousemove", (event) => {
 	gameState.mouse.x = event.offsetX;
 	gameState.mouse.y = event.offsetY;
+	if (game.currScene === "gameScene") {
+		let mazeSpace = gameState.maze.getMazeCoor(gameState.maze.x, gameState.maze.y, 24, 4, gameState.mouse.x, gameState.mouse.y);
+		gameState.mouse.mazeCoor = {
+			x: mazeSpace.x,
+			y: mazeSpace.y
+		};
+		if (gameState.player.isActive === true) {
+			let endTrailSpace = gameState.player.trailSpaces[gameState.player.trailSpaces.length - 1];
+			if (((gameState.mouse.mazeCoor.x === endTrailSpace.x + 2 || gameState.mouse.mazeCoor.x === endTrailSpace.x - 2) && gameState.mouse.mazeCoor.y === endTrailSpace.y) || ((gameState.mouse.mazeCoor.y === endTrailSpace.y + 2 || gameState.mouse.mazeCoor.y === endTrailSpace.y - 2) && gameState.mouse.mazeCoor.x === endTrailSpace.x)) {
+				let verificationFunction = (s) => {return gameState.mouse.mazeCoor.x === s.x && gameState.mouse.mazeCoor.y === s.y};
+				let indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+				if (indexOfTrailSpace !== -1) {
+					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+				} else if (gameState.mouse.mazeCoor.x > -1 && gameState.mouse.mazeCoor.y > -1) {
+					gameState.player.trailSpaces.push({x: gameState.mouse.mazeCoor.x, y: gameState.mouse.mazeCoor.y});
+				}
+			}
+		}
+	}
 });
 
 /***********************
@@ -279,6 +296,7 @@ game.createScene("gameScene", function(data) {
 * THE MOUSE UP LISTENER
 **********************/
 canvas.addEventListener("mouseup", (e) => {
+	gameState.player.isActive = false;
 	if (gameState.transitionQuad.transitioning === false) {
 		// THE MAIN MENU
 		if (game.currScene === "mainMenu") {
@@ -324,8 +342,12 @@ canvas.addEventListener("mouseup", (e) => {
 **********************/
 canvas.addEventListener("mousedown", (e) => {
 	if (game.currScene === "gameScene") {
-		// in development
-		console.log(gameState.maze.getMazeCoor(gameState.maze.x, gameState.maze.y, 24, 4, gameState.mouse.x, gameState.mouse.y));
+		let verificationFunction = (s) => {return gameState.mouse.mazeCoor.x === s.x && gameState.mouse.mazeCoor.y === s.y};
+		let indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+		if (indexOfTrailSpace !== -1) {
+			gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+			gameState.player.isActive = true;
+		}
 	}
 });
 
