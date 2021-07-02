@@ -21,6 +21,7 @@ const gameState = {
 		// this refers to whether or not the player is controlling the player
 		isActive: false,
 		trailSpaces: [{x: 1, y: 1}],
+		endSpace: {x: 49, y: 41},
 		// this is red
 		color: "#FF0000",
 		draw() {
@@ -28,6 +29,10 @@ const gameState = {
 			ctx.beginPath();
 			let startCoor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.trailSpaces[0].x, this.trailSpaces[0].y);
 			ctx.arc(startCoor.x + 12, startCoor.y + 12, 9, 0, 2*Math.PI);
+			ctx.fill();
+			ctx.beginPath();
+			let endCoor = gameState.maze.getPixelCoor(gameState.maze.x, gameState.maze.y, 24, 4, this.endSpace.x, this.endSpace.y);
+			ctx.arc(endCoor.x + 12, endCoor.y + 12, 9, 0, 2*Math.PI);
 			ctx.fill();
 
 			if (this.trailSpaces.length !== 0) {
@@ -42,11 +47,6 @@ const gameState = {
 					ctx.lineTo(coor.x + 12, coor.y + 12);
 				}
 				ctx.stroke();
-			}
-		},
-		update() {
-			if (this.isActive === true) {
-
 			}
 		},
 	},
@@ -113,10 +113,85 @@ canvas.addEventListener("mousemove", (event) => {
 				if (indexOfTrailSpace !== -1) {
 					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
 				} else if (gameState.mouse.mazeCoor.x > -1 && gameState.mouse.mazeCoor.y > -1) {
-					gameState.player.trailSpaces.push({x: gameState.mouse.mazeCoor.x, y: gameState.mouse.mazeCoor.y});
+					if ((gameState.mouse.mazeCoor.x === endTrailSpace.x + 2 && gameState.maze.maze[gameState.mouse.mazeCoor.y][gameState.mouse.mazeCoor.x-1] !== 1) ||
+					 (gameState.mouse.mazeCoor.x === endTrailSpace.x - 2 && gameState.maze.maze[gameState.mouse.mazeCoor.y][gameState.mouse.mazeCoor.x+1] !== 1) ||
+					  (gameState.mouse.mazeCoor.y === endTrailSpace.y + 2 && gameState.maze.maze[gameState.mouse.mazeCoor.y-1][gameState.mouse.mazeCoor.x] !== 1) ||
+						 (gameState.mouse.mazeCoor.y === endTrailSpace.y - 2 && gameState.maze.maze[gameState.mouse.mazeCoor.y+1][gameState.mouse.mazeCoor.x] !== 1)) {
+						gameState.player.trailSpaces.push({x: gameState.mouse.mazeCoor.x, y: gameState.mouse.mazeCoor.y});
+						if (gameState.mouse.mazeCoor.x === gameState.player.endSpace.x && gameState.mouse.mazeCoor.y === gameState.player.endSpace.y) {
+							console.log("ACTIVATE super win scene");
+						}
+					}
 				}
 			}
 		}
+	}
+});
+
+document.body.addEventListener("keypress", (event) => {
+	let endTrailSpace = gameState.player.trailSpaces[gameState.player.trailSpaces.length - 1];
+	let verificationFunction, indexOfTrailSpace;
+	let key = event.key.toLowerCase();
+	switch (key) {
+		case "d":
+			if (gameState.maze.maze[endTrailSpace.y][endTrailSpace.x+1] !== 1) {
+				verificationFunction = (s) => {return endTrailSpace.x+2 === s.x && endTrailSpace.y === s.y};
+				indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+				if (indexOfTrailSpace !== -1) {
+					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+				} else {
+					gameState.player.trailSpaces.push({x: endTrailSpace.x+2, y: endTrailSpace.y});
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						console.log("ACTIVATE super win scene");
+					}
+				}
+			}
+			break;
+
+		case "w":
+			if (gameState.maze.maze[endTrailSpace.y-1][endTrailSpace.x] !== 1) {
+				verificationFunction = (s) => {return endTrailSpace.x === s.x && endTrailSpace.y-2 === s.y};
+				indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+				if (indexOfTrailSpace !== -1) {
+					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+				} else {
+					gameState.player.trailSpaces.push({x: endTrailSpace.x, y: endTrailSpace.y-2});
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						console.log("ACTIVATE super win scene");
+					}
+				}
+			}
+			break;
+
+		case "s":
+			if (gameState.maze.maze[endTrailSpace.y+1][endTrailSpace.x] !== 1) {
+				verificationFunction = (s) => {return endTrailSpace.x === s.x && endTrailSpace.y+2 === s.y};
+				indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+				if (indexOfTrailSpace !== -1) {
+					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+				} else {
+					gameState.player.trailSpaces.push({x: endTrailSpace.x, y: endTrailSpace.y+2});
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						console.log("ACTIVATE super win scene");
+					}
+				}
+			}
+			break;
+
+		case "a":
+			if (gameState.maze.maze[endTrailSpace.y][endTrailSpace.x-1] !== 1) {
+				verificationFunction = (s) => {return endTrailSpace.x-2 === s.x && endTrailSpace.y === s.y};
+				indexOfTrailSpace = gameState.player.trailSpaces.findIndex(verificationFunction);
+				if (indexOfTrailSpace !== -1) {
+					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
+				} else {
+					gameState.player.trailSpaces.push({x: endTrailSpace.x-2, y: endTrailSpace.y});
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						console.log("ACTIVATE super win scene");
+					}
+				}
+			}
+			break;
 	}
 });
 
@@ -288,7 +363,6 @@ game.createScene("gameScene", function(data) {
 		}
 		text.draw();
 		gameState.player.draw();
-		gameState.player.update();
 	});
 });
 
