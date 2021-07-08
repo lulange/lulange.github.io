@@ -119,7 +119,7 @@ canvas.addEventListener("mousemove", (event) => {
 						 (gameState.mouse.mazeCoor.y === endTrailSpace.y - 2 && gameState.maze.maze[gameState.mouse.mazeCoor.y+1][gameState.mouse.mazeCoor.x] !== 1)) {
 						gameState.player.trailSpaces.push({x: gameState.mouse.mazeCoor.x, y: gameState.mouse.mazeCoor.y});
 						if (gameState.mouse.mazeCoor.x === gameState.player.endSpace.x && gameState.mouse.mazeCoor.y === gameState.player.endSpace.y) {
-							console.log("ACTIVATE super win scene");
+							game.runScene("winScene");
 						}
 					}
 				}
@@ -141,8 +141,8 @@ document.body.addEventListener("keypress", (event) => {
 					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
 				} else {
 					gameState.player.trailSpaces.push({x: endTrailSpace.x+2, y: endTrailSpace.y});
-					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
-						console.log("ACTIVATE super win scene");
+					if (endTrailSpace.x+2 === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						game.runScene("winScene");
 					}
 				}
 			}
@@ -156,8 +156,8 @@ document.body.addEventListener("keypress", (event) => {
 					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
 				} else {
 					gameState.player.trailSpaces.push({x: endTrailSpace.x, y: endTrailSpace.y-2});
-					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
-						console.log("ACTIVATE super win scene");
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y-2 === gameState.player.endSpace.y) {
+						game.runScene("winScene");
 					}
 				}
 			}
@@ -171,8 +171,8 @@ document.body.addEventListener("keypress", (event) => {
 					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
 				} else {
 					gameState.player.trailSpaces.push({x: endTrailSpace.x, y: endTrailSpace.y+2});
-					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
-						console.log("ACTIVATE super win scene");
+					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y+2 === gameState.player.endSpace.y) {
+						game.runScene("winScene");
 					}
 				}
 			}
@@ -186,8 +186,8 @@ document.body.addEventListener("keypress", (event) => {
 					gameState.player.trailSpaces.splice(indexOfTrailSpace + 1, gameState.player.trailSpaces.length - indexOfTrailSpace + 1);
 				} else {
 					gameState.player.trailSpaces.push({x: endTrailSpace.x-2, y: endTrailSpace.y});
-					if (endTrailSpace.x === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
-						console.log("ACTIVATE super win scene");
+					if (endTrailSpace.x-2 === gameState.player.endSpace.x && endTrailSpace.y === gameState.player.endSpace.y) {
+						game.runScene("winScene");
 					}
 				}
 			}
@@ -364,6 +364,15 @@ game.createScene("gameScene", function(data) {
 		text.draw();
 		gameState.player.draw();
 	});
+});
+
+game.createScene("winScene", function(data) {
+
+}, function(data) {
+	ctx.fillStyle = "black";
+	ctx.fillRect(200, 200, 500, 200);
+	ctx.strokeStyle = "FF0000";
+	ctx.strokeRect(200, 200, 500, 200);
 });
 
 /**********************
