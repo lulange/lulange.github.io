@@ -302,7 +302,7 @@ const game = new Game();
 // main menu scene
 game.createScene("mainMenu", function(data) {
 	gameState.text = [];
-	gameState.text.push(new Text("Maze Game", canvas.width/2, 200, gameState.colorScheme.textColor, "100px"));
+	gameState.text.push(new Text("Snake Mazes", canvas.width/2, 200, gameState.colorScheme.textColor, "100px"));
 	gameState.text.push(new Text("1 Player", canvas.width/2, 300, gameState.colorScheme.textColor, "50px"));
 	gameState.text.push(new Text("2 Player", canvas.width/2, 375, gameState.colorScheme.textColor, "50px"));
 	gameState.text.push(new Text("Options", canvas.width/2, 450, gameState.colorScheme.textColor, "50px"));
@@ -363,16 +363,30 @@ game.createScene("gameScene", function(data) {
 		}
 		text.draw();
 		gameState.player.draw();
+		// THIS IS FOR TESTING REMOVE WHEN DONE TESTING
+		game.runScene("winScene");
 	});
 });
 
 game.createScene("winScene", function(data) {
-
+	gameState.player.draw();
+	gameState.text = [];
+	let encouragingMsgs = ["Well Done!", "Bravo!", "Epic!", "Wow!", "Incredible!"];
+	let msgNum = Math.floor(Math.random() * encouragingMsgs.length);
+	gameState.text.push(new Text(encouragingMsgs[msgNum], Math.round(canvas.width/2), 250, gameState.colorScheme.textColor, "25px"));
 }, function(data) {
 	ctx.fillStyle = "black";
 	ctx.fillRect(200, 200, 500, 200);
-	ctx.strokeStyle = "FF0000";
+	ctx.strokeStyle = "grey";
 	ctx.strokeRect(200, 200, 500, 200);
+	gameState.text.forEach(text => {
+		if (text.isMouseOver() && text.msg !== gameState.text[0].msg) {
+			text.color = gameState.colorScheme.textHighLightColor;
+		} else {
+			text.color = gameState.colorScheme.textColor;
+		}
+		text.draw();
+	});
 });
 
 /**********************
