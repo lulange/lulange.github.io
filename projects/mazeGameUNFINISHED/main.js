@@ -1,3 +1,6 @@
+// Create a variable to keep track of the gameScene mode for different gameplay modes
+// start to program winScene based upon mode of gameScene
+
 /****************
 * GAME AREA SETUP
 ****************/
@@ -18,7 +21,7 @@ ctx.textAlign = "center";
 // global utility variable used to hold values that must be present from scene to scene
 const gameState = {
 	player: {
-		// this refers to whether or not the player is controlling the player
+		// this refers to whether or not the player (IRL) is controlling the player object
 		isActive: false,
 		trailSpaces: [{x: 1, y: 1}],
 		endSpace: {x: 49, y: 41},
@@ -363,7 +366,7 @@ game.createScene("gameScene", function(data) {
 		}
 		text.draw();
 		gameState.player.draw();
-		// THIS IS FOR TESTING REMOVE WHEN DONE TESTING
+		// THIS IS FOR TESTING REMOVE WHEN DONE TESTING #TESTLINE#
 		game.runScene("winScene");
 	});
 });
@@ -374,6 +377,7 @@ game.createScene("winScene", function(data) {
 	let encouragingMsgs = ["Well Done!", "Bravo!", "Epic!", "Wow!", "Incredible!"];
 	let msgNum = Math.floor(Math.random() * encouragingMsgs.length);
 	gameState.text.push(new Text(encouragingMsgs[msgNum], Math.round(canvas.width/2), 250, gameState.colorScheme.textColor, "25px"));
+	if () {}
 }, function(data) {
 	ctx.fillStyle = "black";
 	ctx.fillRect(200, 200, 500, 200);
