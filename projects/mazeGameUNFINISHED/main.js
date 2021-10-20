@@ -1,5 +1,5 @@
-// Create a variable to keep track of the gameScene mode for different gameplay modes
-// start to program winScene based upon mode of gameScene
+// add cool stats, based on cookies, next to the game while playing
+// start other gamemodes
 
 /****************
 * GAME AREA SETUP
@@ -64,14 +64,15 @@ const gameState = {
 		y: null
 	},
 
-	transitionTo(mode, direction) {
+	transitionTo(mode, direction, data) {
 		if (direction === undefined || direction === null) {
 			direction = "forward";
 		}
+		// null or undefined data is dealt with in the Game.runScene function
 		this.transitionQuad.direction = direction;
 		this.transitionQuad.x = direction === "forward" ? -1800 : 1800;
 		this.transitionQuad.onTransition = function() {
-			game.runScene(mode);
+			game.runScene(mode, data);
 		};
 		this.transitionQuad.transitioning = true;
 	},
@@ -102,6 +103,7 @@ const gameState = {
 canvas.addEventListener("mousemove", (event) => {
 	gameState.mouse.x = event.offsetX;
 	gameState.mouse.y = event.offsetY;
+	// did you win
 	if (game.currScene === "gameScene") {
 		let mazeSpace = gameState.maze.getMazeCoor(gameState.maze.x, gameState.maze.y, 24, 4, gameState.mouse.x, gameState.mouse.y);
 		gameState.mouse.mazeCoor = {
@@ -126,7 +128,7 @@ canvas.addEventListener("mousemove", (event) => {
 						}
 					}
 				}
-			}
+			} // bracket mess LOL
 		}
 	}
 });
@@ -268,7 +270,7 @@ class Game {
 /*************************
 * OTHER CLASS DECLARATIONS
 *************************/
-// global text class used to ease the of process of displaying text
+// global text class used to ease the process of displaying text
 class Text {
 	constructor(msg, x, y, color, fontSize) {
 		this.msg = msg;
@@ -300,7 +302,7 @@ class Text {
 * SCENES/MAIN PROGRAM
 ********************/
 // the global instance of the game/scene manager
-// the data object will keep any changes given at any point in either function through loops and between functions
+// the data object will keep any changes given at any point in either function through loops and between functions. gameState is used more often for convenience
 const game = new Game();
 // main menu scene
 game.createScene("mainMenu", function(data) {
@@ -348,16 +350,24 @@ game.createScene("options", function(data) {
 });
 
 game.createScene("gameScene", function(data) {
+	gameState.gameMode = data.gameMode;
 	gameState.maze = new Maze(ctx, 25, 21);
 	gameState.maze.x = Math.round(canvas.width - gameState.maze.getWidth(24, 4) - Math.round((canvas.height - gameState.maze.getHeight(24, 4)) / 2));
 	gameState.maze.y = Math.round((canvas.height - gameState.maze.getHeight(24, 4)) / 2);
-
+	// setup text controls
+	// the actual events are in bracket mess in mouse up
 	gameState.text = [];
 	gameState.text.push(new Text("Change Mode", Math.round(gameState.maze.x/2), 60, gameState.colorScheme.textColor, "20px"));
 	gameState.text.push(new Text("Main Menu", Math.round(gameState.maze.x/2), 100, gameState.colorScheme.textColor, "20px"));
+	// reset player for when gameScene is activated a second timeout
+	gameState.player.isActive = false;
+	gameState.player.trailSpaces = [{x: 1, y: 1}];
+	gameState.player.endSpace = {x: 49, y: 41};
 }, function(data) {
+	// for animation
 	gameState.drawBackground("black");
 	gameState.maze.display(gameState.maze.x, gameState.maze.y, 24, 4, gameState.colorScheme.textColor, "#000000");
+	// highlight text based on mouse position
 	gameState.text.forEach(text => {
 		if (text.isMouseOver()) {
 			text.color = gameState.colorScheme.textHighLightColor;
@@ -366,8 +376,8 @@ game.createScene("gameScene", function(data) {
 		}
 		text.draw();
 		gameState.player.draw();
-		// THIS IS FOR TESTING REMOVE WHEN DONE TESTING #TESTLINE#
-		game.runScene("winScene");
+		// THIS ⬇ IS FOR TESTING REMOVE WHEN DONE TESTING #TESTLINE#
+		//game.runScene("winScene", data);
 	});
 });
 
@@ -376,8 +386,12 @@ game.createScene("winScene", function(data) {
 	gameState.text = [];
 	let encouragingMsgs = ["Well Done!", "Bravo!", "Epic!", "Wow!", "Incredible!"];
 	let msgNum = Math.floor(Math.random() * encouragingMsgs.length);
-	gameState.text.push(new Text(encouragingMsgs[msgNum], Math.round(canvas.width/2), 250, gameState.colorScheme.textColor, "25px"));
-	if () {}
+	gameState.text.push(new Text(encouragingMsgs[msgNum], Math.round(canvas.width/2), 250, gameState.colorScheme.textColor, "28px"));
+	if (gameState.gameMode === "freePlay") {
+		gameState.text.push(new Text("Solve Another", Math.round(canvas.width/2), 287, gameState.colorScheme.textColor, "25px"));
+		gameState.text.push(new Text("Change Mode", Math.round(canvas.width/2), 324, gameState.colorScheme.textColor, "25px"));
+		gameState.text.push(new Text("Quit", Math.round(canvas.width/2), 361, gameState.colorScheme.textColor, "25px"));
+	}
 }, function(data) {
 	ctx.fillStyle = "black";
 	ctx.fillRect(200, 200, 500, 200);
@@ -420,7 +434,7 @@ canvas.addEventListener("mouseup", (e) => {
 					if (text.msg === "Back") {
 						gameState.transitionTo("mainMenu", "back");
 					} else if (text.msg === "Free Play") {
-						gameState.transitionTo("gameScene");
+						gameState.transitionTo("gameScene", "forward", {gameMode: "freePlay"});
 					}
 				}
 			});
@@ -434,6 +448,20 @@ canvas.addEventListener("mouseup", (e) => {
 					}
 				}
 			});
+		} else if (game.currScene === "winScene") {
+			if (gameState.gameMode === "freePlay") {
+				gameState.text.forEach(text => {
+					if (text.color === gameState.colorScheme.textHighLightColor) {
+						if (text.msg === "Solve Another") {
+							gameState.transitionTo("gameScene", "forward", {gameMode: "freePlay"});
+						} else if (text.msg === "Change Mode") {
+							gameState.transitionTo("modeSelect", "back");
+						} else if (text.msg === "Quit") {
+							gameState.transitionTo("mainMenu", "back");
+						}
+					}
+				});
+			}
 		}
 	}
 });
