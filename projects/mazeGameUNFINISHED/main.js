@@ -328,9 +328,9 @@ game.createScene("modeSelect", function(data) {
 	gameState.text = [];
 	gameState.text.push(new Text("Select A Mode", canvas.width/2, 200, gameState.colorScheme.textColor, "100px"));
 	gameState.text.push(new Text("Free Play", canvas.width/2, 300, gameState.colorScheme.textColor, "50px"));
-	gameState.text.push(new Text("Hot/Cold", canvas.width/2, 375, gameState.colorScheme.textColor, "50px"));
-	gameState.text.push(new Text("Timed", canvas.width/2, 450, gameState.colorScheme.textColor, "50px"));
-	gameState.text.push(new Text("Race", canvas.width/2, 525, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Lights Out", canvas.width/2, 375, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Timed Mazes", canvas.width/2, 450, gameState.colorScheme.textColor, "50px"));
+	gameState.text.push(new Text("Race (AI)", canvas.width/2, 525, gameState.colorScheme.textColor, "50px"));
 	gameState.text.push(new Text("Back", 60, 60, gameState.colorScheme.textColor, "40px"));
 }, function(data) {
 	gameState.drawBackground("black");
@@ -433,7 +433,13 @@ canvas.addEventListener("mouseup", (e) => {
 				if (text.color === gameState.colorScheme.textHighLightColor) {
 					if (text.msg === "Back") {
 						gameState.transitionTo("mainMenu", "back");
-					} else if (text.msg === "Free Play") {
+					} else if (text.msg === "Timed Mazes") {
+						gameState.transitionTo("gameScene", "forward", {gameMode: "timedMode"});
+					}  else if (text.msg === "Lights Out") {
+						gameState.transitionTo("gameScene", "forward", {gameMode: "darkMode"});
+					}  else if (text.msg === "Race (AI)") {
+						gameState.transitionTo("gameScene", "forward", {gameMode: "raceAI"});
+					}  else if (text.msg === "Free Play") {
 						gameState.transitionTo("gameScene", "forward", {gameMode: "freePlay"});
 					}
 				}
