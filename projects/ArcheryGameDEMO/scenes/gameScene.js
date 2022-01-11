@@ -12,7 +12,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    console.log(this.add);
+    console.log(this.physics.add);
   }
 
   update() {
