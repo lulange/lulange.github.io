@@ -17,18 +17,10 @@ const config = {
     target: 60,
   },
   physics: {
-    default: "matter",
-    matter: {
-      gravity: {
-        y: 0,
-        x: 0,
-      },
-      velocityIterations: 20,
-      positionIterations: 20,
-      timing: {
-        timeScale: 1,
-      },
-    }
+      default: 'arcade',
+      arcade: {
+          gravity: { y: 200 }
+      }
   }
 };
 
