@@ -8,11 +8,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-
+    this.load.image('player-sprite', "https://lulange.github.io/imageHosting/player.png");
   }
 
   create() {
-    console.log(this.physics.add);
+    this.physics.add.sprite(100, 100, "player-sprite");
   }
 
   update() {
