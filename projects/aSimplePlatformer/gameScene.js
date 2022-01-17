@@ -144,22 +144,22 @@ class GameScene extends Phaser.Scene {
       switch (arrow.angle) {
         case 90:
         this.physics.world.gravity.set(0, -1000);
-        gameState.player.setAngle(180);
+        gameState.player.body.setAngle(180);
         break;
 
         case -180:
         this.physics.world.gravity.set(1000, 0);
-        gameState.player.setAngle(270);
+        gameState.player.body.setAngle(270);
         break;
 
         case 0:
         this.physics.world.gravity.set(-1000, 0);
-        gameState.player.setAngle(90);
+        gameState.player.body.setAngle(90);
         break;
 
         default:
         this.physics.world.gravity.set(0, 1000);
-        gameState.player.setAngle(0);
+        gameState.player.body.setAngle(0);
         break;
       }
     });
