@@ -415,6 +415,8 @@ class GameScene extends Phaser.Scene {
           gameState.player.flipX = true;
         }
       }
+      gameState.player.x = Math.round(gameState.player.x);
+      gameState.player.y = Math.round(gameState.player.y);
     }
   }
 }
