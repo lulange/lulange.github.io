@@ -289,19 +289,19 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.x  === 0) {
-          if (gameState.player.body.velocity.y  < 0.1 && gameState.player.body.velocity.y > -0.1) {
+          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
             gameState.player.setTexture("player");
-          } else if (gameState.player.body.velocity.y < 0.1) {
+          } else if (gameState.player.body.velocity.y < 20) {
             gameState.player.setTexture("player-down");
-          } else if (gameState.player.body.velocity.y > 0.1) {
+          } else if (gameState.player.body.velocity.y > 20) {
             gameState.player.setTexture("player-up");
           }
         } else if (gameState.player.body.velocity.x !== 0) {
-          if (gameState.player.body.velocity.y  < 0.1 && gameState.player.body.velocity.y > -0.1) {
+          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
             gameState.player.setTexture("player-right");
-          } else if (gameState.player.body.velocity.y < 0.1) {
+          } else if (gameState.player.body.velocity.y < 20) {
             gameState.player.setTexture("player-right-down");
-          } else if (gameState.player.body.velocity.y > 0.1) {
+          } else if (gameState.player.body.velocity.y > 20) {
             gameState.player.setTexture("player-right-up");
           }
         }
