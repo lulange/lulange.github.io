@@ -240,19 +240,19 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.x  === 0) {
-          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
+          if (gameState.player.body.velocity.y  < 50 && gameState.player.body.velocity.y > -50) {
             gameState.player.setTexture("player");
-          } else if (gameState.player.body.velocity.y > 20) {
+          } else if (gameState.player.body.velocity.y > 50) {
             gameState.player.setTexture("player-down");
-          } else if (gameState.player.body.velocity.y < 20) {
+          } else if (gameState.player.body.velocity.y < 50) {
             gameState.player.setTexture("player-up");
           }
         } else if (gameState.player.body.velocity.x !== 0) {
-          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
+          if (gameState.player.body.velocity.y  < 50 && gameState.player.body.velocity.y > -50) {
             gameState.player.setTexture("player-right");
-          } else if (gameState.player.body.velocity.y > 20) {
+          } else if (gameState.player.body.velocity.y > 50) {
             gameState.player.setTexture("player-right-down");
-          } else if (gameState.player.body.velocity.y < 20) {
+          } else if (gameState.player.body.velocity.y < 50) {
             gameState.player.setTexture("player-right-up");
           }
         }
@@ -289,19 +289,19 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.x  === 0) {
-          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
+          if (gameState.player.body.velocity.y  < 50 && gameState.player.body.velocity.y > -50) {
             gameState.player.setTexture("player");
-          } else if (gameState.player.body.velocity.y < 20) {
+          } else if (gameState.player.body.velocity.y < 50) {
             gameState.player.setTexture("player-down");
-          } else if (gameState.player.body.velocity.y > 20) {
+          } else if (gameState.player.body.velocity.y > 50) {
             gameState.player.setTexture("player-up");
           }
         } else if (gameState.player.body.velocity.x !== 0) {
-          if (gameState.player.body.velocity.y  < 20 && gameState.player.body.velocity.y > -20) {
+          if (gameState.player.body.velocity.y  < 50 && gameState.player.body.velocity.y > -50) {
             gameState.player.setTexture("player-right");
-          } else if (gameState.player.body.velocity.y < 20) {
+          } else if (gameState.player.body.velocity.y < 50) {
             gameState.player.setTexture("player-right-down");
-          } else if (gameState.player.body.velocity.y > 20) {
+          } else if (gameState.player.body.velocity.y > 50) {
             gameState.player.setTexture("player-right-up");
           }
         }
@@ -338,19 +338,19 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.y  === 0) {
-          if (gameState.player.body.velocity.x  < 20 && gameState.player.body.velocity.x > -20) {
+          if (gameState.player.body.velocity.x  < 50 && gameState.player.body.velocity.x > -50) {
             gameState.player.setTexture("player");
-          } else if (gameState.player.body.velocity.x > 20) {
+          } else if (gameState.player.body.velocity.x > 50) {
             gameState.player.setTexture("player-down");
-          } else if (gameState.player.body.velocity.x < 20) {
+          } else if (gameState.player.body.velocity.x < 50) {
             gameState.player.setTexture("player-up");
           }
         } else if (gameState.player.body.velocity.y !== 0) {
-          if (gameState.player.body.velocity.x  < 20 && gameState.player.body.velocity.x > -20) {
+          if (gameState.player.body.velocity.x  < 50 && gameState.player.body.velocity.x > -50) {
             gameState.player.setTexture("player-right");
-          } else if (gameState.player.body.velocity.x > 20) {
+          } else if (gameState.player.body.velocity.x > 50) {
             gameState.player.setTexture("player-right-down");
-          } else if (gameState.player.body.velocity.x < 20) {
+          } else if (gameState.player.body.velocity.x < 50) {
             gameState.player.setTexture("player-right-up");
           }
         }
@@ -387,19 +387,19 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.y  === 0) {
-          if (gameState.player.body.velocity.x  < 20 && gameState.player.body.velocity.x > -20) {
+          if (gameState.player.body.velocity.x  < 50 && gameState.player.body.velocity.x > -50) {
             gameState.player.setTexture("player");
-          } else if (gameState.player.body.velocity.x < 20) {
+          } else if (gameState.player.body.velocity.x < 50) {
             gameState.player.setTexture("player-down");
-          } else if (gameState.player.body.velocity.x > 20) {
+          } else if (gameState.player.body.velocity.x > 50) {
             gameState.player.setTexture("player-up");
           }
         } else if (gameState.player.body.velocity.y !== 0) {
-          if (gameState.player.body.velocity.x  < 20 && gameState.player.body.velocity.x > -20) {
+          if (gameState.player.body.velocity.x  < 50 && gameState.player.body.velocity.x > -50) {
             gameState.player.setTexture("player-right");
-          } else if (gameState.player.body.velocity.x < 20) {
+          } else if (gameState.player.body.velocity.x < 50) {
             gameState.player.setTexture("player-right-down");
-          } else if (gameState.player.body.velocity.x > 20) {
+          } else if (gameState.player.body.velocity.x > 50) {
             gameState.player.setTexture("player-right-up");
           }
         }
