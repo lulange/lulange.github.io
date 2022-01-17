@@ -132,7 +132,7 @@ class GameScene extends Phaser.Scene {
       }
     });
 
-    gameState.player = this.physics.add.sprite(gameState.playerXAndY.x*30+15, gameState.playerXAndY.y*30+18, 'player').setDepth(1);
+    gameState.player = this.physics.add.sprite(gameState.playerXAndY.x*30+15, gameState.playerXAndY.y*30+18, 'player-right').setDepth(1);
     gameState.player.setCollideWorldBounds(true);
     gameState.player.body.maxSpeed = 1000;
 
