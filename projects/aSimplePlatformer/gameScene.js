@@ -132,9 +132,9 @@ class GameScene extends Phaser.Scene {
       }
     });
 
-    gameState.player = this.physics.add.sprite(gameState.playerXAndY.x*30+15, gameState.playerXAndY.y*30+18, 'player-right').setDepth(1);
-    gameState.player.body.syncBounds = true;
+    gameState.player = this.physics.add.sprite(gameState.playerXAndY.x*30+15, gameState.playerXAndY.y*30+18, 'player').setDepth(1);
     gameState.player.setCollideWorldBounds(true);
+    gameState.player.setSize(20, 24);
     gameState.player.body.maxSpeed = 1000;
 
     this.physics.add.collider(gameState.player, gameState.layer);
@@ -145,21 +145,25 @@ class GameScene extends Phaser.Scene {
       switch (arrow.angle) {
         case 90:
         this.physics.world.gravity.set(0, -1000);
+        gameState.player.setSize(20, 24);
         gameState.player.setAngle(180);
         break;
 
         case -180:
         this.physics.world.gravity.set(1000, 0);
+        gameState.player.setSize(24, 20);
         gameState.player.setAngle(270);
         break;
 
         case 0:
         this.physics.world.gravity.set(-1000, 0);
+        gameState.player.setSize(24, 20);
         gameState.player.setAngle(90);
         break;
 
         default:
         this.physics.world.gravity.set(0, 1000);
+        gameState.player.setSize(20, 24);
         gameState.player.setAngle(0);
         break;
       }
