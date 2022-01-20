@@ -237,7 +237,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.y === 0 && gameState.cursors.up.isDown && gameState.player.body.blocked.down) {
-          gameState.player.setVelocityY(-450);
+          gameState.player.setVelocityY(-410);
         }
 
         if (gameState.cursors.left.isDown && gameState.cursors.right.isDown) {
@@ -286,7 +286,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.y === 0 && gameState.cursors.down.isDown && gameState.player.body.blocked.up) {
-          gameState.player.setVelocityY(450);
+          gameState.player.setVelocityY(410);
         }
 
         if (gameState.cursors.left.isDown && gameState.cursors.right.isDown) {
@@ -335,7 +335,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.x === 0 && gameState.cursors.left.isDown && gameState.player.body.blocked.right) {
-          gameState.player.setVelocityX(-450);
+          gameState.player.setVelocityX(-410);
         }
 
         if (gameState.cursors.up.isDown && gameState.cursors.down.isDown) {
@@ -384,7 +384,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (gameState.player.body.velocity.x === 0 && gameState.cursors.right.isDown && gameState.player.body.blocked.left) {
-          gameState.player.setVelocityX(450);
+          gameState.player.setVelocityX(410);
         }
 
         if (gameState.cursors.up.isDown && gameState.cursors.down.isDown) {
