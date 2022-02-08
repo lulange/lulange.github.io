@@ -1,7 +1,7 @@
 // global variable setup
 let gameScene = 0; // decider for rendering and listeners
 let selectedMaterial = "metal";
-let currentCreation;
+let currentCreation = {height: 0};
 let shapes = [];
 // module aliases
 let Engine = Matter.Engine,
@@ -48,6 +48,13 @@ function draw() {
 			fill(0, 0, 0);
 			renderRect(boxA);
       renderRect(boxB);
+      fill(30, 30, 30);
+      if (currentCreation.height > 5) {
+        let currCreationXBoost = currentCreation.width*Math.cos(Math.PI / 2 + currentCreation.angle);
+        console.log(currCreationXBoost);
+        let currCreationYBoost = currentCreation.width*Math.sin(Math.PI / 2 + currentCreation.angle);
+        quad(currentCreation.x1 + currCreationXBoost, currentCreation.y1 + currCreationYBoost, currentCreation.x2 + currCreationXBoost, currentCreation.y2 + currCreationYBoost, currentCreation.x2, currentCreation.y2, currentCreation.x1, currentCreation.y1);
+      }
       fill(100, 255, 100);
       renderRect(ground);
 			break;
@@ -59,24 +66,22 @@ function mousePressed(e) {
   switch(gameScene) {
     case 0:
       currentCreation = {
-        x: e.x,
-        y: e.y,
-        width: 24,
+        x1: mouseX,
+        y1: mouseY,
+        width: 16,
         height: 0
       };
       break;
   }
 }
 
-function mouseMoved(e) {
+function mouseDragged(e) {
   switch(gameScene) {
     case 0:
-      currentCreation = {
-        x: e.x,
-        y: e.y,
-        width: 24,
-        height: 0
-      };
+      currentCreation.angle = Math.atan((mouseY - currentCreation.y1) / (mouseX - currentCreation.x1));
+      currentCreation.x2 = mouseX;
+      currentCreation.y2 = mouseY;
+      currentCreation.height = Math.sqrt((mouseY - currentCreation.y1)**2 + (mouseX - currentCreation.x1)**2);
       break;
   }
 }
@@ -84,12 +89,9 @@ function mouseMoved(e) {
 function mouseReleased(e) {
   switch(gameScene) {
     case 0:
-      currentCreation = {
-        x: e.x,
-        y: e.y,
-        width: 24,
-        height: 0
-      };
+      if (currentCreation.height < 5) {
+        //let beamBody = Bodies.polygon();
+      }
       break;
   }
 }
