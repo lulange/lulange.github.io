@@ -6,7 +6,7 @@ let gameScene = 0; // decider for rendering and listeners
 let currentEntity = 0; // which vehicle you have selected to control and edit
 let entities = [{ // variable to keep track of created vehicles and stuff
   name: "vehicle1",
-  parts: [],
+  composite: null, // initialized after matter.js
   isEnabled: false,
 }];
 
@@ -37,6 +37,11 @@ let runner = Runner.create();
 // run the engine
 Runner.run(runner, engine);
 
+entities[0].composite = Composite.create();
+Composite.add(entities[0].composite, Bodies.rectangle(200, 200, 40, 40));
+console.log(entities[0].composite);
+
+
 
 /*********************
  * GLOBAL FUNCTIONS
@@ -53,7 +58,7 @@ let renderRect = function(rect) {
 let ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
 // add all of the bodies to the world
-Composite.add(engine.world, [ground]);
+Composite.add(engine.world, [ground, entities[0].composite]);
 
 /****************
  * P5.JS SETUP
@@ -86,6 +91,11 @@ function draw() {
       }
       fill(100, 255, 100);
       renderRect(ground);
+      for (var i=0; i<entities.length; i++) {
+        for (var j=0; j<entities[i].composite.bodies.length; j++) {
+          renderRect(entities[i].composite.bodies[j]);
+        }
+      }
 			break;
 	}
 }
@@ -122,8 +132,14 @@ function mouseDragged(e) {
 function mouseReleased(e) {
   switch(gameScene) {
     case 0:
-      if (currentCreation.height < 5) {
-
+      if (currentCreation.height > 5) {
+        // from vertices: (x, y, vertexSets, [options])
+        // variables stolen from rendering area...reused for calculations
+        let currCreationXBoost = currentCreation.width*Math.cos(-Math.PI/2 + currentCreation.angle);
+        let currCreationYBoost = currentCreation.width*Math.sin(-Math.PI/2 + currentCreation.angle);
+        let createdMatterBody = Bodies.rectangle((currentCreation.x1 + currentCreation.x2)/2, (currentCreation.y1 + currentCreation.y2)/2, currentCreation.width, currentCreation.height);
+        Matter.Body.rotate(createdMatterBody, currentCreation.angle + Math.PI/2);
+        Composite.add(entities[currentEntity].composite, createdMatterBody);
       }
       break;
   }
