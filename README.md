@@ -1,1 +1,1 @@
-This is a personal website that I use for my coding projects.
+This is a personal website that serves as both a bulletin-board and a showcase for my projects.
