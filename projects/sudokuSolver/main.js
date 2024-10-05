@@ -5,7 +5,7 @@
 let tdEls = document.getElementsByTagName("TD");
 let inputEls = document.getElementsByTagName("INPUT");
 let sudokuStatus = document.getElementById("sudoku-status");
-let solveButton = document.getElementsByTagName("BUTTON")[0];
+let solveButton = document.getElementById("solve-button");
 
 // the original puzzle
 // zeros are blank boxes

@@ -4,8 +4,8 @@ class EditScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('player', 'https://lulange.github.io/imageHosting/player.png');
-    this.load.image("tilemap", "https://lulange.github.io/imageHosting/CreateALevelTiles.png");
+    this.load.image('player', 'https://lulange.github.io/projects/aSimplePlatformer/images/player.png');
+    this.load.image("tilemap", "https://lulange.github.io/projects/aSimplePlatformer/images/CreateALevelTiles.png");
   }
 
   create() {

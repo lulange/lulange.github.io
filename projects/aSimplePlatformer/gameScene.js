@@ -5,19 +5,19 @@ class GameScene extends Phaser.Scene {
 
   preload() {
     // load player images
-    this.load.image('player', 'https://lulange.github.io/imageHosting/player.png');
-    this.load.image('player-right', 'https://lulange.github.io/imageHosting/player-right.png');
-    this.load.image('player-up', 'https://lulange.github.io/imageHosting/player-up.png');
-    this.load.image('player-down', 'https://lulange.github.io/imageHosting/player-down.png');
-    this.load.image('player-right-up', 'https://lulange.github.io/imageHosting/player-right-up.png');
-    this.load.image('player-right-down', 'https://lulange.github.io/imageHosting/player-right-down.png');
+    this.load.image('player', 'https://lulange.github.io/projects/aSimplePlatformer/images/player.png');
+    this.load.image('player-right', 'https://lulange.github.io/projects/aSimplePlatformer/images/player-right.png');
+    this.load.image('player-up', 'https://lulange.github.io/projects/aSimplePlatformer/images/player-up.png');
+    this.load.image('player-down', 'https://lulange.github.io/projects/aSimplePlatformer/images/player-down.png');
+    this.load.image('player-right-up', 'https://lulange.github.io/projects/aSimplePlatformer/images/player-right-up.png');
+    this.load.image('player-right-down', 'https://lulange.github.io/projects/aSimplePlatformer/images/player-right-down.png');
 
 
-    this.load.image("spike", "https://lulange.github.io/imageHosting/spike.png");
-    this.load.image("tilemap", "https://lulange.github.io/imageHosting/CreateALevelTiles.png");
-    this.load.image("arrow", "https://lulange.github.io/imageHosting/arrow30x30.png");
-    this.load.image("key", "https://lulange.github.io/imageHosting/key30x30.png");
-    this.load.image("key-green", "https://lulange.github.io/imageHosting/key-green.png");
+    this.load.image("spike", "https://lulange.github.io/projects/aSimplePlatformer/images/spike.png");
+    this.load.image("tilemap", "https://lulange.github.io/projects/aSimplePlatformer/images/CreateALevelTiles.png");
+    this.load.image("arrow", "https://lulange.github.io/projects/aSimplePlatformer/images/arrow30x30.png");
+    this.load.image("key", "https://lulange.github.io/projects/aSimplePlatformer/images/key30x30.png");
+    this.load.image("key-green", "https://lulange.github.io/projects/aSimplePlatformer/images/key-green.png");
     gameState.loadingCover = this.add.rectangle(gameState.playerXAndY.x*30+15, gameState.playerXAndY.y*30+18, 2000, 2000, "0x000000").setDepth(2);
     gameState.loading = true;
     this.physics.pause();

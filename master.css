@@ -1,4 +1,234 @@
-#logo {
-    width: 64px;
-    height: 64px;
+#main-nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-family: "sans-serif";
+    font-weight: 700;
+    background-color: #420914;
+    font-family: "Pixelify Sans";
+}
+
+#main-nav .navbar-brand {
+    color: #fff;
+}
+
+#main-nav .navbar-nav {
+    margin-top: 1rem;
+}
+
+#main-nav .navbar-nav li.nav-item a.nav-link {
+    color: #fff;
+}
+
+#main-nav .navbar-nav li.nav-item a.nav-link:hover {
+    color: #c4a747;
+}
+
+#main-nav .navbar-nav li.nav-item a.nav-link:active,
+#main-nav .navbar-nav li.nav-item a.nav-link:focus {
+    color: #fff;
+}
+
+#main-nav .navbar-nav li.nav-item a.nav-link.active {
+    color: #c4a747;
+}
+
+#main-nav .navbar-toggler {
+    font-size: 80%;
+    padding: 0.8rem;
+    background-color: black;
+}
+
+@media (min-width: 992px) {
+    #main-nav {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        transition: padding-top 0.3s, padding-bottom 0.3s;
+    }
+
+    #main-nav .navbar-brand {
+        font-size: 1.75em;
+        transition: font-size 0.3s;
+    }
+
+    #main-nav .navbar-nav {
+        margin-top: 0;
+    }
+
+    #main-nav .navbar-nav>li.nav-item>a.nav-link.active {
+        color: #fff;
+        background: #c4a747;
+    }
+
+    #main-nav .navbar-nav>li.nav-item>a.nav-link.active:active,
+    #main-nav .navbar-nav>li.nav-item>a.nav-link.active:focus,
+    #main-nav .navbar-nav>li.nav-item>a.nav-link.active:hover {
+        color: #fff;
+        background: #c4a747;
+    }
+
+    #main-nav.navbar-shrink {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #main-nav.navbar-shrink .navbar-brand {
+        font-size: 1.5em;
+    }
+}
+
+.masthead {
+    background-color: #dfdfdf;
+    padding-top: calc(6rem + 74px);
+    padding-bottom: 10rem;
+}
+
+.masthead hr {
+    opacity: 1;
+    height: 1px;
+    border-width: 3px;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.masthead .masthead-heading {
+    font-size: 2.75rem;
+    line-height: 2.75rem;
+    font-family: "Pixelify Sans";
+}
+
+.masthead .masthead-subheading {
+    font-size: 1.25rem;
+}
+
+.masthead .masthead-avatar {
+    width: 15rem;
+}
+
+@media (min-width: 992px) {
+    .masthead {
+        padding-top: calc(6rem + 104px);
+        padding-bottom: 10rem;
+    }
+
+    .masthead .masthead-heading {
+        font-size: 4rem;
+        line-height: 3.5rem;
+    }
+
+    .masthead .masthead-subheading {
+        font-size: 1.5rem;
+    }
+}
+
+#projects img {
+    width: 100%;
+    height: 370px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+#projects h2,
+footer h4 {
+    font-family: "Pixelify Sans";
+}
+
+.page-section {
+    padding: 6rem 0;
+}
+
+.page-section .page-section-heading {
+    font-size: 2.25rem;
+    line-height: 2rem;
+    font-family: "Pixelify Sans";
+}
+
+
+@media (min-width: 992px) {
+    .page-section .page-section-heading {
+        font-size: 3rem;
+        line-height: 2.5rem;
+    }
+}
+
+.footer {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: #420914;
+    color: white;
+}
+
+.copyright {
+    background-color: #000;
+}
+
+#contact {
+    background-color: #dfdfdf;
+}
+
+
+.card:hover {
+    transform: scale(1.04);
+}
+
+.card {
+    transition: .3s;
+    height: 100%;
+}
+
+.btn-social {
+    border-radius: 100%;
+    display: inline-flex;
+    width: 3.25rem;
+    height: 3.25rem;
+}
+
+.btn-social svg {
+    fill: white;
+}
+
+.btn-social:hover {
+    svg {
+        fill: black;
+    }
+}
+
+.btn {
+    border-width: 0.1rem;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #420914;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+#about-project {
+    background-color: #dfdfdf;
+    margin-top: 2rem;
+    padding-top: 8rem;
+}
+
+@media (min-width: 992px) {
+    #about-project {
+        margin-top: 2rem;
+        padding-top: 12rem;
+    }
+}
+
+#alt-text {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    #alt-text {
+        display: block;
+    }
+
+    #canvas-wrapper {
+        display: none;
+    }
 }

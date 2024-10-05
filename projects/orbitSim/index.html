@@ -1,129 +1,221 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>Lucas' stuff: Orbit Sim</title>
-    <link rel="icon" href="../../favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../master.css">
-  </head>
-  <body>
-    <div id="main-container">
-      <header id="main-header" class="flex-box">
-        <div id="main-title">
-          <a href="../../index.html">Lucas' stuff</a>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8s">
+  <title>LL: Orbit Sim</title>
+  <link rel="icon" href="../../LLicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <!-- Latest bootstrap compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Latest bootstrap compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="../../master.css">
+</head>
+
+<body>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg text-uppercase fixed-top" id="main-nav">
+    <div class="container">
+      <a class="navbar-brand" href="../../index.html#page-top">Lucas Lange</a>
+      <button class="navbar-toggler text-uppercase font-weight-bold text-white rounded" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <img src="../../assets/list.svg" alt="bars">
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about-project">About
+            </a></li>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#project">Project</a>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#change-log">Change
+              Log</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- About Section-->
+  <section class="page-section mb-0" id="about-project">
+    <div class="container">
+      <!-- About Section Heading-->
+      <h2 class="page-section-heading text-center text-uppercase">About The Project</h2>
+      <hr>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <p class="lead">
+            Orbit Sim was a quick math-centered project of mine. I was curious to see the patterns orbital mechanics
+            could create naturally, and I was not disappointed. This simulator is surprisingly entertaining.
+            However, I can't vouch for how realistic it's mechanics really are...
+          </p>
         </div>
-        <div id="header-spacer">
-        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Project Section-->
+  <section class="page-section bg-dark text-white mb-0" id="project">
+    <div class="container">
+      <!-- Project Section Heading-->
+      <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Orbit Sim</h2>
+      <div id="canvas-wrapper" class="text-center"></div>
 
-        <div id="header-links">
-          <div id="changelog" class="header-link">
-            <a href="../../changeLog/index.html">change log</a>
-          </div>
-          <div id="otherstuff" class="header-link">
-            <a href="../../otherStuff/index.html">other stuff</a>
-          </div>
-        </div>
-      </header>
+      <div id="options-table" class="text-center">
+        <table class="table mt-4 rounded-4 overflow-hidden">
+          <tr>
+            <th>Velocity</th>
+            <th>Distance</th>
+            <th>Size</th>
+          </tr>
+          <tr>
+            <td>
+              <label for="initial-veloctity" class="form-label">Initial Velocity (0 - 5):</label>
+              <br>
+              <input type="range" id="initial-velocity" class="form-range" />
+            </td>
+            <td>
+              <label for="initial-distance" class="form-label">Initial Distance (1 - 400):</label>
+              <br>
+              <input type="range" id="initial-distance" min="1" class="form-range" />
+            </td>
+            <td>
+              <label for="initial-size" class="form-label">Initial Size (1 - 20):</label>
+              <br>
+              <input type="range" id="initial-size" min="1" class="form-range" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="radio" id="decreasing-velocity" name="velocityUpDown" value="down"
+                class="form-check-input" />
+              <label for="decreasing-veloctity" class="form-check-label">Decreasing Velocity:</label>
+              <br>
+              <input type="radio" id="increasing-velocity" name="velocityUpDown" value="up" class="form-check-input" />
+              <label for="increasing-veloctity" class="form-check-label">Increasing Velocity:</label>
+              <br>
+              <input type="radio" id="no-velocity" name="velocityUpDown" value="no" class="form-check-input" />
+              <label for="no-veloctity" class="form-check-label">No Velocity Change:</label>
+            </td>
+            <td>
+              <input type="radio" id="decreasing-distance" name="distanceUpDown" value="down"
+                class="form-check-input" />
+              <label for="decreasing-distance" class="form-check-label">Decreasing Distance:</label>
+              <br>
+              <input type="radio" id="increasing-distance" name="distanceUpDown" value="up" class="form-check-input" />
+              <label for="increasing-distance" class="form-check-label">Increasing Distance:</label>
+              <br>
+              <input type="radio" id="no-distance" name="distanceUpDown" value="no" class="form-check-input" />
+              <label for="no-distance" class="form-check-label">No Distance Change:</label>
+            </td>
+            <td>
+              <input type="radio" id="decreasing-size" name="sizeUpDown" value="down" class="form-check-input" />
+              <label for="decreasing-size" class="form-check-label">Decreasing Size:</label>
+              <br>
+              <input type="radio" id="increasing-size" name="sizeUpDown" value="up" class="form-check-input" />
+              <label for="increasing-size" class="form-check-label">Increasing Size:</label>
+              <br>
+              <input type="radio" id="no-size" name="sizeUpDown" value="no" class="form-check-input" />
+              <label for="no-size" class="form-check-label">No Size Change:</label>
+            </td>
+          </tr>
+        </table>
 
-      <div id="body">
-        <p id="page-dec">Orbit Sim</p>
-        <hr>
-
-        <article>
-          <header>
-            Description
-          </header>
-          <div>
-            This simple 2d orbit simulator spawns 100 planets when the start/restart button is pushed. the options determine the amazin' pattern you will see.
-          </div>
-        </article>
-
-        <article>
-          <header>
-            Options
-          </header>
-          <div>
-            <table>
-              <tr>
-                <th>Velocity</th>
-                <th>Distance</th>
-                <th>Size</th>
-              </tr>
-              <tr>
-                <td>
-                  <label for="initial-veloctity">Initial Velocity (0 - 5):</label>
-                  <br>
-                  <input type="range" id="initial-velocity" />
-                </td>
-                <td>
-                  <label for="initial-distance">Initial Distance (1 - 400):</label>
-                  <br>
-                  <input type="range" id="initial-distance" min="1"/>
-                </td>
-                <td>
-                  <label for="initial-size">Initial Size (1 - 20):</label>
-                  <br>
-                  <input type="range" id="initial-size" min="1"/>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="radio" id="decreasing-velocity" name="velocityUpDown" value="down"/>
-                  <label for="decreasing-veloctity">Decreasing Velocity:</label>
-                  <br>
-                  <input type="radio" id="increasing-velocity" name="velocityUpDown" value="up"/>
-                  <label for="increasing-veloctity">Increasing Velocity:</label>
-                  <br>
-                  <input type="radio" id="no-velocity" name="velocityUpDown" value="no"/>
-                  <label for="no-veloctity">No Velocity Change:</label>
-                </td>
-                <td>
-                  <input type="radio" id="decreasing-distance" name="distanceUpDown" value="down"/>
-                  <label for="decreasing-distance">Decreasing Distance:</label>
-                  <br>
-                  <input type="radio" id="increasing-distance" name="distanceUpDown" value="up"/>
-                  <label for="increasing-distance">Increasing Distance:</label>
-                  <br>
-                  <input type="radio" id="no-distance" name="distanceUpDown" value="no"/>
-                  <label for="no-distance">No Distance Change:</label>
-                </td>
-                <td>
-                  <input type="radio" id="decreasing-size" name="sizeUpDown" value="down"/>
-                  <label for="decreasing-size">Decreasing Size:</label>
-                  <br>
-                  <input type="radio" id="increasing-size" name="sizeUpDown" value="up"/>
-                  <label for="increasing-size">Increasing Size:</label>
-                  <br>
-                  <input type="radio" id="no-size" name="sizeUpDown" value="no"/>
-                  <label for="no-size">No Size Change:</label>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </article>
-
-        <div id="canvas-wrapper"></div>
-
-        <input type="checkbox" name="connected-planets" id="connected-planets" />
-        <label for="connected-planets">connect the planets</label>
+        <input type="checkbox" name="connected-planets" id="connected-planets" class="form-check-input" />
+        <label for="connected-planets">Connect the planets</label>
         <br>
         <br>
 
-        <button type="button" name="restart-button" id="restart-button">start / restart</button>
-
-        <article id="alt-text">
-          <div>
-            Screen width is too small for the game.
-          </div>
-        </article>
+        <button type="button" name="restart-button" id="restart-button" class="btn">Start / Restart</button>
       </div>
 
-      <footer>
-      </footer>
-
-      <script src="main.js"></script>
+      <div id="alt-text" class="text-center lead">
+        Screen width is too small for the game. <br>Try using a screen with a pixel width of 1000 or greater.
+      </div>
     </div>
-  </body>
+  </section>
+  <!-- Change Log Section-->
+  <section class="page-section mb-0 mt-5" id="change-log">
+    <div class="container">
+      <!-- Change Log Section Heading-->
+      <h2 class="page-section-heading text-center text-uppercase">Change Log</h2>
+      <hr>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h4>October 5, 2024</h4>
+          <p class="lead">
+            Ported to new version of the website.
+          </p>
+          <h4>June 2, 2021</h4>
+          <p class="lead">
+            Date Created.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer-->
+  <footer class="footer text-center">
+    <div class="container">
+      <div class="row">
+        <!-- Footer Location-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Location</h4>
+          <p class="lead mb-0">
+            I'm currently based<br> in Ypsilanti, MI
+          </p>
+        </div>
+        <!-- Footer Social Icons-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Around the Web</h4>
+          <!-- linked in, github, and ... -->
+          <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/lulange">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github"
+              viewBox="0 0 16 16">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+            </svg>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/lucas-lange-6553812b7/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin"
+              viewBox="0 0 16 16">
+              <path
+                d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+            </svg>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://discord.gg/4xnvtBAraP">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord"
+              viewBox="0 0 16 16">
+              <path
+                d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612" />
+            </svg></a>
+        </div>
+        <!-- Footer About Text-->
+        <div class="col-lg-4">
+          <h4 class="text-uppercase mb-4">This website</h4>
+          <p class="lead mb-0">
+            This website is a <a class="text-white" href="https://pages.github.com/">github page</a>, <br>connected to
+            my github profile.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Copyright Section-->
+  <div class="copyright py-2 text-center text-white">
+    <div class="container"><small>Copyright &copy; Lucas Lange 2024</small></div>
+  </div>
+
+  <!-- page Theming -->
+  <script src="../../scripts.js"></script>
+
+  <script src="main.js"></script>
+</body>
+
 </html>
