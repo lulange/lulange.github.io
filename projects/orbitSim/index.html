@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8s">
   <title>LL: Orbit Sim</title>
-  <link rel="icon" href="../../LLicon.svg">
+  <link rel="icon" href="../../favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,22 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <link rel="stylesheet" href="../../master.css">
+
+  <style>
+    #alt-text {
+      display: none;
+    }
+
+    @media (max-width: 992px) {
+      #alt-text {
+        display: block;
+      }
+
+      #canvas-wrapper {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -64,6 +80,10 @@
       <!-- Project Section Heading-->
       <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Orbit Sim</h2>
       <div id="canvas-wrapper" class="text-center"></div>
+
+      <div id="alt-text" class="text-center lead">
+        Screen width is too small for the game. <br>Try using a screen with a pixel width of 1000 or greater.
+      </div>
 
       <div id="options-table" class="text-center">
         <table class="table mt-4 rounded-4 overflow-hidden">
@@ -131,10 +151,6 @@
         <br>
 
         <button type="button" name="restart-button" id="restart-button" class="btn">Start / Restart</button>
-      </div>
-
-      <div id="alt-text" class="text-center lead">
-        Screen width is too small for the game. <br>Try using a screen with a pixel width of 1000 or greater.
       </div>
     </div>
   </section>

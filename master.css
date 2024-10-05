@@ -218,17 +218,3 @@ footer h4 {
         padding-top: 12rem;
     }
 }
-
-#alt-text {
-    display: none;
-}
-
-@media (max-width: 992px) {
-    #alt-text {
-        display: block;
-    }
-
-    #canvas-wrapper {
-        display: none;
-    }
-}

@@ -39,6 +39,21 @@
       display: none;
     }
   </style>
+  <style>
+    #alt-text {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      #alt-text {
+        display: block;
+      }
+
+      #canvas-wrapper {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -90,26 +105,26 @@
       <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Maze Generation</h2>
 
       <div id="alt-text" class="text-center lead">
-        Screen width is too small for the game. <br>Try using a screen with a pixel width of 1000 or greater.
+        Screen width is too small for the game. <br>Try using a screen with a pixel width of 700 or greater.
       </div>
 
       <div id="canvas-wrapper">
         <canvas id="canvas" width="602" height="602"></canvas>
       </div>
       <br>
-      <button type="button" name="button" id="button" class="btn mb-2">generate</button>
+      <button type="button" name="button" id="button" class="btn mb-2">Generate</button>
       <br>
-      <input type="checkbox" id="quick-generate" class="no-printer-display form-check-input" />
-      <label for="quick-generate" class="no-printer-display form-check-label mb-3" id="quick-generate-label">Quick
+      <input type="checkbox" id="quick-generate" class="no-printer-display form-check-input lead" />
+      <label for="quick-generate" class="no-printer-display form-check-label mb-3 lead" id="quick-generate-label">Quick
         Generate</label>
       <br>
-      <label for="percent-randomness-selector" class="form-check-label">Randomness</label>
+      <label for="percent-randomness-selector" class="form-check-label lead">Randomness</label>
       <input type="range" id="percent-randomness-selector" class="form-check-range mb-3" />
-      <label id="percent-notifier" class="form-check-label">10%</label>
+      <label id="percent-notifier" class="form-check-label lead">10%</label>
       <br>
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <label for="size-selector" class="form-check-label">Select Size: </label>
+          <label for="size-selector" class="form-check-label lead">Select Size: </label>
           <select id="size-selector" class="form-select">
             <option value="15">15 x 15</option>
             <option value="20">20 x 20</option>
